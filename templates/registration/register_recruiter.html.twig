@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription Recruteur
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>Vous voulez déposer votre première annonce.</h1>
+		<h2>Alors inscrivez-vous dès maintenant.</h2>
+
+		{{ form_start(registrationForm) }}
+		{{ form_row(registrationForm.email) }}
+		{{ form_row(registrationForm.plainPassword, {
+            label: 'Mot de Passe'
+        }) }}
+		{{ form_row(registrationForm.isRGPD) }}
+
+
+		<button type="submit" class="btn btn-secondary btn-lg mt-4">Enregitrez-vous</button>
+
+		{{ form_end(registrationForm) }}</div>
+
+{% endblock %}

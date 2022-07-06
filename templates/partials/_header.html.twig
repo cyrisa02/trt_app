@@ -54,6 +54,15 @@
 
 					</div>
 				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="#">Créer un consultant</a>
+
+
+					</div>
+				</li>
+
 			</ul>
 			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 				{% if app.user %}
@@ -72,21 +81,17 @@
 				{% else %}
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Inscription</a>
-						<div
-							class="dropdown-menu">
-							{# <a class="dropdown-item" href="{{ path ('app_register2')}}">Formation Apprenant</a> #}
-							<a class="dropdown-item" href="#">Vous cherchez un job</a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="{{ path ('app_register_candidate')}}">Vous cherchez un job</a>
 
 							<div class="dropdown-divider"></div>
-							{# <a class="dropdown-item" href="{{ path ('app_register')}}">Inscription Instructeur</a> #}
-							<a class="dropdown-item" href="#">Vous voulez recruter</a>
+							<a class="dropdown-item" href="{{ path ('app_register_recruiter')}}">Vous voulez recruter</a>
 
 						</div>
 					</li>
-					<li
-						class="nav-item">
-						{# <a class="nav-link" href="{{ path('app_login') }}">Me Connecter</a> #}
-						<a class="nav-link" href="#">Me Connecter</a>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('app_login') }}">Me Connecter</a>
+
 
 					</li>
 				{% endif %}

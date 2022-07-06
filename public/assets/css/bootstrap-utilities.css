@@ -12,7 +12,7 @@
 
 .text-bg-primary {
   color: #000 !important;
-  background-color: RGBA(134, 139, 142, var(--bs-bg-opacity, 1)) !important;
+  background-color: RGBA(104, 187, 227, var(--bs-bg-opacity, 1)) !important;
 }
 
 .text-bg-secondary {
@@ -51,11 +51,11 @@
 }
 
 .link-primary {
-  color: #868b8e !important;
+  color: #68BBE3 !important;
 }
 
 .link-primary:hover, .link-primary:focus {
-  color: #9ea2a5 !important;
+  color: #86c9e9 !important;
 }
 
 .link-secondary {

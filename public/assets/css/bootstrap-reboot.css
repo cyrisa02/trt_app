@@ -29,7 +29,7 @@
   --bs-gray-700: #495057;
   --bs-gray-800: #343a40;
   --bs-gray-900: #212529;
-  --bs-primary: #868b8e;
+  --bs-primary: #68BBE3;
   --bs-secondary: #b9b7bd;
   --bs-success: #198754;
   --bs-info: #0dcaf0;
@@ -37,7 +37,7 @@
   --bs-danger: #dc3545;
   --bs-light: #d8f3dc;
   --bs-dark: #212529;
-  --bs-primary-rgb: 134, 139, 142;
+  --bs-primary-rgb: 104, 187, 227;
   --bs-secondary-rgb: 185, 183, 189;
   --bs-success-rgb: 25, 135, 84;
   --bs-info-rgb: 13, 202, 240;
@@ -69,8 +69,8 @@
   --bs-border-radius-2xl: 2rem;
   --bs-border-radius-pill: 50rem;
   --bs-heading-color: ;
-  --bs-link-color: #868b8e;
-  --bs-link-hover-color: #6b6f72;
+  --bs-link-color: #68BBE3;
+  --bs-link-hover-color: #5396b6;
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fff3cd;
 }

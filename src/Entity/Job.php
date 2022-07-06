@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\JobRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: JobRepository::class)]
@@ -24,6 +26,17 @@ class Job
 
     #[ORM\Column(type: 'boolean')]
     private $isVisible;
+
+    #[ORM\ManyToOne(targetEntity: Recruiter::class, inversedBy: 'job')]
+    private $recruiter;
+
+    #[ORM\OneToMany(mappedBy: 'job', targetEntity: Candidature::class)]
+    private $candidatures;
+
+    public function __construct()
+    {
+        $this->candidatures = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -74,6 +87,48 @@ class Job
     public function setIsVisible(bool $isVisible): self
     {
         $this->isVisible = $isVisible;
+
+        return $this;
+    }
+
+    public function getRecruiter(): ?Recruiter
+    {
+        return $this->recruiter;
+    }
+
+    public function setRecruiter(?Recruiter $recruiter): self
+    {
+        $this->recruiter = $recruiter;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Candidature>
+     */
+    public function getCandidatures(): Collection
+    {
+        return $this->candidatures;
+    }
+
+    public function addCandidature(Candidature $candidature): self
+    {
+        if (!$this->candidatures->contains($candidature)) {
+            $this->candidatures[] = $candidature;
+            $candidature->setJob($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidature(Candidature $candidature): self
+    {
+        if ($this->candidatures->removeElement($candidature)) {
+            // set the owning side to null (unless already changed)
+            if ($candidature->getJob() === $this) {
+                $candidature->setJob(null);
+            }
+        }
 
         return $this;
     }

@@ -28,6 +28,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
     private $created_at;
 
+    #[ORM\OneToOne(inversedBy: 'user', targetEntity: Candidate::class, cascade: ['persist', 'remove'])]
+    private $candidate;
+
+    #[ORM\OneToOne(inversedBy: 'user', targetEntity: Recruiter::class, cascade: ['persist', 'remove'])]
+    private $recruiter;
+
     public function __construct()
     {
         $this->created_at = new DateTimeImmutable();
@@ -112,6 +118,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCreatedAt(\DateTimeImmutable $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getCandidate(): ?Candidate
+    {
+        return $this->candidate;
+    }
+
+    public function setCandidate(?Candidate $candidate): self
+    {
+        $this->candidate = $candidate;
+
+        return $this;
+    }
+
+    public function getRecruiter(): ?Recruiter
+    {
+        return $this->recruiter;
+    }
+
+    public function setRecruiter(?Recruiter $recruiter): self
+    {
+        $this->recruiter = $recruiter;
 
         return $this;
     }

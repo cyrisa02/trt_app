@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RecruiterRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RecruiterRepository::class)]
@@ -36,6 +38,17 @@ class Recruiter
 
     #[ORM\Column(type: 'boolean')]
     private $isRGPD;
+
+    #[ORM\OneToOne(mappedBy: 'recruiter', targetEntity: User::class, cascade: ['persist', 'remove'])]
+    private $user;
+
+    #[ORM\OneToMany(mappedBy: 'recruiter', targetEntity: Job::class)]
+    private $job;
+
+    public function __construct()
+    {
+        $this->job = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -134,6 +147,58 @@ class Recruiter
     public function setIsRGPD(bool $isRGPD): self
     {
         $this->isRGPD = $isRGPD;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($user === null && $this->user !== null) {
+            $this->user->setRecruiter(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($user !== null && $user->getRecruiter() !== $this) {
+            $user->setRecruiter($this);
+        }
+
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Job>
+     */
+    public function getJob(): Collection
+    {
+        return $this->job;
+    }
+
+    public function addJob(Job $job): self
+    {
+        if (!$this->job->contains($job)) {
+            $this->job[] = $job;
+            $job->setRecruiter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJob(Job $job): self
+    {
+        if ($this->job->removeElement($job)) {
+            // set the owning side to null (unless already changed)
+            if ($job->getRecruiter() === $this) {
+                $job->setRecruiter(null);
+            }
+        }
 
         return $this;
     }

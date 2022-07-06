@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CandidateRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CandidateRepository::class)]
@@ -27,6 +29,17 @@ class Candidate
 
     #[ORM\Column(type: 'boolean')]
     private $isRGPD;
+
+    #[ORM\OneToOne(mappedBy: 'candidate', targetEntity: User::class, cascade: ['persist', 'remove'])]
+    private $user;
+
+    #[ORM\OneToMany(mappedBy: 'candidate', targetEntity: Candidature::class)]
+    private $candidatures;
+
+    public function __construct()
+    {
+        $this->candidatures = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -89,6 +102,58 @@ class Candidate
     public function setIsRGPD(bool $isRGPD): self
     {
         $this->isRGPD = $isRGPD;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($user === null && $this->user !== null) {
+            $this->user->setCandidate(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($user !== null && $user->getCandidate() !== $this) {
+            $user->setCandidate($this);
+        }
+
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Candidature>
+     */
+    public function getCandidatures(): Collection
+    {
+        return $this->candidatures;
+    }
+
+    public function addCandidature(Candidature $candidature): self
+    {
+        if (!$this->candidatures->contains($candidature)) {
+            $this->candidatures[] = $candidature;
+            $candidature->setCandidate($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidature(Candidature $candidature): self
+    {
+        if ($this->candidatures->removeElement($candidature)) {
+            // set the owning side to null (unless already changed)
+            if ($candidature->getCandidate() === $this) {
+                $candidature->setCandidate(null);
+            }
+        }
 
         return $this;
     }

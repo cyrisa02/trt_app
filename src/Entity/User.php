@@ -36,11 +36,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(inversedBy: 'user', targetEntity: Recruiter::class, cascade: ['persist', 'remove'])]
     private $recruiter;
 
+    #[ORM\OneToOne(inversedBy: 'user', targetEntity: Consultant::class, cascade: ['persist', 'remove'])]
+    private $consultant;
+
     public function __construct()
     {
         $this->created_at = new DateTimeImmutable();
     }
 
+
+    // public function __toString()
+    // {
+    //     return $this->email;
+    //      return $this->password;
+    //      return $this->candidate;
+    // }
+ 
 
     public function getId(): ?int
     {
@@ -144,6 +155,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRecruiter(?Recruiter $recruiter): self
     {
         $this->recruiter = $recruiter;
+
+        return $this;
+    }
+
+    public function getConsultant(): ?Consultant
+    {
+        return $this->consultant;
+    }
+
+    public function setConsultant(?Consultant $consultant): self
+    {
+        $this->consultant = $consultant;
 
         return $this;
     }

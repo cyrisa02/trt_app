@@ -26,7 +26,7 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setRoles(["ROLE_CANDIDAT"])
+            $user->setRoles(["ROLE_USER"])
             // encode the plain password
                 ->setPassword(
             $userPasswordHasher->hashPassword(
@@ -59,7 +59,7 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setRoles(["ROLE_RECRUTEUR"])
+            $user->setRoles(["ROLE_USER"])
             // encode the plain password
                 ->setPassword(
             $userPasswordHasher->hashPassword(
@@ -80,6 +80,39 @@ class RegistrationController extends AbstractController
         }
 
         return $this->render('registration/register_recruiter.html.twig', [
+            'registrationForm' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/inscription_consultant', name: 'app_register_consultant')]
+    public function register3(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    {
+        $user = new User();        
+        $form = $this->createForm(RegistrationFormTypeRecrut::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setRoles(["ROLE_CONSULTANT"])
+            // encode the plain password
+                ->setPassword(
+            $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+            // do anything else you need here, like send an email
+
+            return $userAuthenticator->authenticateUser(
+                $user,
+                $authenticator,
+                $request
+            );
+        }
+
+        return $this->render('registration/register_consultant.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }

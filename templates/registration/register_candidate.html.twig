@@ -7,12 +7,16 @@
 	<div class="container mt-4">
 		<h1>Vous souhaitez trouver le poste idéal, alors inscrivez-vous dès maintenant!</h1>
 
-		{{ form_start(registrationForm) }}
-		{{ form_row(registrationForm.email) }}
-		{{ form_row(registrationForm.plainPassword, {
+		<div class="mt-4">{{ form_start(registrationForm) }}</div>
+
+		<div class="mt4">{{ form_row(registrationForm.email) }}</div>
+
+		<div class="mt-4 ">{{ form_row(registrationForm.plainPassword, {
             label: 'Mot de Passe'
-        }) }}
-		{{ form_row(registrationForm.isRGPD) }}
+        }) }}</div>
+
+
+		<div class="mt-4">{{ form_row(registrationForm.isRGPD) }}</div>
 
 
 		<button type="submit" class="btn btn-secondary btn-lg mt-4">Enregitrez-vous</button>

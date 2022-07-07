@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compléter mon profil
+{% endblock %}
+
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>Compléter mon profil</h1>
+
+		{{ include('pages/candidate/_form.html.twig', {'button_label': 'Update'}) }}
+
+		<a href="{{ path('home.index') }}">Retour à l'accueil</a>
+
+		{{ include('pages/candidate/_delete_form.html.twig') }}</div>
+
+{% endblock %}

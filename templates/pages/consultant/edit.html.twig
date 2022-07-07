@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modihier le profil consultant
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>Compléter le profil consultant</h1>
+
+		{{ include('pages/consultant/_form.html.twig', {'button_label': 'Sauvegarder'}) }}
+
+		<a class="btn btn-secondary btn-lg mt-4" href="{{ path('app_consultant_index') }}">Retour au menu</a>
+
+
+		{{ include('pages/consultant/_delete_form.html.twig') }}</div>
+
+{% endblock %}

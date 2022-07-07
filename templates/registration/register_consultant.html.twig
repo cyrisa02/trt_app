@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription Recruteur
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>Création d'un compte consultant.</h1>
+		<h2>Dans un premier temps, saisissez d'abord son email et un mot de passe.</h2>
+		<h3>Dans un deuxième temps, vous pourrez compléter son profil.</h3>
+
+		{{ form_start(registrationForm) }}
+		<div class="mt-4">{{ form_row(registrationForm.email) }}</div>
+
+
+		<div class="mt-4">{{ form_row(registrationForm.plainPassword, {
+            label: 'Mot de Passe'
+        }) }}</div>
+
+
+		{# {{ form_row(registrationForm.isRGPD) }} #}
+
+
+		<button type="submit" class="btn btn-secondary btn-lg mt-4">Sauvegarder</button>
+
+		{{ form_end(registrationForm) }}</div>
+
+{% endblock %}

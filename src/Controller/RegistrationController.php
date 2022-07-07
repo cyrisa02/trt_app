@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Recruiter;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Form\RegistrationFormTypeConsultant;
 use App\Security\UserAuthenticator;
 use App\Form\RegistrationFormTypeRecrut;
 use Doctrine\ORM\EntityManagerInterface;
@@ -88,7 +89,7 @@ class RegistrationController extends AbstractController
     public function register3(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new User();        
-        $form = $this->createForm(RegistrationFormTypeRecrut::class, $user);
+        $form = $this->createForm(RegistrationFormTypeConsultant::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

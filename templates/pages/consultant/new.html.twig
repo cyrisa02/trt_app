@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Consultant
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>Création d'un consultant</h1>
+		<h2>Pour achever la création, merci de bien vouloir saisir le nom, le prénom et le téléphone du consultant.</h2>
+		<h3>Vous trouverez son adresse mail dans le menu déroulant.</h3>
+
+		{{ include('pages/consultant/_form.html.twig') }}
+
+		<a href="{{ path('app_consultant_index') }}">Retour au menu</a>
+	</div>
+
+{% endblock %}

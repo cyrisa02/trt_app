@@ -57,7 +57,10 @@
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#">Créer un consultant</a>
+						<a class="dropdown-item" href="{{ path('app_register_consultant')}}">Créer un consultant</a>
+						<a class="dropdown-item" href="{{ path('app_consultant_new')}}">Compléter son profil</a>
+
+						<a class="dropdown-item" href="{{ path('app_consultant_index')}}">Liste des consultants</a>
 
 
 					</div>

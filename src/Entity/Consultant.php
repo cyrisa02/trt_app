@@ -25,6 +25,8 @@ class Consultant
     #[ORM\OneToOne(mappedBy: 'consultant', targetEntity: User::class, cascade: ['persist', 'remove'])]
     private $user;
 
+    
+
     public function getId(): ?int
     {
         return $this->id;

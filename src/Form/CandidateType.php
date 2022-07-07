@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Form\CvType;
 use App\Entity\Candidate;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,6 +30,7 @@ class CandidateType extends AbstractType
 
             ])
             ->add('cvName')
+            
            // ->add('isValided')
             
             ->add('isRGPD',CheckboxType::class, [
@@ -42,6 +44,7 @@ class CandidateType extends AbstractType
                 'label' => 'Merci de confirmer votre adresse mail. '
 
             ])
+            //->add('candidatures')
         ;
     }
 

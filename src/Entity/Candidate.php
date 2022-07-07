@@ -36,6 +36,10 @@ class Candidate
     #[ORM\OneToMany(mappedBy: 'candidate', targetEntity: Candidature::class)]
     private $candidatures;
 
+    
+
+    
+
     public function __construct()
     {
         $this->candidatures = new ArrayCollection();
@@ -163,4 +167,6 @@ class Candidate
 
         return $this;
     }
+
+    
 }

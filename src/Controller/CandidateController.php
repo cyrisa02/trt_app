@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Candidate;
 use App\Form\CandidateType;
 use App\Repository\CandidateRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,8 +29,13 @@ class CandidateController extends AbstractController
         $form = $this->createForm(CandidateType::class, $candidate);
         $form->handleRequest($request);
 
+       
+
         if ($form->isSubmitted() && $form->isValid()) {
             $candidateRepository->add($candidate, true);
+ 
+            
+
 
             return $this->redirectToRoute('app_candidate_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -47,6 +53,42 @@ class CandidateController extends AbstractController
             'candidate' => $candidate,
         ]);
     }
+
+#[Route('/add', name: 'app_candidate_add', methods: ['GET', 'POST'])]
+public function add(EntityManagerInterface $manager, Request $request, Candidate $candidate)
+{
+    $form = $this->createForm(CandidateType::class);
+     $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $candidate = $form->getData();
+
+            $cv = $candidate->getCv();
+
+            $file = $cv->getFile();
+
+            $name = md5(uniqid()).  '.'.$file->guessExtension();
+
+            $file->move('../', $name);
+
+            $cv->setName($name);
+
+
+            $manager->persist($candidate);
+            $manager->flush();
+
+            $this->addFlash(
+                'notice',
+                'Votre profil a été mis à jour'
+
+            );
+            return $this->redirectToRoute('home.index');
+        }
+        return $this->render('pages/candidate/add.html.twig', [
+            'form' => $form->createView(),
+        ]);
+}
+
 
     #[Route('/{id}/edition', name: 'app_candidate_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Candidate $candidate, CandidateRepository $candidateRepository): Response

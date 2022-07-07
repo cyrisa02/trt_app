@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>Confirmation de vos informations personnelles</h1>
+		<h3>Maintenant que vous avez reçu notre accord, merci de compléter votre dossier.</h3>
+
+
+		{{ include('pages/recruiter/_form.html.twig') }}
+
+		<a href="{{ path('home.index') }}">Retour à l'accueil</a>
+	</div>
+
+{% endblock %}

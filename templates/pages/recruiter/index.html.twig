@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recruiter index{% endblock %}
+
+{% block body %}
+    <h1>Recruiter index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Lastname</th>
+                <th>Firstname</th>
+                <th>AddressFirm</th>
+                <th>FirmName</th>
+                <th>Zipcode</th>
+                <th>City</th>
+                <th>IsValided</th>
+                <th>IsRGPD</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for recruiter in recruiters %}
+            <tr>
+                <td>{{ recruiter.id }}</td>
+                <td>{{ recruiter.lastname }}</td>
+                <td>{{ recruiter.firstname }}</td>
+                <td>{{ recruiter.addressFirm }}</td>
+                <td>{{ recruiter.firmName }}</td>
+                <td>{{ recruiter.zipcode }}</td>
+                <td>{{ recruiter.city }}</td>
+                <td>{{ recruiter.isValided ? 'Yes' : 'No' }}</td>
+                <td>{{ recruiter.isRGPD ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_recruiter_show', {'id': recruiter.id}) }}">show</a>
+                    <a href="{{ path('app_recruiter_edit', {'id': recruiter.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_recruiter_new') }}">Create new</a>
+{% endblock %}

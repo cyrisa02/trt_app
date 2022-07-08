@@ -1,43 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Candidate
+{% block title %}Profil du candidat
 {% endblock %}
 
 {% block body %}
-	<h1>Candidate</h1>
+	<div class="container mt-4">
+		<h1>Profil du candidat</h1>
 
-	<table class="table">
-		<tbody>
-			<tr>
-				<th>Id</th>
-				<td>{{ candidate.id }}</td>
-			</tr>
-			<tr>
-				<th>Lastname</th>
-				<td>{{ candidate.lastname }}</td>
-			</tr>
-			<tr>
-				<th>Firstname</th>
-				<td>{{ candidate.firstname }}</td>
-			</tr>
-			<tr>
-				<th>CvName</th>
-				<td>{{ candidate.cvName }}</td>
-			</tr>
-			<tr>
-				<th>IsValided</th>
-				<td>{{ candidate.isValided ? 'Yes' : 'No' }}</td>
-			</tr>
-			<tr>
-				<th>IsRGPD</th>
-				<td>{{ candidate.isRGPD ? 'Yes' : 'No' }}</td>
-			</tr>
-		</tbody>
-	</table>
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Réf.</th>
+					<td>{{ candidate.id }}</td>
+				</tr>
+				<tr>
+					<th>Nom</th>
+					<td>{{ candidate.lastname }}</td>
+				</tr>
+				<tr>
+					<th>Prénom</th>
+					<td>{{ candidate.firstname }}</td>
+				</tr>
+				<tr>
+					<th>CvName</th>
+					<td>{{ candidate.cvName }}</td>
+				</tr>
+				<tr>
+					<th>Validé par TRT</th>
+					<td>{{ candidate.isValided ? 'Oui' : 'Non' }}</td>
+				</tr>
+				{# <tr>
+																				<th>IsRGPD</th>
+																				<td>{{ candidate.isRGPD ? 'Yes' : 'No' }}</td>
+																			</tr> #}
+			</tbody>
+		</table>
 
-	<a href="{{ path('app_candidate_index') }}">back to list</a>
+		<a class="btn btn-secondary btn-lg mt-4" href="{{ path('app_candidate_index') }}">Retour à la liste</a>
 
-	<a href="{{ path('app_candidate_edit', {'id': candidate.id}) }}">edit</a>
 
-	{{ include('pages/candidate/_delete_form.html.twig') }}
+		{# <a href="{{ path('app_candidate_edit', {'id': candidate.id}) }}">edit</a>
+				
+					{{ include('pages/candidate/_delete_form.html.twig') }} #}
+	</div>
+
 {% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une annonce
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>Création de votre annonce</h1>
+
+		{{ include('pages/job/_form.html.twig') }}
+
+		<a href="{{ path('home.index') }}">Retour à l'accueil</a>
+	</div>
+
+{% endblock %}

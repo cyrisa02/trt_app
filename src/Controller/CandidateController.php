@@ -29,13 +29,8 @@ class CandidateController extends AbstractController
         $form = $this->createForm(CandidateType::class, $candidate);
         $form->handleRequest($request);
 
-       
-
         if ($form->isSubmitted() && $form->isValid()) {
             $candidateRepository->add($candidate, true);
- 
-            
-
 
             return $this->redirectToRoute('app_candidate_index', [], Response::HTTP_SEE_OTHER);
         }

@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Se connecter
+{% endblock %}
+
+{% block body %}
+
+	<div class="container mt-4">
+<form method="post" name="login"  class="mt-5 pt-5">
+
+			{% if error %}
+				<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+			{% endif %}
+
+			{% if app.user %}
+				<div class="mb-3">
+					Vous êtes conecté,
+					<a href="{{ path('app_logout') }}">Se déconnecter</a>
+				</div>
+			{% else %}
+
+				<h1 class="text-space-mono-bold text-secondary">Se connecter</h1>
+				<label for="inputPseudo">Nom d'utilisateur</label>
+				<input type="text" value="{{ last_username }}" name="pseudo" id="inputPseudo" class="form-control" autocomplete="username" required autofocus>
+				<label for="inputPassword">Mot de passe</label>
+				<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+				<div class="text-center m-5">
+					<button class="btn btn-lg btn-primary" type="submit">
+
+						Se connecter
+					</button>
+				</div>
+			</form>
+			<hr>
+			<div class="my-5">
+				<h2 class="text-space-mono-bold text-secondary">Pas encore de compte ?</h2>
+				<div class="text-center">
+					<a href="{{ path('app_register_candidate') }}" class="button-primary">
+						Créer un compte candidat
+					</a>
+				</div>
+				<div class="text-center">OU</div>
+
+				<div class="text-center">
+					<a href="{{ path('app_register_recruiter') }}" class="button-primary">
+						Créer un compte recruteur
+					</a>
+				</div>
+
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}

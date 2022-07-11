@@ -27,7 +27,7 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setRoles(["ROLE_USER"])
+            $user->setRoles(["ROLE_CANDIDATE"])
             // encode the plain password
                 ->setPassword(
             $userPasswordHasher->hashPassword(
@@ -60,7 +60,7 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setRoles(["ROLE_USER"])
+            $user->setRoles(["ROLE_RECRUITER"])
             // encode the plain password
                 ->setPassword(
             $userPasswordHasher->hashPassword(

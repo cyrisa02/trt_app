@@ -1,49 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recruiter index{% endblock %}
+{% block title %}Liste des recruteurs
+{% endblock %}
 
 {% block body %}
-    <h1>Recruiter index</h1>
+	<div class="container mt-4">
+		<h1>Liste des recruteurs</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Lastname</th>
-                <th>Firstname</th>
-                <th>AddressFirm</th>
-                <th>FirmName</th>
-                <th>Zipcode</th>
-                <th>City</th>
-                <th>IsValided</th>
-                <th>IsRGPD</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for recruiter in recruiters %}
-            <tr>
-                <td>{{ recruiter.id }}</td>
-                <td>{{ recruiter.lastname }}</td>
-                <td>{{ recruiter.firstname }}</td>
-                <td>{{ recruiter.addressFirm }}</td>
-                <td>{{ recruiter.firmName }}</td>
-                <td>{{ recruiter.zipcode }}</td>
-                <td>{{ recruiter.city }}</td>
-                <td>{{ recruiter.isValided ? 'Yes' : 'No' }}</td>
-                <td>{{ recruiter.isRGPD ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('app_recruiter_show', {'id': recruiter.id}) }}">show</a>
-                    <a href="{{ path('app_recruiter_edit', {'id': recruiter.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="10">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>N°</th>
+					<th>Nom</th>
+					<th>Prénom</th>
+					<th>Nom de la société</th>
+					<th>Adresse</th>
+					<th>Code postal</th>
+					<th>Ville</th>
+					<th>Etat de validation</th>
+					{# <th>IsRGPD</th> #}
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for recruiter in recruiters %}
+					<tr>
+						<td>{{ recruiter.id }}</td>
+						<td>{{ recruiter.lastname }}</td>
+						<td>{{ recruiter.firstname }}</td>
+						<td>{{ recruiter.firmName }}</td>
+						<td>{{ recruiter.addressFirm }}</td>
+						<td>{{ recruiter.zipcode }}</td>
+						<td>{{ recruiter.city }}</td>
+						<td>{{ recruiter.isValided ? 'Oui' : 'Non' }}</td>
+						{# <td>{{ recruiter.isRGPD ? 'Yes' : 'No' }}</td> #}
+						<td>
+							<a href="{{ path('app_recruiter_show', {'id': recruiter.id}) }}">Voir</a>
+							<a href="{{ path('app_recruiter_edit', {'id': recruiter.id}) }}">Valider</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="10">Aucun recruteur</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 
-    <a href="{{ path('app_recruiter_new') }}">Create new</a>
+		{# <a href="{{ path('app_recruiter_new') }}">Create new</a> #}
+	</div>
+
 {% endblock %}

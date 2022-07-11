@@ -14,15 +14,14 @@
 		{{ form_start(form) }}
 
 
-		{# <div class="form-group d-none">
-					{{ form_label(form.user) }}
-					{{ form_widget(form.user) }}
-		
-					<div class="form-error">
-						{{ form_errors(form.user) }}
-		
-					</div>
-				</div> #}
+		<div class="form-group d-none">
+			{{ form_label(form.isValided) }}
+			{{ form_widget(form.isValided) }}
+			<div class="form-error">
+				{{ form_errors(form.isValided) }}
+			</div>
+		</div>
+
 
 		{{ form_widget(form) }}
 		<button class="btn btn-secondary btn-lg mt-4">{{ button_label|default('Valider') }}</button>

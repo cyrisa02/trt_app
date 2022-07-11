@@ -1,16 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Compléter mon profil
+{% block title %}Validation du  profil
 {% endblock %}
 
 
 {% block body %}
 	<div class="container mt-4">
-		<h1>Compléter mon profil</h1>
+		<h1>Validation du profil-Candidat</h1>
 
-		{{ include('pages/candidate/_form.html.twig', {'button_label': 'Update'}) }}
+		{# {{ include('pages/candidate/_form.html.twig', {'button_label': 'Update'}) }} #}
 
-		<a href="{{ path('home.index') }}">Retour à l'accueil</a>
+		{{ form_start(form) }}
+
+		{# <div class="form-group d-none">
+							{{ form_label(form.cvName) }}
+							{{ form_widget(form.cvName) }}
+							<div class="form-error">
+								{{ form_errors(form.cvName) }}
+							</div>
+						</div> #}
+		<div class="form-group d-none">
+			{{ form_label(form.isRGPD) }}
+			{{ form_widget(form.isRGPD) }}
+			<div class="form-error">
+				{{ form_errors(form.isRGPD) }}
+			</div>
+		</div>
+
+		<a type="button" class="btn btn-secondary btn-lg m-4" href="{{ asset('/uploads/') }}{{ candidate.cvName }}">Voir le CV du candidat</a>
+
+
+		{{ form_widget(form) }}
+		<button class="btn btn-secondary btn-lg mt-4">{{ button_label|default('Valider') }}</button>
+
+		{{ form_end(form) }}
+
+
+		<a class="btn btn-secondary btn-lg mt-4" href="{{ path('home.index') }}">Retour à l'accueil</a>
+
 
 		{{ include('pages/candidate/_delete_form.html.twig') }}</div>
 

@@ -44,18 +44,23 @@ class CandidateType extends AbstractType
 
             ->add('my_file', FileType::class, [
                 'mapped' => false,
+                'required' => false,
                 'label' => 'Télécharger votre CV en format pdf uniquement.'
 
             ])
 
             
-           // ->add('isValided')
+            ->add('isValided',CheckboxType::class, [
+                'required' => false,
+                'label' => 'Validation de ce profil'
+            ])
             
             ->add('isRGPD',CheckboxType::class, [
                 'mapped' => true,
                 'label' => 'Je suis d\'accord avec le RGPD du site'
             ])
             ->add('user',EntityType::class, [
+                'required' => false,
                 'class' => User::class,
                 'choice_label'=>function($email){
                 return $email->getEmail();

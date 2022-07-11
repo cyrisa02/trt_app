@@ -31,7 +31,7 @@ class RecruiterController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $recruiterRepository->add($recruiter, true);
 
-            return $this->redirectToRoute('app_recruiter_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('home.index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('pages/recruiter/new.html.twig', [
@@ -43,7 +43,7 @@ class RecruiterController extends AbstractController
     #[Route('/{id}', name: 'app_recruiter_show', methods: ['GET'])]
     public function show(Recruiter $recruiter): Response
     {
-        return $this->render('recruiter/show.html.twig', [
+        return $this->render('pages/recruiter/show.html.twig', [
             'recruiter' => $recruiter,
         ]);
     }

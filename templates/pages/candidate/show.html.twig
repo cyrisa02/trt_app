@@ -26,6 +26,7 @@
 					<td>{{ candidate.cvName }}</td>
 					{% if candidate.cvName is defined %}
 						<img src="{{ asset('uploads/') }}{{ candidate.cvName }}" alt="">
+						<a type="button" class="btn btn-secondary btn-lg m-4" href="{{ asset('/uploads/') }}{{ candidate.cvName }}">Voir le CV du candidat</a>
 
 
 					{% else %}
@@ -38,18 +39,18 @@
 					<td>{{ candidate.isValided ? 'Oui' : 'Non' }}</td>
 				</tr>
 				{# <tr>
-																																																												<th>IsRGPD</th>
-																																																												<td>{{ candidate.isRGPD ? 'Yes' : 'No' }}</td>
-																																																											</tr> #}
+																																																																				<th>IsRGPD</th>
+																																																																				<td>{{ candidate.isRGPD ? 'Yes' : 'No' }}</td>
+																																																																			</tr> #}
 			</tbody>
 		</table>
 
-		<a class="btn btn-secondary btn-lg mt-4" href="{{ path('app_candidate_index') }}">Retour à la liste</a>
+		<a class="btn btn-secondary btn-lg mt-4" href="{{ path('app_candidate_consult_index') }}">Retour à la liste</a>
 
 
 		{# <a href="{{ path('app_candidate_edit', {'id': candidate.id}) }}">edit</a>
-																								
-																									{{ include('pages/candidate/_delete_form.html.twig') }} #}
+																												
+																													{{ include('pages/candidate/_delete_form.html.twig') }} #}
 	</div>
 
 {% endblock %}

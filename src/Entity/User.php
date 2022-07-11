@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -39,9 +41,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(inversedBy: 'user', targetEntity: Consultant::class, cascade: ['persist', 'remove'])]
     private $consultant;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Candidature::class)]
+    private $candidatures;
+
     public function __construct()
     {
         $this->created_at = new DateTimeImmutable();
+        $this->candidatures = new ArrayCollection();
     }
 
 
@@ -172,6 +178,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setConsultant(?Consultant $consultant): self
     {
         $this->consultant = $consultant;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Candidature>
+     */
+    public function getCandidatures(): Collection
+    {
+        return $this->candidatures;
+    }
+
+    public function addCandidature(Candidature $candidature): self
+    {
+        if (!$this->candidatures->contains($candidature)) {
+            $this->candidatures[] = $candidature;
+            $candidature->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidature(Candidature $candidature): self
+    {
+        if ($this->candidatures->removeElement($candidature)) {
+            // set the owning side to null (unless already changed)
+            if ($candidature->getUser() === $this) {
+                $candidature->setUser(null);
+            }
+        }
 
         return $this;
     }

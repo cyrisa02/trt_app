@@ -6,6 +6,10 @@
 {% block body %}
 	<div class="container mt-4">
 		<h1>Liste des annonces</h1>
+		<h2>Pour postuler merci de vous être assuré(e) d'avoir
+			<a href="{{path('app_candidate_new') }} ">compléter vos informations personnelles.</a>
+		</h2>
+
 
 		<table class="table">
 			<thead>
@@ -39,7 +43,7 @@
 											</h4>
 											<p class="card-text">{{ job.description }}</p>
 
-											<a class="btn btn-primary btn-lg row my-2" href="{{path('home.index')}}" role="button">Postuler</a>
+											<a class="btn btn-primary btn-lg row my-2" href="{{path('app_candidature_new')}}" role="button">Postuler</a>
 
 
 										</div>

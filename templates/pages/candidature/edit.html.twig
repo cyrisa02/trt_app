@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Validation
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+
+		<div class="mx-auto mt-4" style="width: 800px;">
+			<h1>Validation Candidature</h1>
+		</div>
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>
+						<h2>Nom du candidat:
+							{{ candidature.user.candidate.lastname }}</h2>
+
+					</th>
+
+				</tr>
+				<tr>
+					<th>
+						<h4>Prénom:
+							{{ candidature.user.candidate.firstname }}</h4>
+
+
+					</th>
+
+				</tr>
+			</tbody>
+		</table>
+		<a type="button" class="btn btn-secondary btn-lg m-4" href="{{ asset('/uploads/') }}{{ candidature.user.candidate.cvName }}">Voir le CV du candidat</a>
+
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>
+						<h4>Titre de l'annonce:</h4>
+					</th>
+					<td>{{ candidature.job.title }}</td>
+				</tr>
+				<tr>
+					<th>
+						<h4>Description</h4>
+					</th>
+					<td>{{ candidature.job.description }}</td>
+				</tr>
+				<tr>
+					<th>
+						<h4>Lieu de l'activité:</h4>
+					</th>
+					<td>{{ candidature.job.workPlace }}</td>
+				</tr>
+
+
+			</tbody>
+		</table>
+
+
+		<h3>Nom de l'entreprise recruteur:
+			{{ candidature.job.recruiter.firmName }}</h3>
+		<h3>Nom du recruteur:
+			{{ candidature.job.recruiter.lastname }}</h3>
+		{{ form_start(form) }}<div class="form-group d-none">
+			{{ form_label(form.job) }}
+			{{ form_widget(form.job) }}
+			<div class="form-error">
+				{{ form_errors(form.job) }}
+			</div>
+		</div>
+		<div class="form-group d-none">
+			{{ form_label(form.user) }}
+			{{ form_widget(form.user) }}
+
+			<div class="form-error">
+				{{ form_errors(form.user) }}
+
+			</div>
+		</div>
+
+		<div class="form-group ">
+			{{ form_label(form.isValided) }}
+			{{ form_widget(form.isValided) }}
+
+			<div class="form-error">
+				{{ form_errors(form.isValided) }}
+
+			</div>
+		</div>
+
+
+		{{ form_widget(form) }}<button class="btn btn-secondary btn-lg mt-4">{{ button_label|default('Enregistrer vos modifications') }}</button>
+		{{ form_end(form) }}
+		{# {{ include('pages/candidature/_form.html.twig', {'button_label': 'Update'}) }} #}
+
+		<a class="btn btn-secondary btn-lg mt-4" href="{{ path('app_candidature_index') }}">Retour à la liste</a>
+
+		{{ include('pages/candidature/_delete_form.html.twig') }}</div>
+{% endblock %}

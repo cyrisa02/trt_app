@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Candidature
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>Candidature</h1>
+
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Id</th>
+					<td>{{ candidature.id }}</td>
+				</tr>
+				<tr>
+					<th>Nom du candidat</th>
+					<td>{{ candidature.user.candidate.lastname }}</td>
+				</tr>
+				<tr>
+					<th>Prénom du candidat</th>
+					<td>{{ candidature.user.candidate.firstname }}</td>
+				</tr>
+
+
+			</tbody>
+		</table>
+
+		<a class="btn btn-secondary btn-lg mt-4" href="{{ path('app_candidature_index') }}">Retour à la liste</a>
+
+
+		<a class="btn btn-secondary btn-lg mt-4" href="{{ path('app_candidature_edit', {'id': candidature.id}) }}">Valider</a>
+
+
+		{{ include('pages/candidature/_delete_form.html.twig') }}</div>
+
+{% endblock %}

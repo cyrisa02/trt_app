@@ -19,6 +19,12 @@ class Candidature
     #[ORM\ManyToOne(targetEntity: Job::class, inversedBy: 'candidatures')]
     private $job;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'candidatures')]
+    private $user;
+
+    #[ORM\Column(type: 'boolean')]
+    private $isValided;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +50,30 @@ class Candidature
     public function setJob(?Job $job): self
     {
         $this->job = $job;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function isIsValided(): ?bool
+    {
+        return $this->isValided;
+    }
+
+    public function setIsValided(bool $isValided): self
+    {
+        $this->isValided = $isValided;
 
         return $this;
     }

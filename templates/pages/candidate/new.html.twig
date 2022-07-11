@@ -8,7 +8,27 @@
 		<h1>Confirmation de vos informations personnelles</h1>
 		<h3>Maintenant que vous avez reçu notre accord, merci de compléter votre dossier.</h3>
 
-		{{ include('pages/candidate/_form.html.twig') }}
+		{# {{ include('pages/candidate/_form.html.twig') }} #}
+
+
+		{{ form_start(form) }}
+
+
+		{# <div class="form-group d-none">
+					{{ form_label(form.user) }}
+					{{ form_widget(form.user) }}
+		
+					<div class="form-error">
+						{{ form_errors(form.user) }}
+		
+					</div>
+				</div> #}
+
+		{{ form_widget(form) }}
+		<button class="btn btn-secondary btn-lg mt-4">{{ button_label|default('Valider') }}</button>
+
+		{{ form_end(form) }}
+
 
 		<a href="{{ path('home.index') }}">Retour à l'accueil</a>
 	</div>

@@ -7,9 +7,24 @@
 	<div class="container mt-4">
 		<h1>Création de votre annonce</h1>
 
-		{{ include('pages/job/_form.html.twig') }}
+		{{ form_start(form) }}
+
+
+		<div class="form-group d-none">
+			{{ form_label(form.isVisible) }}
+			{{ form_widget(form.isVisible) }}
+			<div class="form-error">
+				{{ form_errors(form.isVisible) }}
+			</div>
+		</div>
+
+
+		{{ form_widget(form) }}
+		<button class="btn btn-secondary btn-lg mt-4">{{ button_label|default('Sauvegarder') }}</button>
+
+		{{ form_end(form) }}
+
 
 		<a href="{{ path('home.index') }}">Retour à l'accueil</a>
 	</div>
-
 {% endblock %}

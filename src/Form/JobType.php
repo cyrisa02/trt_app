@@ -18,7 +18,7 @@ class JobType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Titre de l\'annonce '
+                'label' => 'Titre '
 
             ])
             ->add('workPlace',TextType::class, [
@@ -32,14 +32,15 @@ class JobType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Description du poste (Salaire, horaires, etc...)'
+                'label' => 'Description, renseignez le salaire et les horaires '
 
             ])
             ->add('isVisible',CheckboxType::class, [
-                'mapped' => true,
-                'label' => 'Voulez-vous rendre votre annonce visible?'
+                //'mapped' => true,
+                'required' => false,
+                'label' => 'En tant que recruteur vous n\'avez pas à saisir ce champs. Validation de cette annonce par le consultant uniquement.'
             ])
-            ->add('recruiter')
+           // ->add('recruiter')
         ;
     }
 

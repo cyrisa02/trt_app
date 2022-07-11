@@ -24,8 +24,8 @@ class Job
     #[ORM\Column(type: 'text')]
     private $description;
 
-    #[ORM\Column(type: 'boolean')]
-    private $isVisible;
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $isVisible= false;
 
     #[ORM\ManyToOne(targetEntity: Recruiter::class, inversedBy: 'job')]
     private $recruiter;

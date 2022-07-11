@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class CandidateType extends AbstractType
 {
@@ -32,13 +33,19 @@ class CandidateType extends AbstractType
                 'label' => 'Prénom'
 
             ])
-            ->add('cvName')
-            ->add('imageFile', VichImageType::class, [
-                'label' => 'Merci de télécharger votre CV en pdf uniquement.',
-                'label_attr' => [
-                    'class' => 'form-label mt-4'
-                ],
-                'required' => false
+            //->add('cvName')
+            // ->add('imageFile', VichImageType::class, [
+            //     'label' => 'Merci de télécharger votre CV en pdf uniquement.',
+            //     'label_attr' => [
+            //         'class' => 'form-label mt-4'
+            //     ],
+            //     'required' => false
+            // ])
+
+            ->add('my_file', FileType::class, [
+                'mapped' => false,
+                'label' => 'Télécharger votre CV en format pdf uniquement.'
+
             ])
 
             
@@ -56,7 +63,11 @@ class CandidateType extends AbstractType
                 // 'attr' => [
                 //     'class' => 'form-control '
                 // ],
-                'label' => 'Merci de confirmer votre adresse mail. '
+                'label' => 'Merci de confirmer votre adresse mail. ',
+                'attr' => [
+                    'class' => 'form-control '
+                ],
+                'placeholder'=>'Choisissez votre email dans la liste',
 
             ])
             //->add('candidatures')

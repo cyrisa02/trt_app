@@ -24,15 +24,23 @@
 				<tr>
 					<th>CvName</th>
 					<td>{{ candidate.cvName }}</td>
+					{% if candidate.cvName is defined %}
+						<img src="{{ asset('uploads/') }}{{ candidate.cvName }}" alt="">
+
+
+					{% else %}
+						<p>Pas de Cv</p>
+					{% endif %}
+
 				</tr>
 				<tr>
 					<th>Validé par TRT</th>
 					<td>{{ candidate.isValided ? 'Oui' : 'Non' }}</td>
 				</tr>
 				{# <tr>
-																				<th>IsRGPD</th>
-																				<td>{{ candidate.isRGPD ? 'Yes' : 'No' }}</td>
-																			</tr> #}
+																																																												<th>IsRGPD</th>
+																																																												<td>{{ candidate.isRGPD ? 'Yes' : 'No' }}</td>
+																																																											</tr> #}
 			</tbody>
 		</table>
 
@@ -40,8 +48,8 @@
 
 
 		{# <a href="{{ path('app_candidate_edit', {'id': candidate.id}) }}">edit</a>
-				
-					{{ include('pages/candidate/_delete_form.html.twig') }} #}
+																								
+																									{{ include('pages/candidate/_delete_form.html.twig') }} #}
 	</div>
 
 {% endblock %}

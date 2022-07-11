@@ -27,7 +27,7 @@
 							<td>{{ job.title }}</td>
 							<td>{{ job.workPlace }}</td>
 							<td>{{ job.description }}</td>
-							<td>{{ job.isVisible ? 'Oui' : 'No' }}</td>
+							<td>{{ job.isVisible ? 'Oui' : 'Non' }}</td>
 							<td>
 								<a href="{{ path('app_job_show', {'id': job.id}) }}">Postuler</a>
 								{# <a href="{{ path('app_job_edit', {'id': job.id}) }}">edit</a> #}
@@ -51,7 +51,7 @@
 						<td>{{ job.title }}</td>
 						<td>{{ job.workPlace }}</td>
 						<td>{{ job.description }}</td>
-						<td>{{ job.isVisible ? 'Oui' : 'No' }}</td>
+						<td>{{ job.isVisible ? 'Oui' : 'Non' }}</td>
 						<td>
 							<a href="{{ path('app_job_edit', {'id': job.id}) }}">Valider</a>
 							{# <a href="{{ path('app_job_edit', {'id': job.id}) }}">edit</a> #}

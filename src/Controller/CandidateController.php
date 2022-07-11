@@ -28,16 +28,32 @@ class CandidateController extends AbstractController
         $candidate = new Candidate();
         $form = $this->createForm(CandidateType::class, $candidate);
         $form->handleRequest($request);
+        $image= 'test.png';
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $candidateRepository->add($candidate, true);
+            
+            $file = $request->files->get('candidate')['my_file'];
+            $uploads_directory = $this->getParameter('uploads_directory');
+
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
+
+            
+
+            $file->move(
+                $uploads_directory,
+                $filename
+            );
+// Comment sauveagrder en BD, champ cvName?
+        $candidate->setCvName($filename);
+        $candidateRepository->add($candidate, true);
 
             return $this->redirectToRoute('app_candidate_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('pages/candidate/new.html.twig', [
-            'candidate' => $candidate,
+            'candidate' => $candidate,            
             'form' => $form,
+            'image' => $image,
         ]);
     }
 

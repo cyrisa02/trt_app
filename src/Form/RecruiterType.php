@@ -3,6 +3,8 @@
 namespace App\Form;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use App\Entity\Recruiter;
+use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -61,11 +63,17 @@ class RecruiterType extends AbstractType
                 'mapped' => true,
                 'label' => 'Je suis d\'accord avec le RGPD du site'
             ])
-            ->add('user',TextType::class, [
+            ->add('user',EntityType::class, [
+                'class'=>User::class,
+                'choice_label'=>function($email){
+                return $email->getEmail();
+                },
+                'placeholder'=>'Choisissez votre email dans la liste',
                 'attr' => [
                     'class' => 'form-control '
                 ],
-                'label' => 'Merci de confirmer votre adresse mail. '
+                'label' => 'Merci de confirmer votre adresse mail. ',
+                
 
             ])
         ;

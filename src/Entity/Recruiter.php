@@ -45,6 +45,9 @@ class Recruiter
     #[ORM\OneToMany(mappedBy: 'recruiter', targetEntity: Job::class)]
     private $job;
 
+    #[ORM\Column(type: 'string', length: 190)]
+    private $email;
+
     public function __construct()
     {
         $this->job = new ArrayCollection();
@@ -205,6 +208,18 @@ class Recruiter
                 $job->setRecruiter(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

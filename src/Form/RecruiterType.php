@@ -63,22 +63,31 @@ class RecruiterType extends AbstractType
                 'required' => false,
                 'label' => 'Validation de ce profil'
             ])
-            ->add('isRGPD',CheckboxType::class, [
-                'mapped' => true,
-                'label' => 'Je suis d\'accord avec le RGPD du site'
+            
+            ->add('email',TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Veuillez saisir l\' adresse mail'
+
             ])
             ->add('user',EntityType::class, [
                 'class'=>User::class,
                 'choice_label'=>function($email){
                 return $email->getEmail();
                 },
-                'placeholder'=>'Choisissez votre email dans la liste',
+                'placeholder'=>'Reconfirmer l\'email par rapport à la liste',
                 'attr' => [
                     'class' => 'form-control '
                 ],
                 'label' => 'Merci de confirmer l\' adresse mail. ',
                 
 
+            ])
+
+            ->add('isRGPD',CheckboxType::class, [
+                'mapped' => true,
+                'label' => 'Je suis d\'accord avec le RGPD du site'
             ])
             // ->add('roles', EntityType::class, [
             //     'class'=>User::class,

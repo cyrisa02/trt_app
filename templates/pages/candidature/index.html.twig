@@ -10,6 +10,9 @@
 
 			<div class="container mt-4">
 				<h1>Valider un candidat à une annonce</h1>
+				<div>
+					<h2>Voici la liste des candidats à valider</h2>
+				</div>
 
 				<table class="table">
 					<thead>
@@ -24,21 +27,25 @@
 					<tbody>
 						{% for candidature in candidatures %}
 							<tr>
-								<td>{{ candidature.id }}</td>
+								{% if candidature.isValided == 0 %}
+
+									<td>{{ candidature.id }}</td>
 
 
-								<td>{{ candidature.user.candidate.lastname }}</td>
+									<td>{{ candidature.user.candidate.lastname }}</td>
 
 
-								<td>{{ candidature.job.title }}</td>
+									<td>{{ candidature.job.title }}</td>
 
-								<td>{{ candidature.isValided ? 'Oui' : 'Non' }}</td>
+									<td>{{ candidature.isValided ? 'Oui' : 'Non' }}</td>
 
 
-								<td>
-									<a href="{{ path('app_candidature_show', {'id': candidature.id}) }}">Voir</a>
-									<a href="{{ path('app_candidature_edit', {'id': candidature.id}) }}">Valider</a>
-								</td>
+									<td>
+										<a href="{{ path('app_candidature_show', {'id': candidature.id}) }}">Voir</a>
+										<a href="{{ path('app_candidature_edit', {'id': candidature.id}) }}">Valider</a>
+									</td>
+								{% endif %}
+
 							</tr>
 						{% else %}
 							<tr>
@@ -49,6 +56,51 @@
 				</table>
 
 				{# <a href="{{ path('app_candidature_new') }}">Create new</a> #}
+				<div>
+					<h2>Voici la liste des candidats validés</h2>
+				</div>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Nom du candidat</th>
+							<th>Nom de l'annonce</th>
+							<th>Etat de validation</th>
+							<th>actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for candidature in candidatures %}
+							<tr>
+								{% if candidature.isValided == 1 %}
+
+									<td>{{ candidature.id }}</td>
+
+
+									<td>{{ candidature.user.candidate.lastname }}</td>
+
+
+									<td>{{ candidature.job.title }}</td>
+
+									<td>{{ candidature.isValided ? 'Oui' : 'Non' }}</td>
+
+
+									<td>
+										<a href="{{ path('app_candidature_show', {'id': candidature.id}) }}">Voir</a>
+										<a href="{{ path('app_candidature_edit', {'id': candidature.id}) }}">Valider</a>
+									</td>
+								{% endif %}
+
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="2">Pas de candidature</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+
+
 			</div>
 		{% endif %}
 

@@ -6,43 +6,97 @@
 {% block body %}
 	<div class="container mt-4">
 		<h1>Validation d'un candidat</h1>
+		{% if is_granted('ROLE_CONSULTANT')  %}
+			<div>
+				<h2>Voici la liste des candidats à valider</h2>
+			</div>
 
 
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Réf.</th>
-					<th>Nom</th>
-					<th>Prénom</th>
-					<th>CvName</th>
-					<th>Validés par TRT</th>
-					{# <th>IsRGPD</th> #}
-					<th>actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for candidate in candidates %}
+			<table class="table">
+				<thead>
 					<tr>
-						<td>{{ candidate.id }}</td>
-						<td>{{ candidate.lastname }}</td>
-						<td>{{ candidate.firstname }}</td>
-						<td>{{ candidate.cvName }}</td>
-						<td>{{ candidate.isValided ? 'Oui' : 'Non' }}</td>
-						{# <td>{{ candidate.isRGPD ? 'Yes' : 'No' }}</td> #}
-						<td>
-							<a href="{{ path('app_candidate_show', {'id': candidate.id}) }}">Voir la candidature</a>
-							<a href="{{ path('app_candidate_edit', {'id': candidate.id}) }}">Valider</a>
-						</td>
+						<th>Réf.</th>
+						<th>Nom</th>
+						<th>Prénom</th>
+						<th>CvName</th>
+						<th>Validés
+						</th>
+						{# <th>IsRGPD</th> #}
+						<th>actions</th>
 					</tr>
-				{% else %}
+				</thead>
+				<tbody>
+					{% for candidate in candidates %}
+						<tr>
+							{% if candidate.isValided == 0 %}
+
+								<td>{{ candidate.id }}</td>
+								<td>{{ candidate.lastname }}</td>
+								<td>{{ candidate.firstname }}</td>
+								<td>{{ candidate.cvName }}</td>
+								<td>{{ candidate.isValided ? 'Oui' : 'Non' }}</td>
+								{# <td>{{ candidate.isRGPD ? 'Yes' : 'No' }}</td> #}
+								<td>
+									<a href="{{ path('app_candidate_show', {'id': candidate.id}) }}">Voir</a>
+									<a href="{{ path('app_candidate_edit', {'id': candidate.id}) }}">Valider</a>
+								</td>
+							{% endif %}
+
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="7">Pas de candidat</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			{# <a href="{{ path('app_candidate_new') }}">Create new</a> #}
+
+			<div>
+				<h2>Voici la liste des candidats validés</h2>
+			</div>
+
+
+			<table class="table">
+				<thead>
 					<tr>
-						<td colspan="7">Pas de candidat</td>
+						<th>Réf.</th>
+						<th>Nom</th>
+						<th>Prénom</th>
+						<th>CvName</th>
+						<th>Validés</th>
+						{# <th>IsRGPD</th> #}
+						<th>actions</th>
 					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					{% for candidate in candidates %}
+						<tr>
+							{% if candidate.isValided == 1 %}
 
-		{# <a href="{{ path('app_candidate_new') }}">Create new</a> #}
-	</div>
+								<td>{{ candidate.id }}</td>
+								<td>{{ candidate.lastname }}</td>
+								<td>{{ candidate.firstname }}</td>
+								<td>{{ candidate.cvName }}</td>
+								<td>{{ candidate.isValided ? 'Oui' : 'Non' }}</td>
+								{# <td>{{ candidate.isRGPD ? 'Yes' : 'No' }}</td> #}
+								<td>
+									<a href="{{ path('app_candidate_show', {'id': candidate.id}) }}">Voir
+									</a>
+									<a href="{{ path('app_candidate_edit', {'id': candidate.id}) }}">Valider</a>
+								</td>
+							{% endif %}
 
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="7">Pas de candidat</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+		</div>
+	{% endif %}
 {% endblock %}

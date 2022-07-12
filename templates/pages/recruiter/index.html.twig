@@ -6,48 +6,106 @@
 {% block body %}
 	<div class="container mt-4">
 		<h1>Liste des recruteurs</h1>
+		{% if is_granted('ROLE_CONSULTANT')  %}
+			<div>
+				<h2>Voici la liste des recruteurs à valider</h2>
+			</div>
 
-		<table class="table">
-			<thead>
-				<tr>
-					<th>N°</th>
-					<th>Nom</th>
-					<th>Prénom</th>
-					<th>Nom de la société</th>
-					<th>Adresse</th>
-					<th>Code postal</th>
-					<th>Ville</th>
-					<th>Etat de validation</th>
-					{# <th>IsRGPD</th> #}
-					<th>actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for recruiter in recruiters %}
+			<table class="table">
+				<thead>
 					<tr>
-						<td>{{ recruiter.id }}</td>
-						<td>{{ recruiter.lastname }}</td>
-						<td>{{ recruiter.firstname }}</td>
-						<td>{{ recruiter.firmName }}</td>
-						<td>{{ recruiter.addressFirm }}</td>
-						<td>{{ recruiter.zipcode }}</td>
-						<td>{{ recruiter.city }}</td>
-						<td>{{ recruiter.isValided ? 'Oui' : 'Non' }}</td>
-						{# <td>{{ recruiter.isRGPD ? 'Yes' : 'No' }}</td> #}
-						<td>
-							<a href="{{ path('app_recruiter_show', {'id': recruiter.id}) }}">Voir</a>
-							<a href="{{ path('app_recruiter_edit', {'id': recruiter.id}) }}">Valider</a>
-						</td>
+						<th>N°</th>
+						<th>Nom</th>
+						<th>Prénom</th>
+						<th>Nom de la société</th>
+						<th>Adresse</th>
+						<th>Code postal</th>
+						<th>Ville</th>
+						<th>Etat de validation</th>
+						{# <th>IsRGPD</th> #}
+						<th>actions</th>
 					</tr>
-				{% else %}
-					<tr>
-						<td colspan="10">Aucun recruteur</td>
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					{% for recruiter in recruiters %}
+						<tr>
+							{% if recruiter.isValided == 0 %}
 
-		{# <a href="{{ path('app_recruiter_new') }}">Create new</a> #}
-	</div>
+								<td>{{ recruiter.id }}</td>
+								<td>{{ recruiter.lastname }}</td>
+								<td>{{ recruiter.firstname }}</td>
+								<td>{{ recruiter.firmName }}</td>
+								<td>{{ recruiter.addressFirm }}</td>
+								<td>{{ recruiter.zipcode }}</td>
+								<td>{{ recruiter.city }}</td>
+								<td>{{ recruiter.isValided ? 'Oui' : 'Non' }}</td>
+								{# <td>{{ recruiter.isRGPD ? 'Yes' : 'No' }}</td> #}
+								<td>
+									<a href="{{ path('app_recruiter_show', {'id': recruiter.id}) }}">Voir</a>
+									<a href="{{ path('app_recruiter_edit', {'id': recruiter.id}) }}">Valider</a>
+								</td>
+							{% endif %}
+
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="10">Aucun recruteur</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			{# <a href="{{ path('app_recruiter_new') }}">Create new</a> #}
+			<div>
+				<h2>Voici la liste des recruteurs déjà validés</h2>
+			</div>
+
+
+			<table class="table">
+				<thead>
+					<tr>
+						<th>N°</th>
+						<th>Nom</th>
+						<th>Prénom</th>
+						<th>Nom de la société</th>
+						<th>Adresse</th>
+						<th>Code postal</th>
+						<th>Ville</th>
+						<th>Etat de validation</th>
+						{# <th>IsRGPD</th> #}
+						<th>actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for recruiter in recruiters %}
+						<tr>
+							{% if recruiter.isValided == 1 %}
+
+								<td>{{ recruiter.id }}</td>
+								<td>{{ recruiter.lastname }}</td>
+								<td>{{ recruiter.firstname }}</td>
+								<td>{{ recruiter.firmName }}</td>
+								<td>{{ recruiter.addressFirm }}</td>
+								<td>{{ recruiter.zipcode }}</td>
+								<td>{{ recruiter.city }}</td>
+								<td>{{ recruiter.isValided ? 'Oui' : 'Non' }}</td>
+								{# <td>{{ recruiter.isRGPD ? 'Yes' : 'No' }}</td> #}
+								<td>
+									<a href="{{ path('app_recruiter_show', {'id': recruiter.id}) }}">Voir</a>
+									<a href="{{ path('app_recruiter_edit', {'id': recruiter.id}) }}">Valider</a>
+								</td>
+							{% endif %}
+
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="10">Aucun recruteur</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+		</div>
+	{% endif %}
 
 {% endblock %}

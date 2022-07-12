@@ -38,7 +38,7 @@ class JobType extends AbstractType
             ->add('isVisible',CheckboxType::class, [
                 //'mapped' => true,
                 'required' => false,
-                'label' => 'En tant que recruteur vous n\'avez pas à saisir ce champs. Validation de cette annonce par le consultant uniquement.'
+                'label' => 'Validation de l\'annonce.'
             ])
            // ->add('recruiter')
         ;

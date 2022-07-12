@@ -4,33 +4,40 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container mt-4">
-		<h1>Valider un recruteur PROBLEME AVEC LE ROLE RECRUITER</h1>
+	{% if app.user %}
+		{% if is_granted('ROLE_CONSULTANT')  %}
+
+			<div class="container mt-4">
+				<h1>Valider un recruteur
+
+				</h1>
 
 
-		{{ form_start(form) }}
+				{{ form_start(form) }}
 
-		<div class="form-group d-none">
-			{{ form_label(form.isRGPD) }}
-			{{ form_widget(form.isRGPD) }}
+				<div class="form-group d-none">
+					{{ form_label(form.isRGPD) }}
+					{{ form_widget(form.isRGPD) }}
 
-			<div class="form-error">
-				{{ form_errors(form.isRGPD) }}
+					<div class="form-error">
+						{{ form_errors(form.isRGPD) }}
 
-			</div>
-		</div>
+					</div>
+				</div>
 
-		{{ form_widget(form) }}
-		<button class="btn btn-secondary btn-lg mt-4">{{ button_label|default('Sauvegarder') }}</button>
+				{{ form_widget(form) }}
+				<button class="btn btn-secondary btn-lg mt-4">{{ button_label|default('Sauvegarder') }}</button>
 
-		{{ form_end(form) }}
-
-
-		{# {{ include('pages/recruiter/_form.html.twig', {'button_label': 'Enregistrer vos modifications'}) }} #}
-
-		<a class="btn btn-secondary btn-lg mt-4" href="{{ path('app_recruiter_index') }}">Retour à la liste</a>
+				{{ form_end(form) }}
 
 
-		{{ include('pages/recruiter/_delete_form.html.twig') }}</div>
+				{# {{ include('pages/recruiter/_form.html.twig', {'button_label': 'Enregistrer vos modifications'}) }} #}
+
+				<a class="btn btn-secondary btn-lg mt-4" href="{{ path('app_recruiter_index') }}">Retour à la liste</a>
+
+
+				{{ include('pages/recruiter/_delete_form.html.twig') }}</div>
+		{% endif %}
+	{% endif %}
 
 {% endblock %}

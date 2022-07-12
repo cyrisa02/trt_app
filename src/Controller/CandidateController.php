@@ -55,7 +55,7 @@ class CandidateController extends AbstractController
         $candidate->setCvName($filename);
         $candidateRepository->add($candidate, true);
 
-            return $this->redirectToRoute('app_candidate_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('home.index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('pages/candidate/new.html.twig', [

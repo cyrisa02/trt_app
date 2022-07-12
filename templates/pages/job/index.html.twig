@@ -4,8 +4,10 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container mt-4">
-		<h1>Liste des annonces</h1>
+<div class="container mt-4">
+	<h1>Liste des annonces</h1>
+	{% if is_granted('ROLE_CANDIDATE')  %}
+
 		<h2>Pour postuler merci de vous être assuré(e) d'avoir
 			<a href="{{path('app_candidate_new') }} ">compléter vos informations personnelles.</a>
 		</h2>
@@ -54,56 +56,102 @@
 						{% endfor %}
 					</div>
 				</div>
+			{% elseif is_granted('ROLE_CONSULTANT')  %}
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Réf.</th>
+							<th>Titre</th>
+							<th>Lieu</th>
+							<th>Description</th>
+							<th>Public</th>
+							<th>actions</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<div class="container mt-4">
+							<div class="row">
 
 
-				{% for job in jobs %}
+								<h1>Voici la liste des annonces à rendre public</h1>
+
+								{% for job in jobs %}
+									<tr>
+										{% if job.isVisible == 0 %}
+
+											<td>{{ job.id }}</td>
+											<td>{{ job.title }}</td>
+											<td>{{ job.workPlace }}</td>
+											<td>{{ job.description }}</td>
+											<td>{{ job.isVisible ? 'Oui' : 'Non' }}</td>
+											<td>
+												<a href="{{ path('app_job_edit', {'id': job.id}) }}">Valider</a>
+												{# <a href="{{ path('app_job_edit', {'id': job.id}) }}">edit</a> #}
+											</td>
+										{% endif %}
+
+									</tr>
+								{% else %}
+									<tr>
+										<td colspan="6">no records found</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+						{# <a href="{{ path('app_job_new') }}">Create new</a> #}
+					</tbody>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<table class="table">
+				<thead>
 					<tr>
-						{% if job.isVisible == 1 %}
-
-							<td>{{ job.id }}</td>
-							<td>{{ job.title }}</td>
-							<td>{{ job.workPlace }}</td>
-							<td>{{ job.description }}</td>
-							<td>{{ job.isVisible ? 'Oui' : 'Non' }}</td>
-							<td>
-								<a href="{{ path('app_job_show', {'id': job.id}) }}">Postuler</a>
-								{# <a href="{{ path('app_job_edit', {'id': job.id}) }}">edit</a> #}
-							</td>
-
-
-						{% endif %}
-
+						<th>Réf.</th>
+						<th>Titre</th>
+						<th>Lieu</th>
+						<th>Description</th>
+						<th>Public</th>
+						<th>actions</th>
 					</tr>
-				{% else %}
-					<tr>
-						<td colspan="6">no records found</td>
-					</tr>
-				{% endfor %}
+				</thead>
+				<tbody>
 
-				<h1>Toute la liste pour le consultant TODO</h1>
+					<div class="container mt-4">
+						<div class="row">
 
-				{% for job in jobs %}
-					<tr>
-						<td>{{ job.id }}</td>
-						<td>{{ job.title }}</td>
-						<td>{{ job.workPlace }}</td>
-						<td>{{ job.description }}</td>
-						<td>{{ job.isVisible ? 'Oui' : 'Non' }}</td>
-						<td>
-							<a href="{{ path('app_job_edit', {'id': job.id}) }}">Valider</a>
-							{# <a href="{{ path('app_job_edit', {'id': job.id}) }}">edit</a> #}
-						</td>
-					</tr>
-				{% else %}
-					<tr>
-						<td colspan="6">no records found</td>
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
 
-		{# <a href="{{ path('app_job_new') }}">Create new</a> #}
+							<h1>Voici la liste des annonces déjà publiques</h1>
+
+							{% for job in jobs %}
+								<tr>
+									{% if job.isVisible == 1 %}
+
+										<td>{{ job.id }}</td>
+										<td>{{ job.title }}</td>
+										<td>{{ job.workPlace }}</td>
+										<td>{{ job.description }}</td>
+										<td>{{ job.isVisible ? 'Oui' : 'Non' }}</td>
+										<td>
+											<a href="{{ path('app_job_edit', {'id': job.id}) }}">Valider</a>
+											{# <a href="{{ path('app_job_edit', {'id': job.id}) }}">edit</a> #}
+										</td>
+									{% endif %}
+
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="6">no records found</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+					{# <a href="{{ path('app_job_new') }}">Create new</a> #}
+				</tbody>
+			</div>
+		</div>
 	</div>
 
-
-</div>{% endblock %}
+</div>{% endif %}</div>{% endblock %}

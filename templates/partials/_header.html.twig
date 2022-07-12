@@ -19,66 +19,85 @@
 						<span class="visually-hidden">(current)</span>
 					</a>
 				</li>
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Recruteur</a>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="{{ path('app_job_new')}}">Créer son annonce</a>
+
+				{% if app.user %}
+					{% if is_granted('ROLE_RECRUITER') %}
 
 
-						<a class="dropdown-item" href="{{ path('app_candidate_index')}}">Liste des candidats</a>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Recruteur</a>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="{{ path('app_job_new')}}">Créer son annonce</a>
 
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="{{ path('app_recruiter_new')}}">Compléter mon profil + adresse firm</a>
+
+								<a class="dropdown-item" href="{{ path('app_candidate_index')}}">Liste des candidats</a>
+
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="{{ path('app_recruiter_new')}}">Compléter mon profil + adresse firm</a>
 
 
-					</div>
+							</div>
+						</li>
+					{% elseif is_granted('ROLE_CANDIDATE')  %}
+
+
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Candidat</a>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="{{ path('app_job_index')}}">Voir les annonces pour postuler</a>
+
+								{# <a class="dropdown-item" href="#">Postuler à une annonce</a> #}
+								<div class="dropdown-divider"></div>
+								{# <a class="dropdown-item" href="{{ path('app_candidate_edit',{'id':app.user.id})}}">Compléter mon profil</a> #}
+								<a class="dropdown-item" href="{{ path('app_candidate_new')}}">Compléter et confirmer mon profil</a>
+
+
+							</div>
+
+						</li>
+
+
+					{% elseif is_granted('ROLE_CONSULTANT')  %}
+
+
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Consultant</a>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="{{ path('app_recruiter_index')}}">Valider le profil d'un  recruteur</a>
+								<a class="dropdown-item" href="{{ path('app_candidate_consult_index')}}">Valider le profil d'un candidat</a>
+
+
+								<a class="dropdown-item" href="{{ path('app_job_index')}}">Valider une annonce</a>
+
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="{{ path('app_candidature_index')}}">Valider une candidature + email au recruteur</a>
+
+								{# <div class="dropdown-divider"></div>
+																																																																																																																							<a class="dropdown-item" href="{{ path('app_consultant_new')}}">Compléter mon profil</a> #}
+
+
+							</div>
+						{% endif %}
+					{% endif %}
+
 				</li>
+				{% if is_granted('ROLE_ADMIN') %}
 
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Candidat</a>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="{{ path('app_job_index')}}">Voir les annonces pour postuler</a>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="{{ path('app_register_consultant')}}">Créer un consultant</a>
+							<div class="dropdown-divider"></div>
 
-						{# <a class="dropdown-item" href="#">Postuler à une annonce</a> #}
-						<div class="dropdown-divider"></div>
-						{# <a class="dropdown-item" href="{{ path('app_candidate_edit',{'id':app.user.id})}}">Compléter mon profil</a> #}
-						<a class="dropdown-item" href="{{ path('app_candidate_new')}}">Compléter et confirmer mon profil</a>
+							<a class="dropdown-item" href="{{ path('app_consultant_new')}}">Compléter et confirmer le profil consultant</a>
 
-
-					</div>
-				</li>
-
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Consultant</a>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="{{ path('app_recruiter_index')}}">Valider le profil d'un  recruteur</a>
-						<a class="dropdown-item" href="{{ path('app_candidate_consult_index')}}">Valider le profil d'un candidat</a>
+							<a class="dropdown-item" href="{{ path('app_consultant_index')}}">Liste des consultants</a>
 
 
-						<a class="dropdown-item" href="{{ path('app_job_index')}}">Valider une annonce</a>
+						</div>
+					</li>
+				{% endif %}
 
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="{{ path('app_candidature_index')}}">Valider une candidature + email au recruteur</a>
-
-						{# <div class="dropdown-divider"></div>
-																																																<a class="dropdown-item" href="{{ path('app_consultant_new')}}">Compléter mon profil</a> #}
-
-
-					</div>
-				</li>
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="{{ path('app_register_consultant')}}">Créer un consultant</a>
-						<div class="dropdown-divider"></div>
-
-						<a class="dropdown-item" href="{{ path('app_consultant_new')}}">Compléter et confirmer le profil consultant</a>
-
-						<a class="dropdown-item" href="{{ path('app_consultant_index')}}">Liste des consultants</a>
-
-
-					</div>
-				</li>
 
 			</ul>
 			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -113,10 +132,10 @@
 				{% endif %}
 			</ul>
 
-			<form class="d-flex">
-				<input class="form-control me-sm-2" type="text" placeholder="Search">
-				<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-			</form>
+			{# <form class="d-flex">
+																<input class="form-control me-sm-2" type="text" placeholder="Search">
+																<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+															</form> #}
 		</div>
 	</div>
 </nav>

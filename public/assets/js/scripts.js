@@ -1,0 +1,1 @@
+let modal = new Modal('#modale-contact');

@@ -1,51 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Candidature index
+{% block title %}Liste des annonces
 {% endblock %}
 
 {% block body %}
-	<div class="container mt-4">
-		<h1>Valider un candidat à une annonce</h1>
 
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>Nom du candidat</th>
-					<th>Nom de l'annonce</th>
-					<th>Etat de validation</th>
-					<th>actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for candidature in candidatures %}
-					<tr>
-						<td>{{ candidature.id }}</td>
+	{% if app.user %}
+		{% if is_granted('ROLE_CONSULTANT') %}
 
+			<div class="container mt-4">
+				<h1>Valider un candidat à une annonce</h1>
 
-						<td>{{ candidature.user.candidate.lastname }}</td>
-
-
-						<td>{{ candidature.job.title }}</td>
-
-						<td>{{ candidature.isValided ? 'Oui' : 'Non' }}</td>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Nom du candidat</th>
+							<th>Nom de l'annonce</th>
+							<th>Etat de validation</th>
+							<th>actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for candidature in candidatures %}
+							<tr>
+								<td>{{ candidature.id }}</td>
 
 
-						<td>
-							<a href="{{ path('app_candidature_show', {'id': candidature.id}) }}">Voir</a>
-							<a href="{{ path('app_candidature_edit', {'id': candidature.id}) }}">Valider</a>
-						</td>
-					</tr>
-				{% else %}
-					<tr>
-						<td colspan="2">Pas de candidature</td>
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
+								<td>{{ candidature.user.candidate.lastname }}</td>
 
-		{# <a href="{{ path('app_candidature_new') }}">Create new</a> #}
-	</div>
 
+								<td>{{ candidature.job.title }}</td>
+
+								<td>{{ candidature.isValided ? 'Oui' : 'Non' }}</td>
+
+
+								<td>
+									<a href="{{ path('app_candidature_show', {'id': candidature.id}) }}">Voir</a>
+									<a href="{{ path('app_candidature_edit', {'id': candidature.id}) }}">Valider</a>
+								</td>
+							</tr>
+						{% else %}
+							<tr>
+								<td colspan="2">Pas de candidature</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+
+				{# <a href="{{ path('app_candidature_new') }}">Create new</a> #}
+			</div>
+		{% endif %}
+
+	{% endif %}
 
 {% endblock %}

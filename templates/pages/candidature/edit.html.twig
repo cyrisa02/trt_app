@@ -88,13 +88,45 @@
 
 			</div>
 		</div>
+		<!-- Button trigger modal -->
+
+		<button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+			Contacter le recruteur
+		</button>
 
 
 		{{ form_widget(form) }}<button class="btn btn-secondary btn-lg mt-4">{{ button_label|default('Enregistrer vos modifications') }}</button>
 		{{ form_end(form) }}
 		{# {{ include('pages/candidature/_form.html.twig', {'button_label': 'Update'}) }} #}
 
+
 		<a class="btn btn-secondary btn-lg mt-4" href="{{ path('app_candidature_index') }}">Retour à la liste</a>
 
-		{{ include('pages/candidature/_delete_form.html.twig') }}</div>
+		{{ include('pages/candidature/_delete_form.html.twig') }}
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Contacter le recruteur</h5>
+						<div class="divider"></div>
+						{{ form_start(form) }}
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						...
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+						<button type="button" class="btn btn-primary">Envoyer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
 {% endblock %}

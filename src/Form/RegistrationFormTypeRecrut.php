@@ -30,9 +30,10 @@ class RegistrationFormTypeRecrut extends AbstractType
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Vous devez être d\'accord avec nos conditions.',
                     ]),
                 ],
+                'label' => 'Etes-vous d\'accord avec nos conditions RGPD? '
             ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,

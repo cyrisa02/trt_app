@@ -4,32 +4,37 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container mt-4">
-		<h1>Confirmation de vos informations personnelles</h1>
-		<h3>Maintenant que vous avez reçu notre accord, merci de compléter votre dossier.</h3>
+	{% if  form.isValided == true  %}
 
-		{{ form_start(form) }}
 
-		<div class="form-group d-none">
-			{{ form_label(form.isValided) }}
-			{{ form_widget(form.isValided) }}
+		<div class="container mt-4">
+			<h1>Confirmation de vos informations personnelles</h1>
+			<h3>Maintenant que vous avez reçu notre accord, merci de compléter votre dossier.</h3>
 
-			<div class="form-error">
-				{{ form_errors(form.isValided) }}
+			{{ form_start(form) }}
 
+			<div class="form-group d-none">
+				{{ form_label(form.isValided) }}
+				{{ form_widget(form.isValided) }}
+
+				<div class="form-error">
+					{{ form_errors(form.isValided) }}
+
+				</div>
 			</div>
+
+
+			{{ form_widget(form) }}
+			<button class="btn btn-secondary btn-lg mt-4">{{ button_label|default('Sauvegarder') }}</button>
+
+			{{ form_end(form) }}
+
+
+			{# {{ include('pages/recruiter/_form.html.twig') }} #}
+
+			<a href="{{ path('home.index') }}">Retour à l'accueil</a>
 		</div>
+	{% endif %}
 
-
-		{{ form_widget(form) }}
-		<button class="btn btn-secondary btn-lg mt-4">{{ button_label|default('Sauvegarder') }}</button>
-
-		{{ form_end(form) }}
-
-
-		{# {{ include('pages/recruiter/_form.html.twig') }} #}
-
-		<a href="{{ path('home.index') }}">Retour à l'accueil</a>
-	</div>
 
 {% endblock %}

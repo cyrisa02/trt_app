@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Job;
+use App\Entity\Recruiter;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -40,7 +42,15 @@ class JobType extends AbstractType
                 'required' => false,
                 'label' => 'Validation de l\'annonce.'
             ])
-           // ->add('recruiter')
+            ->add('recruiter', EntityType::class, [
+                'class'=>Recruiter::class,
+                'placeholder'=>'Reconfirmer votre nom par rapport à la liste',
+                'attr' => [
+                    'class' => 'form-control '
+                ],
+                'label' => 'Merci de confirmer votre  nom. ',
+                
+            ])
         ;
     }
 

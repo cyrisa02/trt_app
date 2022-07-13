@@ -43,6 +43,9 @@
 
 											<h4 class="card-title">{{ job.title}}
 											</h4>
+											<p class="card-text">{{ job.workPlace }}</p>
+
+
 											<p class="card-text">{{ job.description }}</p>
 
 											<a class="btn btn-primary btn-lg row my-2" href="{{path('app_candidature_new')}}" role="button">Postuler</a>
@@ -56,7 +59,8 @@
 						{% endfor %}
 					</div>
 				</div>
-			{% elseif is_granted('ROLE_CONSULTANT')  %}
+			{% elseif is_granted('ROLE_CONSULTANT') or is_granted('ROLE_RECRUITER') %}
+
 
 				<table class="table">
 					<thead>

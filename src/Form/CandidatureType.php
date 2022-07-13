@@ -29,11 +29,7 @@ class CandidatureType extends AbstractType
                 'placeholder'=>'Choisissez votre annonce dans la liste',
 
             ])
-            ->add('isValided',CheckboxType::class, [
-                //'mapped' => true,
-                'required' => false,
-                'label' => 'En tant que consultant vous pouvez valider cette candidature.'
-            ])
+            
 
             ->add('user',EntityType::class, [
                 'class' => User::class,
@@ -46,6 +42,11 @@ class CandidatureType extends AbstractType
                 ],
                 'placeholder'=>'Choisissez votre email dans la liste',
 
+            ])
+            ->add('isValided',CheckboxType::class, [
+                //'mapped' => true,
+                'required' => false,
+                'label' => 'Confirmez votre choix.'
             ])
         ;
     }

@@ -18,6 +18,8 @@
 					<thead>
 						<tr>
 							<th>Id</th>
+							<th>Nom du recruteur</th>
+
 							<th>Nom du candidat</th>
 							<th>Nom de l'annonce</th>
 							<th>Etat de validation</th>
@@ -31,6 +33,7 @@
 
 									<td>{{ candidature.id }}</td>
 
+									<td>{{ candidature.job.recruiter.lastname }}</td>
 
 									<td>{{ candidature.user.candidate.lastname }}</td>
 
@@ -63,6 +66,8 @@
 					<thead>
 						<tr>
 							<th>Id</th>
+							<th>Nom du recruteur</th>
+
 							<th>Nom du candidat</th>
 							<th>Nom de l'annonce</th>
 							<th>Etat de validation</th>
@@ -75,6 +80,8 @@
 								{% if candidature.isValided == 1 %}
 
 									<td>{{ candidature.id }}</td>
+
+									<td>{{ candidature.job.recruiter.lastname }}</td>
 
 
 									<td>{{ candidature.user.candidate.lastname }}</td>

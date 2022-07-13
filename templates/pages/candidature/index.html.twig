@@ -109,6 +109,17 @@
 
 
 			</div>
+
+		{% elseif is_granted('ROLE_CANDIDATE')  %}
+			<div class="container mt-4">
+				<p>Merci pour votre intérêt. Nous reviendrons vers vous dès l'analyse de votre candidature.</p>
+
+				<a class=" btn btn-secondary btn-lg mt-4" href="{{ path('home.index')}}">Retour à l'accueil</a>
+
+
+			</div>
+
+
 		{% endif %}
 
 	{% endif %}

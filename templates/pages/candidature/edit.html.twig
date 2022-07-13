@@ -15,7 +15,6 @@
 					<th>
 						<h2>Nom du candidat:
 							{{ candidature.user.candidate.lastname }}</h2>
-
 					</th>
 
 				</tr>
@@ -23,8 +22,6 @@
 					<th>
 						<h4>Prénom:
 							{{ candidature.user.candidate.firstname }}</h4>
-
-
 					</th>
 
 				</tr>
@@ -62,6 +59,9 @@
 			{{ candidature.job.recruiter.firmName }}</h3>
 		<h3>Nom du recruteur:
 			{{ candidature.job.recruiter.lastname }}</h3>
+		<h3>Adresse Mail du recruteur:
+			{{ candidature.job.recruiter.email }}</h3>
+
 		{{ form_start(form) }}<div class="form-group d-none">
 			{{ form_label(form.job) }}
 			{{ form_widget(form.job) }}
@@ -90,9 +90,9 @@
 		</div>
 		<!-- Button trigger modal -->
 
-		<button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
-			Contacter le recruteur
-		</button>
+		{# <button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+					Contacter le recruteur
+				</button> #}
 
 
 		{{ form_widget(form) }}<button class="btn btn-secondary btn-lg mt-4">{{ button_label|default('Enregistrer vos modifications') }}</button>
@@ -102,7 +102,7 @@
 
 		<a class="btn btn-secondary btn-lg mt-4" href="{{ path('app_candidature_index') }}">Retour à la liste</a>
 
-		{{ include('pages/candidature/_delete_form.html.twig') }}
+		{# {{ include('pages/candidature/_delete_form.html.twig') }} #}
 
 
 		<!-- Modal -->

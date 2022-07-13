@@ -25,9 +25,20 @@
 
 	</head>
 	<body>
+
+
 		{% block header %}
 			{% include "partials/_header.html.twig" %}
 		{% endblock %}
+
+		<div class="container">
+			{% for message in app.flashes('success') %}
+				<span id="alert" class="alert alert-success d-inline">
+					{{ message }}
+				</span>
+			{% endfor %}
+		</div>
+
 
 		{% block body %}{% endblock %}
 		{% include "partials/_footer.html.twig" %}

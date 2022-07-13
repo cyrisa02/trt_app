@@ -3,16 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Candidature;
-use App\Form\CandidatureType;
 use App\Form\JobContactType;
-use App\Repository\CandidatureRepository;
-use App\Repository\UserRepository;
+use App\Form\CandidatureType;
 use App\Service\MailerService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Mime\Email;
+use App\Repository\UserRepository;
+use App\Repository\CandidatureRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Mailer\MailerInterface;
 
 #[Route('/candidature')]
 class CandidatureController extends AbstractController
@@ -35,7 +37,9 @@ class CandidatureController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $candidatureRepository->add($candidature, true);
-
+            
+        $this->addFlash('success', 'Entité bien créée');
+        
             return $this->redirectToRoute('app_candidature_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -54,7 +58,7 @@ class CandidatureController extends AbstractController
     }
 
     #[Route('/{id}/edition', name: 'app_candidature_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Candidature $candidature, CandidatureRepository $candidatureRepository, MailerService $mailer ): Response
+    public function edit(Request $request, Candidature $candidature, CandidatureRepository $candidatureRepository, MailerInterface $mailer ): Response
     {
         $form = $this->createForm(CandidatureType::class, $candidature);
         $form->handleRequest($request);
@@ -63,12 +67,26 @@ class CandidatureController extends AbstractController
             $candidatureRepository->add($candidature, true);
            // $mailMessage = $candidature->getUser;
            $mailMessage='coucou';
-            $mailer->sendEmail(content: $mailMessage);
+          //  $mailer->sendEmail(content: $mailMessage);
+          $email = (new Email())
+        ->from('cyril.gourdon.02@gmail.com')
+        ->to('atelier.cabriolet@gmail.com')
+        //->cc('cc@example.com')
+        //->bcc('bcc@example.com')
+        //->replyTo('fabien@example.com')
+        //->priority(Email::PRIORITY_HIGH)
+        ->subject('sujet')
+        ->text('Sending emails is fun again! Voir formation studi pour télécharger des documents');
+
+
+        $mailer->send($email);
+
+        $this->addFlash('success', 'Votre message a été envoyé');
+
 
             return $this->redirectToRoute('app_candidature_index', [], Response::HTTP_SEE_OTHER);
         }
-
-       
+    
 
         return $this->renderForm('pages/candidature/edit.html.twig', [
             'candidature' => $candidature,

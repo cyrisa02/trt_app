@@ -31,33 +31,26 @@
 			</thead>
 			{{ app.user}}
 			{% for candidate in candidates %}
-				<tbody>
-
-					{% for candidature in candidate.candidatures %}
-
-						{% for job in candidature.jobs %}
-
-
-							{% for recruiter in job.recruiters %}
-
+				{% for candidature in candidatures %}
+					{% for job in jobs %}
+						<tbody>
+							{% for recruiter in recruiters %}
 								<tr>
 									<td>{{ candidate.id }}</td>
 									<td>{{ candidate.lastname }}</td>
 									<td>{{ candidate.firstname }}</td>
 									<td>{{ candidate.cvName }}</td>
 									<td>{{ candidate.isValided ? 'Oui' : 'Non' }}</td>
-									<td>{{ recruiter.email}}</td>
+									<td>{{ candidature.job.recruiter.email}}</td>
 									<td>
 										<a href="{{ path('app_candidate_show', {'id': candidate.id}) }}">
 											Voir la candidature</a>
 									</td>
 								</tr>
 							{% endfor %}
-
-						{% endfor %}
+						</tbody>
 					{% endfor %}
-				</tbody>
-
+				{% endfor %}
 			{% endfor %}
 
 			{# <a href="{{ path('app_candidate_edit', {'id': candidate.id}) }}">edit</a> #}
@@ -65,7 +58,7 @@
 
 		{# {% else %} #}
 			{# <tr>
-																																																																																																																																																		<td colspan="7">no records found</td>
-																																																																																																																																																	</tr> #}
+																																																																																																																							<td colspan="7">no records found</td>
+																																																																																																																						</tr> #}
 		</table>{# {% endif %} #}</div>
 {% endblock %}

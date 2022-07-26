@@ -4,21 +4,31 @@ namespace App\Controller;
 
 use App\Entity\Candidate;
 use App\Form\CandidateType;
+use App\Repository\JobRepository;
+use App\Repository\UserRepository;
 use App\Repository\CandidateRepository;
+use App\Repository\RecruiterRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\CandidatureRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/candidat')]
 class CandidateController extends AbstractController
 {
     #[Route('/', name: 'app_candidate_index', methods: ['GET'])]
-    public function index(CandidateRepository $candidateRepository): Response
+    public function index(CandidateRepository $candidateRepository, CandidatureRepository $candidatureRepository, JobRepository $jobRepository, RecruiterRepository $recruiterRepository): Response
     {
         return $this->render('pages/candidate/index.html.twig', [
             'candidates' => $candidateRepository->findAll(),
+            'candidatures' =>
+            $candidatureRepository->findAll(),
+            'jobs'=>
+            $jobRepository->findAll(),
+            'recruiters'=> $recruiterRepository->findAll(),
+
         ]);
     }
 

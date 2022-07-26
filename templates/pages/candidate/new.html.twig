@@ -4,32 +4,46 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container mt-4">
-		<h1>Confirmation de vos informations personnelles</h1>
-		<h3>Maintenant que vous avez reçu notre accord, merci de compléter votre dossier.</h3>
+	{% if app.user %}
+		{% if is_granted('ROLE_CANDIDATE') %}
 
-		{# {{ include('pages/candidate/_form.html.twig') }} #}
-
-
-		{{ form_start(form) }}
+			{# {% if  app.user.candidate.isValided == false  %} #}
 
 
-		<div class="form-group d-none">
-			{{ form_label(form.isValided) }}
-			{{ form_widget(form.isValided) }}
-			<div class="form-error">
-				{{ form_errors(form.isValided) }}
+			<div class="container mt-4">
+				<h1>Confirmation de vos informations personnelles</h1>
+				<h3>Maintenant que vous avez reçu notre accord, merci de compléter votre dossier.</h3>
+
+				{# {{ include('pages/candidate/_form.html.twig') }} #}
+
+
+				{{ form_start(form) }}
+
+
+				<div class="form-group d-none">
+					{{ form_label(form.isValided) }}
+					{{ form_widget(form.isValided) }}
+					<div class="form-error">
+						{{ form_errors(form.isValided) }}
+					</div>
+				</div>
+
+
+				{{ form_widget(form) }}
+				<button class="btn btn-secondary btn-lg mt-4">{{ button_label|default('Valider') }}</button>
+
+				{{ form_end(form) }}
+
+
+				<a href="{{ path('home.index') }}">Retour à l'accueil</a>
 			</div>
-		</div>
+			{# {% else %}
+							<div class="container mt-4">
+								<p>Vous êtes déjà validé par un consultant. Vous pouvez créer vos annonces, consulter vos annonces et vos candidats.</p>
+							</div>
+						{% endif %} #}
 
-
-		{{ form_widget(form) }}
-		<button class="btn btn-secondary btn-lg mt-4">{{ button_label|default('Valider') }}</button>
-
-		{{ form_end(form) }}
-
-
-		<a href="{{ path('home.index') }}">Retour à l'accueil</a>
-	</div>
+		{% endif %}
+	{% endif %}
 
 {% endblock %}

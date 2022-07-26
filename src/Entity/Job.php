@@ -33,6 +33,12 @@ class Job
     #[ORM\OneToMany(mappedBy: 'job', targetEntity: Candidature::class)]
     private $candidatures;
 
+    #[ORM\Column(type: 'string', length: 190, nullable: true)]
+    private $schedule;
+
+    #[ORM\Column(type: 'string', length: 190, nullable: true)]
+    private $salary;
+
     public function __construct()
     {
         $this->candidatures = new ArrayCollection();
@@ -129,6 +135,30 @@ class Job
                 $candidature->setJob(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSchedule(): ?string
+    {
+        return $this->schedule;
+    }
+
+    public function setSchedule(?string $schedule): self
+    {
+        $this->schedule = $schedule;
+
+        return $this;
+    }
+
+    public function getSalary(): ?string
+    {
+        return $this->salary;
+    }
+
+    public function setSalary(?string $salary): self
+    {
+        $this->salary = $salary;
 
         return $this;
     }

@@ -34,7 +34,21 @@ class JobType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Description, renseignez le salaire et les horaires '
+                'label' => 'Description du poste '
+
+            ])
+            ->add('schedule',TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Renseignez  les horaires '
+
+            ])
+            ->add('salary',TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Renseignez le salaire annuel '
 
             ])
             ->add('isVisible',CheckboxType::class, [

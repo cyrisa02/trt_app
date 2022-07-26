@@ -38,7 +38,7 @@ class CandidatureController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $candidatureRepository->add($candidature, true);
             
-        $this->addFlash('success', 'Entité bien créée');
+        $this->addFlash('success', 'Votre candidature a été envoyée avec succès');
         
             return $this->redirectToRoute('app_candidature_index', [], Response::HTTP_SEE_OTHER);
         }

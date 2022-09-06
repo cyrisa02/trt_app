@@ -71,10 +71,12 @@ class CandidatureController extends AbstractController
           $email = (new Email())
         ->from('cyril.gourdon.02@gmail.com')
         ->to('atelier.cabriolet@gmail.com')
+        //addTo('ajouterunenvelleadresse@gmail.com)
         //->cc('cc@example.com')
         //->bcc('bcc@example.com')
-        //->replyTo('fabien@example.com')
+        //->replyTo('fabien@example.com') si on veut une autre adresse de réception des réponse
         //->priority(Email::PRIORITY_HIGH)
+        
         ->subject('sujet')
         ->text('Sending emails is fun again! Voir formation studi pour télécharger des documents');
 

@@ -33,9 +33,15 @@
 
 		<div class="container">
 			{% for message in app.flashes('success') %}
-				<span id="alert" class="alert alert-success d-inline">
+				<div class="alert alert-success mt-4">
 					{{ message }}
-				</span>
+				</div>
+			{% endfor %}
+
+			{% for message in app.flashes('danger') %}
+				<div class="alert alert-success mt-4">
+					{{ message }}
+				</div>
 			{% endfor %}
 		</div>
 

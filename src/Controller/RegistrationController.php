@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Consultant;
 use App\Entity\Recruiter;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
@@ -84,6 +85,9 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
+    /**
+    * Create the user as consultant
+    */
 
     #[Route('/inscription_consultant', name: 'app_register_consultant')]
     public function register3(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
@@ -93,6 +97,16 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+        // incrémentation de sa clé primaire du consultant
+            $consultant = new Consultant();
+            // On récupère la saisie des champs nom, prénom et téléphone    
+            $consultant->setLastname($form->get('lastname')->getData())
+            ->setFirstname($form->get('firstname')->getData())
+            ->setTel($form->get('tel')->getData());
+
+             //vient chercher la clé étrangère  ne pas oublier de persister   
+            $user->setConsultant($consultant);
+
             $user->setRoles(["ROLE_CONSULTANT"])
             // encode the plain password
                 ->setPassword(
@@ -101,10 +115,16 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            
+            //Important pour la relation OneToOne - Héritage
+            $entityManager->persist($consultant);
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
+            $this->addFlash(
+                'success',
+                'Votre demande a été enregistrée avec succès'
+            );
 
             return $userAuthenticator->authenticateUser(
                 $user,

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		{# Template Email for the answer after the validation by the consultant #}
+		<h1>La canditature au poste de:
+			{{ candidature.job.title }}</h1>
+
+		<h3>par
+			{{ candidature.user.candidate.firstname}}
+			{{ candidature.user.candidate.lastname}},</h3>
+
+		<p>a été étudié par nos soins.</p>
+
+		<div>
+			<p>Le  statut de cette candidature a changé, il est maintenant:
+				{{ candidature.isValided ? 'Actif' : 'Désactivé' }}
+
+			</p>
+
+
+			<p>Cordialement</p>
+			<p>L'équipe TRT Conseil.</p>
+
+
+		</div>
+
+	</body>
+</html>

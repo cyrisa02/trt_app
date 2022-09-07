@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 #[Route('/candidature')]
 class CandidatureController extends AbstractController
@@ -68,17 +69,29 @@ class CandidatureController extends AbstractController
            // $mailMessage = $candidature->getUser;
            $mailMessage='coucou';
           //  $mailer->sendEmail(content: $mailMessage);
-          $email = (new Email())
+          $email = (new TemplatedEmail())
         ->from('cyril.gourdon.02@gmail.com')
-        ->to('atelier.cabriolet@gmail.com')
+        ->to('cyrisa02.test@gmail.com')
+        // code pour avoir accès à l'adresse test:    1970studi!
+        // 
+        //Pour le recruteur il faut envoyer
+        //->to($candidature->getUser()->getRecruiter()->getEmail())// à mettre en place pour la production 
+       // ->attach(fopen($candidature->getUser()->getCandidate()->getCvName()))
+
+
+        ///
         //addTo('ajouterunenvelleadresse@gmail.com)
         //->cc('cc@example.com')
         //->bcc('bcc@example.com')
         //->replyTo('fabien@example.com') si on veut une autre adresse de réception des réponse
         //->priority(Email::PRIORITY_HIGH)
         
-        ->subject('sujet')
-        ->text('Sending emails is fun again! Voir formation studi pour télécharger des documents');
+        ->subject('Modification du statut de candidature')
+       //->text('Vvotre candidature a été validée');
+       ->htmlTemplate('emails/candidatureanswer.html.twig')
+        ->context([
+            'candidature'=>$candidature
+        ]);
 
 
         $mailer->send($email);

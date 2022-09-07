@@ -66,68 +66,7 @@
 			</table>
 
 			{# <a href="{{ path('app_recruiter_new') }}">Create new</a> #}
-			<div>
-				<h2>Voici la liste des recruteurs déjà validés</h2>
-			</div>
 
+		{% endif %}
 
-			<table class="table">
-				<thead>
-					<tr>
-						<th>N°</th>
-						<th>Nom</th>
-						<th>Prénom</th>
-						<th>Nom de la société</th>
-						<th>Adresse</th>
-						<th>Code postal</th>
-						<th>Ville</th>
-						<th>Etat de validation</th>
-						{# <th>IsRGPD</th> #}
-						<th>actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for recruiter in recruiters %}
-						<tr>
-							{% if recruiter.isValided == 1 %}
-
-								<td>{{ recruiter.id }}</td>
-								<td>{{ recruiter.lastname }}</td>
-								<td>{{ recruiter.firstname }}</td>
-								<td>{{ recruiter.firmName }}</td>
-								<td>{{ recruiter.addressFirm }}</td>
-								<td>{{ recruiter.zipcode }}</td>
-								<td>{{ recruiter.city }}</td>
-								<td>{{ recruiter.isValided ? 'Oui' : 'Non' }}</td>
-								{# <td>{{ recruiter.isRGPD ? 'Yes' : 'No' }}</td> #}
-								<td>
-									<a href="{{ path('app_recruiter_show', {'id': recruiter.id}) }}">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewbox="0 0 16 16">
-											<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-											<path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-										</svg>
-									</a>
-
-									<a href="{{ path('app_recruiter_edit', {'id': recruiter.id}) }}">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-square-fill" viewbox="0 0 16 16">
-											<path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/>
-										</svg>
-									</a>
-
-
-								</td>
-							{% endif %}
-
-						</tr>
-					{% else %}
-						<tr>
-							<td colspan="10">Aucun recruteur</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-
-		</div>
-	{% endif %}
-
-{% endblock %}
+	{% endblock %}

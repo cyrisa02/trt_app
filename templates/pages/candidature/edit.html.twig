@@ -7,7 +7,7 @@
 	<div class="container mt-4">
 
 		<div class="mx-auto mt-4" style="width: 800px;">
-			<h1>Validation Candidature</h1>
+			<h1>Validation de Candidature</h1>
 		</div>
 		<table class="table">
 			<tbody>
@@ -28,6 +28,7 @@
 			</tbody>
 		</table>
 		<a type="button" class="btn btn-secondary btn-lg m-4" href="{{ asset('/uploads/') }}{{ candidature.user.candidate.cvName }}">Voir le CV du candidat</a>
+		<hr class="my-4">
 
 		<table class="table">
 			<tbody>
@@ -53,14 +54,16 @@
 
 			</tbody>
 		</table>
+		<hr class="my-4">
 
 
-		<h3>Nom de l'entreprise recruteur:
-			{{ candidature.job.recruiter.firmName }}</h3>
-		<h3>Nom du recruteur:
-			{{ candidature.job.recruiter.lastname }}</h3>
-		<h3>Adresse Mail du recruteur:
-			{{ candidature.job.recruiter.email }}</h3>
+		<h4>Nom de l'entreprise recruteur:
+			{{ candidature.job.recruiter.firmName }}</h4>
+		<h4>Nom du recruteur:
+			{{ candidature.job.recruiter.lastname }}</h4>
+		<h4>Adresse Mail du recruteur:
+			{{ candidature.job.recruiter.email }}</h4>
+		<hr class="my-4">
 
 		{{ form_start(form) }}<div class="form-group d-none">
 			{{ form_label(form.job) }}
@@ -91,8 +94,8 @@
 		<!-- Button trigger modal -->
 
 		{# <button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
-					Contacter le recruteur
-				</button> #}
+															Contacter le recruteur
+														</button> #}
 
 
 		{{ form_widget(form) }}<button class="btn btn-secondary btn-lg mt-4">{{ button_label|default('Enregistrer vos modifications') }}</button>

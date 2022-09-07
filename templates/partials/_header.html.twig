@@ -60,21 +60,45 @@
 
 					{% elseif is_granted('ROLE_CONSULTANT')  %}
 
+						<li class="nav-item">
+							<a class="nav-link active" href="{{ path('app_recruitertovalid_index')}}">Liste des recruteurs à valider
+								<span class="visually-hidden">(current)</span>
+							</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link active" href="{{ path('app_candidatetovalid_index')}}">Liste des candidats à valider
+								<span class="visually-hidden">(current)</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="{{ path('app_jobtovalid_index')}}">Liste des annonces à valider
+
+								<span class="visually-hidden">(current)</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="{{ path('app_candidature_index')}}">Valider une candidature + email au recruteur
+								<span class="visually-hidden">(current)</span>
+							</a>
+						</li>
+
 
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Consultant</a>
+							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Listes</a>
 							<div class="dropdown-menu">
-								<a class="dropdown-item" href="{{ path('app_recruiter_index')}}">Valider le profil d'un  recruteur</a>
-								<a class="dropdown-item" href="{{ path('app_candidate_consult_index')}}">Valider le profil d'un candidat</a>
+								<a class="dropdown-item" href="{{ path('app_recruiter_index')}}">Liste  des recruteurs
+								</a>
+								<a class="dropdown-item" href="{{ path('app_candidate_consult_index')}}">Liste des candidats</a>
 
 
-								<a class="dropdown-item" href="{{ path('app_job_index')}}">Valider une annonce</a>
+								<a class="dropdown-item" href="{{ path('app_job_index')}}">Liste des annonces</a>
 
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="{{ path('app_candidature_index')}}">Valider une candidature + email au recruteur</a>
 
 								{# <div class="dropdown-divider"></div>
-																																																																																																																																																																															<a class="dropdown-item" href="{{ path('app_consultant_new')}}">Compléter mon profil</a> #}
+																																																																																																																																																																																																																																																																																							<a class="dropdown-item" href="{{ path('app_consultant_new')}}">Compléter mon profil</a> #}
 
 
 							</div>
@@ -99,19 +123,6 @@
 					</li>
 
 
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="{{ path('app_register_consultant')}}">Créer un consultant</a>
-							<div class="dropdown-divider"></div>
-
-							{# <a class="dropdown-item" href="{{ path('app_consultant_new')}}">Compléter et confirmer le profil consultant</a> #}
-
-							<a class="dropdown-item" href="{{ path('app_consultant_index')}}">Liste des consultants</a>
-
-
-						</div>
-					</li>
 				{% endif %}
 
 
@@ -149,9 +160,9 @@
 			</ul>
 
 			{# <form class="d-flex">
-																																					<input class="form-control me-sm-2" type="text" placeholder="Search">
-																																					<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-																																				</form> #}
+																																																																												<input class="form-control me-sm-2" type="text" placeholder="Search">
+																																																																												<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+																																																																											</form> #}
 		</div>
 	</div>
 </nav>

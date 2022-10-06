@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Candidate;
 use App\Form\CandidateType;
+use App\Form\CandidateSelfType;
 use App\Repository\JobRepository;
 use App\Repository\UserRepository;
 use App\Repository\CandidateRepository;
@@ -131,11 +132,33 @@ public function add(EntityManagerInterface $manager, Request $request, Candidate
             return $this->redirectToRoute('app_candidate_index', [], Response::HTTP_SEE_OTHER);
         }
 
+
         return $this->renderForm('pages/candidate/edit.html.twig', [
             'candidate' => $candidate,
             'form' => $form,
         ]);
     }
+
+
+    #[Route('/{id}/edition_candidat', name: 'app_candidateself_edit', methods: ['GET', 'POST'])]
+    public function editself(Request $request, Candidate $candidate, CandidateRepository $candidateRepository): Response
+    {
+        $form = $this->createForm(CandidateSelfType::class, $candidate);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $candidateRepository->add($candidate, true);
+
+            return $this->redirectToRoute('home.index', [], Response::HTTP_SEE_OTHER);
+        }
+        
+
+        return $this->renderForm('pages/candidate/editself.html.twig', [
+            'candidate' => $candidate,
+            'form' => $form,
+        ]);
+    }
+
 
     #[Route('/{id}', name: 'app_candidate_delete', methods: ['POST'])]
     public function delete(Request $request, Candidate $candidate, CandidateRepository $candidateRepository): Response

@@ -7,45 +7,45 @@
 	{% if app.user %}
 		{% if is_granted('ROLE_CANDIDATE') %}
 
-			{% if  app.user.candidate.isValided == false  %}
+			{# {% if  app.user.candidate.isValided == true  %} #}
 
 
-				<div class="container mt-4">
-					<h1>Confirmation de vos informations personnelles</h1>
-					<h3>Afin de valider votre candidature , merci de compléter votre dossier.</h3>
+			<div class="container mt-4">
+				<h1>Confirmation de vos informations personnelles</h1>
+				<h3>Afin de valider votre candidature , merci de compléter votre dossier.</h3>
 
-					{# {{ include('pages/candidate/_form.html.twig') }} #}
-
-
-					{{ form_start(form) }}
+				{# {{ include('pages/candidate/_form.html.twig') }} #}
 
 
-					<div class="form-group d-none">
-						{{ form_label(form.isValided) }}
-						{{ form_widget(form.isValided) }}
-						<div class="form-error">
-							{{ form_errors(form.isValided) }}
-						</div>
+				{{ form_start(form) }}
+
+
+				<div class="form-group d-none">
+					{{ form_label(form.isValided) }}
+					{{ form_widget(form.isValided) }}
+					<div class="form-error">
+						{{ form_errors(form.isValided) }}
 					</div>
-
-
-					{{ form_widget(form) }}
-					<button class="btn btn-secondary btn-lg mt-4">{{ button_label|default('Valider') }}</button>
-
-					{{ form_end(form) }}
-
-					<div class="mt-4 container">
-						<a href="{{ path('home.index') }}">Retour à l'accueil</a>
-					</div>
-
-
-				</div>
-			{% else %}
-				<div class="container mt-4">
-					<p>Vous êtes déjà validé(e) par un consultant. Vous pouvez consulter vos annonces.</p>
 				</div>
 
-			{% endif %}
+
+				{{ form_widget(form) }}
+				<button class="btn btn-secondary btn-lg mt-4">{{ button_label|default('Valider') }}</button>
+
+				{{ form_end(form) }}
+
+				<div class="mt-4 container">
+					<a href="{{ path('home.index') }}">Retour à l'accueil</a>
+				</div>
+
+
+			</div>
+		{% else %}
+			<div class="container mt-4">
+				<p>Vous êtes déjà validé(e) par un consultant. Vous pouvez consulter vos annonces.</p>
+			</div>
+
+			{# {% endif %} #}
 
 		{% endif %}
 	{% endif %}

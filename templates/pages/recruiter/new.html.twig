@@ -6,10 +6,14 @@
 {% block body %}
 	{% if app.user %}
 		{% if is_granted('ROLE_RECRUITER') %}
+			<div class="container mt-4">
+				<p>Bonjour
+					{{ app.user.recruiter.firstname }}
+					{{ app.user.recruiter.lastname }}
 
-			<p>Hello</p>
+				</p>
+			</div>
 
-			{{ app.user.recruiter.isValided }}
 
 			{% if  app.user.recruiter.isValided == false  %}
 

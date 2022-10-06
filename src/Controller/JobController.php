@@ -30,8 +30,9 @@ class JobController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $jobRepository->add($job, true);
+             $this->addFlash('success', 'Votre demande a été enregistrée avec succès');
 
-            return $this->redirectToRoute('app_job_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('home.index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('pages/job/new.html.twig', [
@@ -56,6 +57,7 @@ class JobController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $jobRepository->add($job, true);
+             $this->addFlash('success', 'Votre demande a été enregistrée avec succès');
 
             return $this->redirectToRoute('app_job_index', [], Response::HTTP_SEE_OTHER);
         }

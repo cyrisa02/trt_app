@@ -23,22 +23,33 @@
 				{% if app.user %}
 					{% if is_granted('ROLE_RECRUITER') %}
 
+						<li class="nav-item">
+							<a class="nav-link active" href="{{ path('app_job_new')}}">Créer une annonce
+
+								<span class="visually-hidden">(current)</span>
+							</a>
+						</li>
 
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Recruteur</a>
+							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Listes à gérer</a>
 							<div class="dropdown-menu">
-								<a class="dropdown-item" href="{{ path('app_job_new')}}">Créer son annonce</a>
 
 
-								<a class="dropdown-item" href="{{ path('app_candidate_index')}}">Liste des candidats</a>
+								<a class="dropdown-item" href="{{ path('app_yourcandidate_index')}}">Liste des candidats</a>
+
 								<a class="dropdown-item" href="{{ path('app_candidature_index')}}">Liste des candidats/candidature</a>
-
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="{{ path('app_recruiter_new')}}">Compléter mon profil + adresse firm</a>
 
 
 							</div>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link " href="{{ path('app_recruiter_new')}}">Compléter mon profil
+
+
+								<span class="visually-hidden">(current)</span>
+							</a>
+						</li>
+
 					{% elseif is_granted('ROLE_CANDIDATE')  %}
 
 
@@ -98,7 +109,7 @@
 								<a class="dropdown-item" href="{{ path('app_candidature_index')}}">Valider une candidature + email au recruteur</a>
 
 								{# <div class="dropdown-divider"></div>
-																																																																																																																																																																																																																																																																																							<a class="dropdown-item" href="{{ path('app_consultant_new')}}">Compléter mon profil</a> #}
+																																																																																																																																																																																																																																																																																																																																																															<a class="dropdown-item" href="{{ path('app_consultant_new')}}">Compléter mon profil</a> #}
 
 
 							</div>
@@ -160,9 +171,9 @@
 			</ul>
 
 			{# <form class="d-flex">
-																																																																												<input class="form-control me-sm-2" type="text" placeholder="Search">
-																																																																												<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-																																																																											</form> #}
+																																																																																																							<input class="form-control me-sm-2" type="text" placeholder="Search">
+																																																																																																							<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+																																																																																																						</form> #}
 		</div>
 	</div>
 </nav>

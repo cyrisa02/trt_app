@@ -59,7 +59,7 @@ class CandidatureController extends AbstractController
     }
 
     #[Route('/{id}/edition', name: 'app_candidature_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Candidature $candidature, CandidatureRepository $candidatureRepository, MailerInterface $mailer ): Response
+    public function edit(Request $request, Candidature $candidature, CandidatureRepository $candidatureRepository, MailerInterface $mailer, $repository): Response
     {
         $form = $this->createForm(CandidatureType::class, $candidature);
         $form->handleRequest($request);
@@ -69,7 +69,11 @@ class CandidatureController extends AbstractController
            // $mailMessage = $candidature->getUser;
            $mailMessage='coucou';
           //  $mailer->sendEmail(content: $mailMessage);
+
+         // $repository = $this->getDoctrine()->getRepository(Candidature::class);
+        //  $cvName = $repository->find($id);
           $email = (new TemplatedEmail())
+         
         ->from('cyril.gourdon.02@gmail.com')
         ->to('cyrisa02.test@gmail.com')
         // code pour avoir accès à l'adresse test:    1970studi!
@@ -77,6 +81,7 @@ class CandidatureController extends AbstractController
         //Pour le recruteur il faut envoyer
         //->to($candidature->getUser()->getRecruiter()->getEmail())// à mettre en place pour la production 
        // ->attach(fopen($candidature->getUser()->getCandidate()->getCvName()))
+
 
 
         ///

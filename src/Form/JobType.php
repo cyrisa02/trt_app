@@ -62,7 +62,7 @@ class JobType extends AbstractType
                 'attr' => [
                     'class' => 'form-control '
                 ],
-                'label' => 'Merci de confirmer votre  nom. ',
+                'label' => 'Merci de confirmer le nom du recruteur. ',
                 
             ])
         ;

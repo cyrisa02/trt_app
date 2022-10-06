@@ -45,7 +45,7 @@ class RegistrationFormTypeConsultant extends AbstractType
 
              ->add('firstname', TextType::class, [
                 'mapped' => false, 
-                           'label' => 'Nom de famille',
+                           'label' => 'Prénom',
                                                   
                           
                 'label_attr' => [

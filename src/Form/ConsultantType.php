@@ -38,13 +38,15 @@ class ConsultantType extends AbstractType
                 'label' => 'Téléphone'
 
             ])
-           ->add('user', EntityType::class,[
-            'class' => User::class,
-            'choice_label'=>function($email){
-                return $email->getEmail();
-            },
-            'label' => 'Recherchez son adresse mail dans la liste.    .'
-           ] )
+            
+            
+        //    ->add('user', EntityType::class,[
+        //     'class' => User::class,
+        //     'choice_label'=>function($email){
+        //         return $email->getEmail();
+        //     },
+        //     'label' => 'Recherchez son adresse mail dans la liste.    .'
+        //    ] )
             
         ;
     }

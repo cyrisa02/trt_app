@@ -2,14 +2,16 @@
 
 namespace App\Controller;
 
-use App\Entity\Consultant;
-use App\Entity\Recruiter;
+use App\Entity\Candidate;
 use App\Entity\User;
+use App\Entity\Recruiter;
+use App\Entity\Consultant;
 use App\Form\RegistrationFormType;
-use App\Form\RegistrationFormTypeConsultant;
 use App\Security\UserAuthenticator;
 use App\Form\RegistrationFormTypeRecrut;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Form\RegistrationFormTypeCandidat;
+use App\Form\RegistrationFormTypeConsultant;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,10 +26,21 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(RegistrationFormTypeCandidat::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // incrémentation de sa clé primaire du consultant
+            $candidate = new Candidate();
+// On récupère la saisie des champs nom, prénom et téléphone 
+$candidate->setLastname($form->get('lastname')->getData())->setFirstname($form->get('firstname')->getData())
+            ->setCvName($form->get('cvname')->getData())
+            ->setIsRGPD($form->get('cvname')->getData())
+            ->setIsValided(false);
+
+             //vient chercher la clé étrangère  ne pas oublier de persister   
+             $user->setCandidate($candidate);
+
             $user->setRoles(["ROLE_CANDIDATE"])
             // encode the plain password
                 ->setPassword(
@@ -36,11 +49,12 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+//Important pour la relation OneToOne - Héritage
+            $entityManager->persist($candidate);
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
-
+            $this->addFlash('success', 'Votre demande a été enregistrée avec succès');
             return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,
@@ -73,7 +87,7 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
-
+            $this->addFlash('success', 'Votre demande a été enregistrée avec succès');
             return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,

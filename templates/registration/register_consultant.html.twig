@@ -1,13 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription Recruteur
+{% block title %}Inscription consultant
 {% endblock %}
 
 {% block body %}
 	<div class="container mt-4">
 		<h1>Création d'un compte consultant.</h1>
-		<h2>Dans un premier temps, saisissez d'abord son email et un mot de passe.</h2>
-		<h3>Dans un deuxième temps, vous pourrez compléter son profil.</h3>
+
 
 		{{ form_start(registrationForm) }}
 		<div class="mt-4">{{ form_row(registrationForm.email) }}</div>
@@ -17,15 +16,23 @@
             label: 'Mot de Passe'
         }) }}</div>
 
+		<div class="mt-4">{{ form_row(registrationForm.lastname, {
+            label: 'Nom de famille'
+        }) }}</div>
 
-		{# {{ form_row(registrationForm.isRGPD) }} #}
+		<div class="mt-4">{{ form_row(registrationForm.firstname, {
+            label: 'Prénom'
+        }) }}</div>
+		<div class="mt-4">{{ form_row(registrationForm.tel, {
+            label: 'Téléphone'
+        }) }}</div>
 
+
+		<div class="container">
+			<button type="submit" class="btn btn-secondary btn-lg mt-4">Sauvegarder</button>
+		</div>
 
 		{{ form_end(registrationForm) }}</div>
-
-	<div class="container">
-		<button type="submit" class="btn btn-secondary btn-lg mt-4">Sauvegarder</button>
-	</div>
 
 
 {% endblock %}

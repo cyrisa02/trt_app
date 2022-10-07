@@ -19,20 +19,20 @@ class CandidateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('lastname',TextType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'label' => 'Nom '
+            // ->add('lastname',TextType::class, [
+            //     'attr' => [
+            //         'class' => 'form-control'
+            //     ],
+            //     'label' => 'Nom '
 
-            ])
-            ->add('firstname',TextType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'label' => 'Prénom'
+            // ])
+            // ->add('firstname',TextType::class, [
+            //     'attr' => [
+            //         'class' => 'form-control'
+            //     ],
+            //     'label' => 'Prénom'
 
-            ])
+            // ])
             //->add('cvName')
             // ->add('imageFile', VichImageType::class, [
             //     'label' => 'Merci de télécharger votre CV en pdf uniquement.',
@@ -55,10 +55,7 @@ class CandidateType extends AbstractType
                 'label' => 'Validation de ce profil'
             ])
             
-            ->add('isRGPD',CheckboxType::class, [
-                'mapped' => true,
-                'label' => 'Je suis d\'accord avec le RGPD du site'
-            ])
+           
             // ->add('user',EntityType::class, [
             //     'required' => false,
             //     'class' => User::class,

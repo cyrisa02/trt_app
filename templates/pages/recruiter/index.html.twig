@@ -31,8 +31,8 @@
 							{% if recruiter.isValided == 0 %}
 
 								<td>{{ recruiter.id }}</td>
-								<td>{{ recruiter.lastname }}</td>
-								<td>{{ recruiter.firstname }}</td>
+								<td>{{ recruiter.user.lastname }}</td>
+								<td>{{ recruiter.user.firstname }}</td>
 								<td>{{ recruiter.firmName }}</td>
 								<td>{{ recruiter.addressFirm }}</td>
 								<td>{{ recruiter.zipcode }}</td>
@@ -92,8 +92,8 @@
 							{% if recruiter.isValided == 1 %}
 
 								<td>{{ recruiter.id }}</td>
-								<td>{{ recruiter.lastname }}</td>
-								<td>{{ recruiter.firstname }}</td>
+								<td>{{ recruiter.user.lastname }}</td>
+								<td>{{ recruiter.user.firstname }}</td>
 								<td>{{ recruiter.firmName }}</td>
 								<td>{{ recruiter.addressFirm }}</td>
 								<td>{{ recruiter.zipcode }}</td>

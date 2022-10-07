@@ -15,11 +15,11 @@
 				</tr>
 				<tr>
 					<th>Nom</th>
-					<td>{{ candidate.lastname }}</td>
+					<td>{{ candidate.user.lastname }}</td>
 				</tr>
 				<tr>
 					<th>Prénom</th>
-					<td>{{ candidate.firstname }}</td>
+					<td>{{ candidate.user.firstname }}</td>
 				</tr>
 				<tr>
 					<th>CvName</th>
@@ -39,9 +39,9 @@
 					<td>{{ candidate.isValided ? 'Oui' : 'Non' }}</td>
 				</tr>
 				{# <tr>
-																																																																				<th>IsRGPD</th>
-																																																																				<td>{{ candidate.isRGPD ? 'Yes' : 'No' }}</td>
-																																																																			</tr> #}
+																																																																								<th>IsRGPD</th>
+																																																																								<td>{{ candidate.isRGPD ? 'Yes' : 'No' }}</td>
+																																																																							</tr> #}
 			</tbody>
 		</table>
 
@@ -49,8 +49,8 @@
 
 
 		{# <a href="{{ path('app_candidate_edit', {'id': candidate.id}) }}">edit</a>
-																												
-																													{{ include('pages/candidate/_delete_form.html.twig') }} #}
+																														
+																															{{ include('pages/candidate/_delete_form.html.twig') }} #}
 	</div>
 
 {% endblock %}

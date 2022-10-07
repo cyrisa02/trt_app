@@ -56,15 +56,15 @@ class JobType extends AbstractType
                 'required' => false,
                 'label' => 'Validation de l\'annonce.'
             ])
-            ->add('recruiter', EntityType::class, [
-                'class'=>Recruiter::class,
-                'placeholder'=>'Reconfirmer votre nom par rapport à la liste',
-                'attr' => [
-                    'class' => 'form-control '
-                ],
-                'label' => 'Merci de confirmer le nom du recruteur. ',
+            // ->add('recruiter', EntityType::class, [
+            //     'class'=>Recruiter::class,
+            //     'placeholder'=>'Reconfirmer votre nom par rapport à la liste',
+            //     'attr' => [
+            //         'class' => 'form-control '
+            //     ],
+            //     'label' => 'Merci de confirmer le nom du recruteur. ',
                 
-            ])
+            // ])
         ;
     }
 

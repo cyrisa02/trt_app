@@ -17,37 +17,14 @@ class ConsultantType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('lastname',TextType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'label' => 'Nom '
-
-            ])
-            ->add('firstname',TextType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'label' => 'Prénom'
-
-            ])
+            
             ->add('tel',TextType::class, [
                 'attr' => [
                     'class' => 'form-control mb-4'
                 ],
                 'label' => 'Téléphone'
 
-            ])
-            
-            
-        //    ->add('user', EntityType::class,[
-        //     'class' => User::class,
-        //     'choice_label'=>function($email){
-        //         return $email->getEmail();
-        //     },
-        //     'label' => 'Recherchez son adresse mail dans la liste.    .'
-        //    ] )
-            
+            ])           
         ;
     }
 

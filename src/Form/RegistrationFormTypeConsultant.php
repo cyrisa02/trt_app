@@ -28,7 +28,7 @@ class RegistrationFormTypeConsultant extends AbstractType
             ])
 
             ->add('lastname', TextType::class, [
-                'mapped' => false, 
+                'mapped' => true, 
                            'label' => 'Nom de famille',
                                                   
                           
@@ -44,7 +44,7 @@ class RegistrationFormTypeConsultant extends AbstractType
              ])
 
              ->add('firstname', TextType::class, [
-                'mapped' => false, 
+                'mapped' => true, 
                            'label' => 'Prénom',
                                                   
                           

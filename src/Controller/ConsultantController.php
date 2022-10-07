@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Consultant;
 use App\Form\ConsultantType;
 use App\Repository\ConsultantRepository;
+use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ConsultantController extends AbstractController
 {
     #[Route('/', name: 'app_consultant_index', methods: ['GET'])]
-    public function index(ConsultantRepository $consultantRepository, PaginatorInterface $paginator, Request $request): Response
+    public function index(ConsultantRepository $consultantRepository, PaginatorInterface $paginator, Request $request, UserRepository $userRepository): Response
     {
         $consultants = $consultantRepository->findAll();
 
@@ -28,6 +29,7 @@ class ConsultantController extends AbstractController
         
         return $this->render('pages/consultant/index.html.twig', [
             'consultants' => $consultants ,
+            'users' => $userRepository->findAll(),
         ]);
     }
 

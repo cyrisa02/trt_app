@@ -22,19 +22,25 @@
 				{% for consultant in consultants %}
 					<tr>
 						<td>{{ consultant.id }}</td>
-						<td>{{ consultant.lastname }}</td>
-						<td>{{ consultant.firstname }}</td>
+						<td>{{ consultant.user.lastname }}</td>
+						<td>{{ consultant.user.firstname }}</td>
 						<td>{{ consultant.tel }}</td>
 						<td>
 							<a href="{{ path('app_consultant_show', {'id': consultant.id}) }}">Voir</a>
-							<a href="{{ path('app_consultant_edit', {'id': consultant.id}) }}">Compléter</a>
+							<a href="{{ path('app_user_edit', {'id': consultant.user.id}) }}">Compléter</a>
+							<a href="{{ path('app_consultant_edit', {'id': consultant.id}) }}">modifier le téléphone</a>
+
 						</td>
 					</tr>
 				{% else %}
 					<tr>
 						<td colspan="5">Pas de consultants</td>
 					</tr>
+
+
 				{% endfor %}
+
+
 			</tbody>
 		</table>
 		<div class="navigation d-flex justify-content-center mt-4">

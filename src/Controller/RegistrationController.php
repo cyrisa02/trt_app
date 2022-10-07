@@ -101,8 +101,7 @@ class RegistrationController extends AbstractController
         // incrémentation de sa clé primaire du consultant
             $consultant = new Consultant();
             // On récupère la saisie des champs nom, prénom et téléphone    
-            $consultant->setLastname($form->get('lastname')->getData())
-            ->setFirstname($form->get('firstname')->getData())
+            $consultant
             ->setTel($form->get('tel')->getData());
 
              //vient chercher la clé étrangère  ne pas oublier de persister   

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Candidate;
 use App\Entity\Consultant;
 use App\Entity\Recruiter;
 use App\Entity\User;
@@ -29,6 +30,15 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // incrémentation de sa clé primaire du consultant
+            $candidate = new Candidate();
+            // On récupère la saisie des champs nom, prénom et téléphone    
+            $candidate
+            ->setCvName($form->get('my_file')->getData())
+            ->setIsValided(0);
+
+             //vient chercher la clé étrangère  ne pas oublier de persister   
+            $user->setCandidate($candidate);
             $user->setRoles(["ROLE_CANDIDATE"])
             // encode the plain password
                 ->setPassword(
@@ -37,11 +47,15 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            //Important pour la relation OneToOne - Héritage
+            $entityManager->persist($candidate);
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
-
+            $this->addFlash(
+                'success',
+                'Votre demande a été enregistrée avec succès'
+            );
             return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,
@@ -62,6 +76,20 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+             // incrémentation de sa clé primaire du consultant
+            $recruiter = new Recruiter();
+            // On récupère la saisie des champs nom, prénom et téléphone    
+            $recruiter
+            ->setAddressFirm($form->get('addressFirm')->getData())
+            ->setFirmName($form->get('firmName')->getData())
+            ->setZipcode($form->get('zipcode')->getData())
+            ->setCity($form->get('city')->getData())
+            ->setIsValided(0)
+            
+            ;
+
+             //vient chercher la clé étrangère  ne pas oublier de persister   
+            $user->setRecruiter($recruiter);
             $user->setRoles(["ROLE_RECRUITER"])
             // encode the plain password
                 ->setPassword(
@@ -70,11 +98,15 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+//Important pour la relation OneToOne - Héritage
+            $entityManager->persist($recruiter);
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
-
+            $this->addFlash(
+                'success',
+                'Votre demande a été enregistrée avec succès'
+            );
             return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,

@@ -30,8 +30,7 @@ class Recruiter
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $isValided;
 
-    #[ORM\Column(type: 'boolean')]
-    private $isRGPD;
+    
 
     #[ORM\OneToOne(mappedBy: 'recruiter', targetEntity: User::class, cascade: ['persist', 'remove'])]
     private $user;
@@ -39,8 +38,7 @@ class Recruiter
     #[ORM\OneToMany(mappedBy: 'recruiter', targetEntity: Job::class)]
     private $job;
 
-    #[ORM\Column(type: 'string', length: 190)]
-    private $email;
+   
 
     public function __construct()
     {
@@ -120,17 +118,7 @@ class Recruiter
         return $this;
     }
 
-    public function isIsRGPD(): ?bool
-    {
-        return $this->isRGPD;
-    }
-
-    public function setIsRGPD(bool $isRGPD): self
-    {
-        $this->isRGPD = $isRGPD;
-
-        return $this;
-    }
+    
 
     public function getUser(): ?User
     {
@@ -184,15 +172,5 @@ class Recruiter
         return $this;
     }
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
+    
 }

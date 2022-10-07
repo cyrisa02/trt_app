@@ -13,19 +13,13 @@
 		{{ form_start(form) }}
 
 		{# <div class="form-group d-none">
-							{{ form_label(form.cvName) }}
-							{{ form_widget(form.cvName) }}
-							<div class="form-error">
-								{{ form_errors(form.cvName) }}
-							</div>
-						</div> #}
-		<div class="form-group d-none">
-			{{ form_label(form.isRGPD) }}
-			{{ form_widget(form.isRGPD) }}
-			<div class="form-error">
-				{{ form_errors(form.isRGPD) }}
-			</div>
-		</div>
+									{{ form_label(form.cvName) }}
+									{{ form_widget(form.cvName) }}
+									<div class="form-error">
+										{{ form_errors(form.cvName) }}
+									</div>
+								</div> #}
+
 
 		<a type="button" class="btn btn-secondary btn-lg m-4" href="{{ asset('/uploads/') }}{{ candidate.cvName }}">Voir le CV du candidat</a>
 

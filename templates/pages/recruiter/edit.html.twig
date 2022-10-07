@@ -13,25 +13,16 @@
 				</h1>
 
 
-				{{ form_start(form) }}
-
-				<div class="form-group d-none">
-					{{ form_label(form.isRGPD) }}
-					{{ form_widget(form.isRGPD) }}
-
-					<div class="form-error">
-						{{ form_errors(form.isRGPD) }}
-
-					</div>
-				</div>
-
-				{{ form_widget(form) }}
-				<button class="btn btn-secondary btn-lg mt-4">{{ button_label|default('Sauvegarder') }}</button>
-
-				{{ form_end(form) }}
+				{# {{ form_start(form) }}
+				
+				
+								{{ form_widget(form) }}
+								<button class="btn btn-secondary btn-lg mt-4">{{ button_label|default('Sauvegarder') }}</button>
+				
+								{{ form_end(form) }} #}
 
 
-				{# {{ include('pages/recruiter/_form.html.twig', {'button_label': 'Enregistrer vos modifications'}) }} #}
+				{{ include('pages/recruiter/_form.html.twig', {'button_label': 'Enregistrer vos modifications'}) }}
 
 				<a class="btn btn-secondary btn-lg mt-4" href="{{ path('app_recruiter_index') }}">Retour à la liste</a>
 

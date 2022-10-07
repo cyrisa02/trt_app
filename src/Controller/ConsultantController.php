@@ -23,7 +23,7 @@ class ConsultantController extends AbstractController
         $consultants = $paginator ->paginate(
             $consultants,
             $request->query->getInt('page', 1),
-            3
+            6
         );
 
         

@@ -31,18 +31,18 @@ class CandidatureType extends AbstractType
             ])
             
 
-            ->add('user',EntityType::class, [
-                'class' => User::class,
-                'choice_label'=>function($email){
-                return $email->getEmail();
-            },
-            'label' => 'Merci de confirmer votre adresse mail. ',
-                'attr' => [
-                    'class' => 'form-control '
-                ],
-                'placeholder'=>'Choisissez votre email dans la liste',
+            // ->add('user',EntityType::class, [
+            //     'class' => User::class,
+            //     'choice_label'=>function($email){
+            //     return $email->getEmail();
+            // },
+            // 'label' => 'Merci de confirmer votre adresse mail. ',
+            //     'attr' => [
+            //         'class' => 'form-control '
+            //     ],
+            //     'placeholder'=>'Choisissez votre email dans la liste',
 
-            ])
+            // ])
             ->add('isValided',CheckboxType::class, [
                 //'mapped' => true,
                 'required' => false,

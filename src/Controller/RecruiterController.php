@@ -57,7 +57,7 @@ class RecruiterController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $recruiterRepository->add($recruiter, true);
 
-            return $this->redirectToRoute('app_recruiter_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_recruitertovalid_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('pages/recruiter/edit.html.twig', [

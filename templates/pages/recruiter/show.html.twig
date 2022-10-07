@@ -15,15 +15,15 @@
 				</tr>
 				<tr>
 					<th>Nom</th>
-					<td>{{ recruiter.lastname }}</td>
+					<td>{{ recruiter.user.lastname }}</td>
 				</tr>
 				<tr>
 					<th>Prénom</th>
-					<td>{{ recruiter.firstname }}</td>
+					<td>{{ recruiter.user.firstname }}</td>
 				</tr>
 				<tr>
 					<th>Adresse mail</th>
-					<td>{{ recruiter.email }}</td>
+					<td>{{ recruiter.user.email }}</td>
 				</tr>
 
 				<tr>
@@ -48,9 +48,9 @@
 					<td>{{ recruiter.isValided ? 'Oui' : 'Non' }}</td>
 				</tr>
 				{# <tr>
-																									<th>IsRGPD</th>
-																									<td>{{ recruiter.isRGPD ? 'Yes' : 'No' }}</td>
-																								</tr> #}
+																													<th>IsRGPD</th>
+																													<td>{{ recruiter.isRGPD ? 'Yes' : 'No' }}</td>
+																												</tr> #}
 			</tbody>
 		</table>
 

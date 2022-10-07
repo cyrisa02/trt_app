@@ -31,8 +31,8 @@
 							{% if candidate.isValided == 0 %}
 
 								<td>{{ candidate.id }}</td>
-								<td>{{ candidate.lastname }}</td>
-								<td>{{ candidate.firstname }}</td>
+								<td>{{ candidate.user.lastname }}</td>
+								<td>{{ candidate.user.firstname }}</td>
 								<td>{{ candidate.cvName }}</td>
 								<td>{{ candidate.isValided ? 'Oui' : 'Non' }}</td>
 								{# <td>{{ candidate.isRGPD ? 'Yes' : 'No' }}</td> #}
@@ -76,8 +76,8 @@
 							{% if candidate.isValided == 1 %}
 
 								<td>{{ candidate.id }}</td>
-								<td>{{ candidate.lastname }}</td>
-								<td>{{ candidate.firstname }}</td>
+								<td>{{ candidate.user.lastname }}</td>
+								<td>{{ candidate.user.firstname }}</td>
 								<td>{{ candidate.cvName }}</td>
 								<td>{{ candidate.isValided ? 'Oui' : 'Non' }}</td>
 								{# <td>{{ candidate.isRGPD ? 'Yes' : 'No' }}</td> #}

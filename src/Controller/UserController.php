@@ -66,6 +66,42 @@ class UserController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/edition_consultant', name: 'app_userconsultant_edit', methods: ['GET', 'POST'])]
+    public function editconsultant(Request $request, User $user, UserRepository $userRepository): Response
+    {
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userRepository->add($user, true);
+
+            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('pages/user/editconsultant.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}/edition_recruteur', name: 'app_userrecruiter_edit', methods: ['GET', 'POST'])]
+    public function editrecruiter(Request $request, User $user, UserRepository $userRepository): Response
+    {
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userRepository->add($user, true);
+
+            return $this->redirectToRoute('home.index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('pages/user/editrecruiter.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
+    }
+
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, UserRepository $userRepository): Response
     {

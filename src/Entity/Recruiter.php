@@ -16,12 +16,6 @@ class Recruiter
     private $id;
 
     #[ORM\Column(type: 'string', length: 190)]
-    private $lastname;
-
-    #[ORM\Column(type: 'string', length: 190)]
-    private $firstname;
-
-    #[ORM\Column(type: 'string', length: 190)]
     private $addressFirm;
 
     #[ORM\Column(type: 'string', length: 190)]
@@ -55,7 +49,7 @@ class Recruiter
 
     public function __toString()
      {
-        return $this->lastname;
+        return $this->addressFirm;
           
      }
 
@@ -64,29 +58,7 @@ class Recruiter
         return $this->id;
     }
 
-    public function getLastname(): ?string
-    {
-        return $this->lastname;
-    }
-
-    public function setLastname(string $lastname): self
-    {
-        $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    public function getFirstname(): ?string
-    {
-        return $this->firstname;
-    }
-
-    public function setFirstname(string $firstname): self
-    {
-        $this->firstname = $firstname;
-
-        return $this;
-    }
+    
 
     public function getAddressFirm(): ?string
     {

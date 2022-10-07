@@ -28,35 +28,28 @@
 					</tr>
 				</thead>
 				{{ app.user}}
-				{% if candidature is defined %}
-
-					{% for candidate in candidates %}
-						<tbody>
-							<tr>
-								<td>{{ candidate.id }}</td>
-								<td>{{ candidate.lastname }}</td>
-								<td>{{ candidate.firstname }}</td>
-								<td>{{ candidate.cvName }}</td>
-								<td>{{ candidate.isValided ? 'Oui' : 'Non' }}</td>
-								{# <td>{{ recruiter.email}}</td> #}
-								<td>
-									<a href="{{ path('app_candidate_show', {'id': candidate.id}) }}">
-										Voir la candidature</a>
-								</td>
-							</tr>
-
-						</tbody>
-
-					{% endfor %}
-				{% endif %}
-
-				{# <a href="{{ path('app_candidate_edit', {'id': candidate.id}) }}">edit</a> #}
 
 
-			{# {% else %} #}
-				{# <tr>
-																																																																																																																																																																																										<td colspan="7">no records found</td>
-																																																																																																																																																																																									</tr> #}
+				{% for candidate in candidates %}
+					<tbody>
+						<tr>
+							<td>{{ candidate.id }}</td>
+							<td>{{ candidate.lastname }}</td>
+							<td>{{ candidate.firstname }}</td>
+							<td>{{ candidate.cvName }}</td>
+							<td>{{ candidate.isValided ? 'Oui' : 'Non' }}</td>
+							{# <td>{{ candidate.recruiter.email}}</td> #}
+							<td>
+								<a href="{{ path('app_candidate_show', {'id': candidate.id}) }}">
+									Voir la candidature</a>
+							</td>
+						</tr>
+
+					</tbody>
+
+				{% endfor %}
+
+
 			</table>
 		{% endif %}
 	</div>

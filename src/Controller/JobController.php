@@ -6,6 +6,7 @@ use App\Entity\Job;
 use App\Form\JobType;
 use App\Repository\CandidateRepository;
 use App\Repository\JobRepository;
+use App\Repository\RecruiterRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,6 +21,16 @@ class JobController extends AbstractController
         return $this->render('pages/job/index.html.twig', [
             'jobs' => $jobRepository->findAll(),
             'candidates' => $candidateRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/recruteur', name: 'app_jobrecruiter_index', methods: ['GET'])]
+    public function indexrecruiter(JobRepository $jobRepository, CandidateRepository $candidateRepository, RecruiterRepository $recruiterRepository): Response
+    {
+        return $this->render('pages/job/indexrecruiter.html.twig', [
+            'jobs' => $jobRepository->findAll(),
+            'candidates' => $candidateRepository->findAll(),
+            'recruiters' => $recruiterRepository->findAll(),
         ]);
     }
 

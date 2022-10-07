@@ -41,13 +41,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(inversedBy: 'user', targetEntity: Consultant::class, cascade: ['persist', 'remove'])]
     private $consultant;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Candidature::class)]
-    private $candidatures;
+    #[ORM\Column(length: 190)]
+    private ?string $lastname = null;
+
+    #[ORM\Column(length: 190)]
+    private ?string $firstname = null;
+
+   
 
     public function __construct()
     {
         $this->created_at = new DateTimeImmutable();
-        $this->candidatures = new ArrayCollection();
+        
     }
 
 
@@ -56,13 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
        return $this->email;
      }
 
-    // public function __toString()
-    // {
-    //     return $this->email;
-    //      return $this->password;
-    //      return $this->candidate;
-    // }
- 
+    
 
     public function getId(): ?int
     {
@@ -182,33 +181,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Candidature>
-     */
-    public function getCandidatures(): Collection
+    public function getLastname(): ?string
     {
-        return $this->candidatures;
+        return $this->lastname;
     }
 
-    public function addCandidature(Candidature $candidature): self
+    public function setLastname(string $lastname): self
     {
-        if (!$this->candidatures->contains($candidature)) {
-            $this->candidatures[] = $candidature;
-            $candidature->setUser($this);
-        }
+        $this->lastname = $lastname;
 
         return $this;
     }
 
-    public function removeCandidature(Candidature $candidature): self
+    public function getFirstname(): ?string
     {
-        if ($this->candidatures->removeElement($candidature)) {
-            // set the owning side to null (unless already changed)
-            if ($candidature->getUser() === $this) {
-                $candidature->setUser(null);
-            }
-        }
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
 
         return $this;
     }
+
+    
 }

@@ -5,26 +5,118 @@ namespace App\Form;
 use App\Entity\User;
 use App\Entity\Recruiter;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class RegistrationFormTypeRecrut extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
-            // ->add('firstname')
-            // ->add('lastname')
-            //  ->add('addressFirm')
-            //   ->add('firmName')
-            //   ->add('zipcode')
-            //   ->add('city')
+            ->add('email', EmailType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'E-mail'
+            ])
+             ->add('firstname', TextType::class, [
+                'mapped' => true, 
+                           'label' => 'Prénom ',
+                                                  
+                          
+                'label_attr' => [
+                    'class' => 'form-label  mt-4'
+                ],  
+                'attr' => [
+                    'class' => 'form-control',
+                    'minlenght' => '2',
+                    'maxlenght' => '190',
+                ],      
+
+             ])
+             ->add('lastname', TextType::class, [
+                'mapped' => true, 
+                           'label' => 'Nom de famille',
+                                                  
+                          
+                'label_attr' => [
+                    'class' => 'form-label  mt-4'
+                ],  
+                'attr' => [
+                    'class' => 'form-control',
+                    'minlenght' => '2',
+                    'maxlenght' => '190',
+                ],      
+
+             ])
+              ->add('addressFirm', TextType::class, [
+                'mapped' => false, 
+                           'label' => 'Rue de votre entreprise',
+                                                  
+                          
+                'label_attr' => [
+                    'class' => 'form-label  mt-4'
+                ],  
+                'attr' => [
+                    'class' => 'form-control',
+                    'minlenght' => '2',
+                    'maxlenght' => '190',
+                ],      
+
+             ])
+
+              ->add('firmName', TextType::class, [
+                'mapped' => false, 
+                           'label' => 'Nom de l\'entreprise',
+                                                  
+                          
+                'label_attr' => [
+                    'class' => 'form-label  mt-4'
+                ],  
+                'attr' => [
+                    'class' => 'form-control',
+                    'minlenght' => '2',
+                    'maxlenght' => '190',
+                ],      
+
+             ])
+           ->add('zipcode', TextType::class, [
+                'mapped' => false, 
+                           'label' => 'Code postale',
+                                                  
+                          
+                'label_attr' => [
+                    'class' => 'form-label  mt-4'
+                ],  
+                'attr' => [
+                    'class' => 'form-control',
+                    'minlenght' => '2',
+                    'maxlenght' => '190',
+                ],      
+
+             ])
+              ->add('city', TextType::class, [
+                'mapped' => false, 
+                           'label' => 'Ville',
+                                                  
+                          
+                'label_attr' => [
+                    'class' => 'form-label  mt-4'
+                ],  
+                'attr' => [
+                    'class' => 'form-control',
+                    'minlenght' => '2',
+                    'maxlenght' => '190',
+                ],      
+
+             ])
             // ->add('isValided')
             ->add('isRGPD', CheckboxType::class, [
                 'mapped' => false,

@@ -27,9 +27,7 @@ class Candidate
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $isValided;
 
-    #[ORM\Column(type: 'boolean')]
-    private $isRGPD;
-
+    
     #[ORM\OneToOne(mappedBy: 'candidate', targetEntity: User::class, cascade: ['persist', 'remove'])]
     private $user;
 
@@ -79,17 +77,7 @@ class Candidate
         return $this;
     }
 
-    public function isIsRGPD(): ?bool
-    {
-        return $this->isRGPD;
-    }
-
-    public function setIsRGPD(bool $isRGPD): self
-    {
-        $this->isRGPD = $isRGPD;
-
-        return $this;
-    }
+    
 
     public function getUser(): ?User
     {

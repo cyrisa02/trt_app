@@ -33,7 +33,7 @@ class RegistrationFormTypeCandidat extends AbstractType
                 ],
             ])
              ->add('lastname', TextType::class, [
-                 'mapped' => false, 
+                 'mapped' => true, 
                             'label' => 'Nom de famille',
                                                   
                           
@@ -90,7 +90,7 @@ class RegistrationFormTypeCandidat extends AbstractType
             ])
              
             ->add('firstname',TextType::class, [
-                'mapped' => false,
+                'mapped' => true,
                 'attr' => [
                     'class' => 'form-control'
                 ],

@@ -32,21 +32,21 @@ class RegistrationFormTypeCandidat extends AbstractType
                     'class' => 'form-label  mt-4'
                 ],
             ])
-            // ->add('lastname', TextType::class, [
-            //     'mapped' => false, 
-            //                'label' => 'Nom de famille',
+             ->add('lastname', TextType::class, [
+                 'mapped' => false, 
+                            'label' => 'Nom de famille',
                                                   
                           
-            //     'label_attr' => [
-            //         'class' => 'form-label  mt-4'
-            //     ],  
-            //     'attr' => [
-            //         'class' => 'form-control',
-            //         'minlenght' => '2',
-            //         'maxlenght' => '190',
-            //     ],      
+                 'label_attr' => [
+                     'class' => 'form-label  mt-4'
+                 ],  
+                 'attr' => [
+                     'class' => 'form-control',
+                     'minlenght' => '2',
+                     'maxlenght' => '190',
+                 ],      
 
-            //  ])
+              ])
             ->add('isRGPD', CheckboxType::class, [
                 'mapped' => false,
                 'label' => 'Etes-vous d\'accord avec notre RGPD ?',
@@ -82,7 +82,21 @@ class RegistrationFormTypeCandidat extends AbstractType
                     'class' => 'form-label  mt-4'
                 ],
             ])
+            ->add('my_file', FileType::class, [
+                'mapped' => false,
+                'required' => false,
+                'label' => 'Télécharger votre CV en format pdf uniquement.'
+
+            ])
              
+            ->add('firstname',TextType::class, [
+                'mapped' => false,
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Prénom'
+
+            ])
         ;
     }
 

@@ -7,12 +7,12 @@
 	{% if app.user %}
 		{% if is_granted('ROLE_CANDIDATE') %}
 
-			{# {% if  app.user.candidate.isValided == false  %} #}
+			{# {% if  app.user.candidate.isValided == true  %} #}
 
 
 			<div class="container mt-4">
 				<h1>Confirmation de vos informations personnelles</h1>
-				<h3>Maintenant que vous avez reçu notre accord, merci de compléter votre dossier.</h3>
+				<h3>Afin de valider votre candidature , merci de compléter votre dossier.</h3>
 
 				{# {{ include('pages/candidate/_form.html.twig') }} #}
 
@@ -34,14 +34,18 @@
 
 				{{ form_end(form) }}
 
+				<div class="mt-4 container">
+					<a href="{{ path('home.index') }}">Retour à l'accueil</a>
+				</div>
 
-				<a href="{{ path('home.index') }}">Retour à l'accueil</a>
+
 			</div>
-			{# {% else %}
-							<div class="container mt-4">
-								<p>Vous êtes déjà validé par un consultant. Vous pouvez créer vos annonces, consulter vos annonces et vos candidats.</p>
-							</div>
-						{% endif %} #}
+		{% else %}
+			<div class="container mt-4">
+				<p>Vous êtes déjà validé(e) par un consultant. Vous pouvez consulter vos annonces.</p>
+			</div>
+
+			{# {% endif %} #}
 
 		{% endif %}
 	{% endif %}

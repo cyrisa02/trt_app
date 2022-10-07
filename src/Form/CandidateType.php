@@ -59,22 +59,31 @@ class CandidateType extends AbstractType
                 'mapped' => true,
                 'label' => 'Je suis d\'accord avec le RGPD du site'
             ])
-            ->add('user',EntityType::class, [
-                'required' => false,
-                'class' => User::class,
-                'choice_label'=>function($email){
-                return $email->getEmail();
-            },
-                // 'attr' => [
-                //     'class' => 'form-control '
-                // ],
-                'label' => 'Merci de confirmer votre adresse mail. ',
-                'attr' => [
-                    'class' => 'form-control '
-                ],
-                'placeholder'=>'Choisissez votre email dans la liste',
+            // ->add('user',EntityType::class, [
+            //     'required' => false,
+            //     'class' => User::class,
+            //     'choice_label'=>function($email){
+            //     return $email->getEmail();
+            // },
+            //      'attr' => [
+            //          'class' => 'form-control '
+            //      ],
+            //     'label' => 'Merci de confirmer votre adresse mail. ',
+            //     'attr' => [
+            //         'class' => 'form-control '
+            //     ],
+            //     'placeholder'=>'Choisissez votre email dans la liste',
 
-            ])
+            // ])
+
+                ->add('user', EntityType::class,[
+             'class' => User::class,
+            'choice_label'=>function($email){
+                 return $email->getEmail();
+            },
+             'label' => 'Recherchez son adresse mail dans la liste.    .'
+           ] )
+            
             //->add('candidatures')
         ;
     }

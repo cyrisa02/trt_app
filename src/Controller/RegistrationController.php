@@ -6,6 +6,7 @@ use App\Entity\Consultant;
 use App\Entity\Recruiter;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Form\RegistrationFormTypeCandidat;
 use App\Form\RegistrationFormTypeConsultant;
 use App\Security\UserAuthenticator;
 use App\Form\RegistrationFormTypeRecrut;
@@ -24,7 +25,7 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(RegistrationFormTypeCandidat::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

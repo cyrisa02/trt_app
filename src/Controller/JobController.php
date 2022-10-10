@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Job;
 use App\Form\JobType;
 use App\Repository\CandidateRepository;
+use App\Repository\CandidatureRepository;
 use App\Repository\JobRepository;
 use App\Repository\RecruiterRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,11 +36,12 @@ class JobController extends AbstractController
     }
 
     #[Route('/candidat', name: 'app_jobcandidate_index', methods: ['GET'])]
-    public function indexcandidate(JobRepository $jobRepository, CandidateRepository $candidateRepository): Response
+    public function indexcandidate(JobRepository $jobRepository, CandidateRepository $candidateRepository, CandidatureRepository $candidatureRepository): Response
     {
         return $this->render('pages/job/indexcandidate.html.twig', [
             'jobs' => $jobRepository->findAll(),
             'candidates' => $candidateRepository->findAll(),
+            'candidatures' => $candidatureRepository->findAll(),
         ]);
     }
 

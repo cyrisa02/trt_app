@@ -2,20 +2,23 @@
 
 namespace App\Controller;
 
+use App\Entity\Job;
 use App\Entity\Candidature;
 use App\Form\JobContactType;
 use App\Form\CandidatureType;
 use App\Service\MailerService;
 use Symfony\Component\Mime\Email;
+use App\Form\CandidatureApplyType;
 use App\Repository\UserRepository;
 use App\Repository\CandidatureRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 #[Route('/candidature')]
 class CandidatureController extends AbstractController
@@ -48,6 +51,50 @@ class CandidatureController extends AbstractController
             'candidature' => $candidature,
             'form' => $form,
         ]);
+    }
+    /**
+     * This method allows to create a candidature between a job and a candidate
+     * ManyToOne -  
+     */
+    #[Route('/postuler/creer/{job}', name: 'app_candidatureapplied_new', methods: ['GET', 'POST'])]
+    public function newapplied(Job $job, CandidatureRepository $candidatureRepository, EntityManagerInterface $entityManager): Response
+    {
+
+        /**
+         * I want to get the logged User 
+         */
+
+         /**@var User $user */
+         $user = $this->getUser();
+         $candidate=$user->getCandidate();
+
+         // Check if the candidate applied <=> the candidature is or isn't present
+
+         $candidaturePresent = $candidatureRepository->findOneByUserAndJob($candidate, $job);
+         if ($candidaturePresent) {
+            return $this->redirectToRoute('app_jobcandidate_index', [], 
+         Response::HTTP_SEE_OTHER);
+         }
+
+
+        $candidature = new Candidature();
+        $candidature->setCandidate($candidate)
+        ->setJob($job)
+        ->setIsApplied(1)
+        ->setIsValided(0);
+        $entityManager->persist($candidature);
+        $entityManager->flush();
+
+        //dd($candidature);
+
+        
+            
+        $this->addFlash('success', 'Votre candidature a été envoyée avec succès');
+        
+            return $this->redirectToRoute('app_jobcandidate_index', [], Response::HTTP_SEE_OTHER);
+        
+
+        
     }
 
     #[Route('/{id}', name: 'app_candidature_show', methods: ['GET'])]
@@ -109,6 +156,63 @@ class CandidatureController extends AbstractController
     
 
         return $this->renderForm('pages/candidature/edit.html.twig', [
+            'candidature' => $candidature,
+            'form' => $form ,
+            
+        ]);
+    }
+
+    #[Route('/{id}/postuler', name: 'app_candidatureapply_edit', methods: ['GET', 'POST'])]
+    public function editapply(Request $request, Candidature $candidature, CandidatureRepository $candidatureRepository, MailerInterface $mailer, $repository): Response
+    {
+        $form = $this->createForm(CandidatureApplyType::class, $candidature);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $candidatureRepository->add($candidature, true);
+           // $mailMessage = $candidature->getUser;
+           $mailMessage='coucou';
+          //  $mailer->sendEmail(content: $mailMessage);
+
+         // $repository = $this->getDoctrine()->getRepository(Candidature::class);
+        //  $cvName = $repository->find($id);
+          $email = (new TemplatedEmail())
+         
+        ->from('cyril.gourdon.02@gmail.com')
+        ->to('cyrisa02.test@gmail.com')
+        // code pour avoir accès à l'adresse test:    1970studi!
+        // 
+        //Pour le recruteur il faut envoyer
+        //->to($candidature->getUser()->getRecruiter()->getEmail())// à mettre en place pour la production 
+       // ->attach(fopen($candidature->getUser()->getCandidate()->getCvName()))
+
+
+
+        ///
+        //addTo('ajouterunenvelleadresse@gmail.com)
+        //->cc('cc@example.com')
+        //->bcc('bcc@example.com')
+        //->replyTo('fabien@example.com') si on veut une autre adresse de réception des réponse
+        //->priority(Email::PRIORITY_HIGH)
+        
+        ->subject('Modification du statut de candidature')
+       //->text('Vvotre candidature a été validée');
+       ->htmlTemplate('emails/candidatureanswer.html.twig')
+        ->context([
+            'candidature'=>$candidature
+        ]);
+
+
+        $mailer->send($email);
+
+        $this->addFlash('success', 'Votre message a été envoyé');
+
+
+            return $this->redirectToRoute('app_candidature_index', [], Response::HTTP_SEE_OTHER);
+        }
+    
+
+        return $this->renderForm('pages/candidature/editapply.html.twig', [
             'candidature' => $candidature,
             'form' => $form ,
             

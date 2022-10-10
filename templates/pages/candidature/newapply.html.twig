@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Postuler
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1>Postuler à une annonce</h1>
+
+		{{ include('pages/candidature/_form.html.twig') }}
+
+		<a href="{{ path('app_candidature_index') }}">Retour à la liste</a>
+	</div>
+
+
+{% endblock %}

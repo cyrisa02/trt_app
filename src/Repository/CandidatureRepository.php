@@ -39,6 +39,18 @@ class CandidatureRepository extends ServiceEntityRepository
         }
     }
 
+    public function findOneByUserAndJob($user,$job): ?Candidature
+    {
+        return $this->createQueryBuilder('c')
+        ->andWhere('c.candidate = :val')
+        ->andWhere('c.job = :val2')
+        ->setParameter('val', $user)
+        ->setParameter('val2', $job)
+        ->getQuery()
+        ->getOneOrNullResult()
+        ;
+    }
+
 //    /**
 //     * @return Candidature[] Returns an array of Candidature objects
 //     */

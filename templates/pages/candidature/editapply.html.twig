@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Validation
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+
+		<div class="mx-auto mt-4" style="width: 800px;">
+			<h1>Validation de Candidature</h1>
+		</div>
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>
+						<h2>Nom du candidat:
+							{{ candidature.user.candidate.lastname }}</h2>
+					</th>
+
+				</tr>
+				<tr>
+					<th>
+						<h4>Prénom:
+							{{ candidature.user.candidate.firstname }}</h4>
+					</th>
+
+				</tr>
+			</tbody>
+		</table>
+		<a type="button" class="btn btn-secondary btn-lg m-4" href="{{ asset('/uploads/') }}{{ candidature.user.candidate.cvName }}">Voir le CV du candidat</a>
+		<hr class="my-4">
+
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>
+						<h4>Titre de l'annonce:</h4>
+					</th>
+					<td>{{ candidature.job.title }}</td>
+				</tr>
+				<tr>
+					<th>
+						<h4>Description</h4>
+					</th>
+					<td>{{ candidature.job.description }}</td>
+				</tr>
+				<tr>
+					<th>
+						<h4>Lieu de l'activité:</h4>
+					</th>
+					<td>{{ candidature.job.workPlace }}</td>
+				</tr>
+
+
+			</tbody>
+		</table>
+		<hr class="my-4">
+
+
+		<h4>Nom de l'entreprise recruteur:
+			{{ candidature.job.recruiter.firmName }}</h4>
+		<h4>Nom du recruteur:
+			{{ candidature.job.recruiter.lastname }}</h4>
+		<h4>Adresse Mail du recruteur:
+			{{ candidature.job.recruiter.email }}</h4>
+		<hr class="my-4">
+
+		{{ form_start(form) }}<div class="form-group d-none">
+			{{ form_label(form.job) }}
+			{{ form_widget(form.job) }}
+			<div class="form-error">
+				{{ form_errors(form.job) }}
+			</div>
+		</div>
+		<div class="form-group d-none">
+			{{ form_label(form.user) }}
+			{{ form_widget(form.user) }}
+
+			<div class="form-error">
+				{{ form_errors(form.user) }}
+
+			</div>
+		</div>
+
+		<div class="form-group ">
+			{{ form_label(form.isValided) }}
+			{{ form_widget(form.isValided) }}
+
+			<div class="form-error">
+				{{ form_errors(form.isValided) }}
+
+			</div>
+		</div>
+		<!-- Button trigger modal -->
+
+		{# <button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+															Contacter le recruteur
+														</button> #}
+
+
+		{{ form_widget(form) }}<button class="btn btn-secondary btn-lg mt-4">{{ button_label|default('Enregistrer vos modifications') }}</button>
+		{{ form_end(form) }}
+		{# {{ include('pages/candidature/_form.html.twig', {'button_label': 'Update'}) }} #}
+
+
+		<a class="btn btn-secondary btn-lg mt-4" href="{{ path('app_candidature_index') }}">Retour à la liste</a>
+
+		{# {{ include('pages/candidature/_delete_form.html.twig') }} #}
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Contacter le recruteur</h5>
+						<div class="divider"></div>
+						{{ form_start(form) }}
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						...
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+						<button type="button" class="btn btn-primary">Envoyer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+{% endblock %}

@@ -7,14 +7,18 @@
 	<div class="container mt-4">
 		<h1>Liste des annonces</h1>
 		{% if is_granted('ROLE_CANDIDATE')  %}
+
+
 			{% for candidate in candidates %}
-				{% if app.user.id == candidate.id %}
+
+
+				{% if app.user.id == candidate.user.id %}
 					{% if app.user.candidate.isValided == false %}
 						<p>Merci d'attendre votre validation. Vous pouvez compléter votre profil.</p>
 					{% endif %}
 				{% endif %}
 				{% if app.user.candidate.isValided == true %}
-					{% if app.user.id == candidate.id %}
+					{% if app.user.id == candidate.user.id %}
 						<div class="container mt-4">
 							<div class="row">
 								{% for job in jobs %}

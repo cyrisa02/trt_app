@@ -34,7 +34,9 @@ class JobController extends AbstractController
             'recruiters' => $recruiterRepository->findAll(),
         ]);
     }
-
+    /**
+     * This method displays the jobs to apply
+     */
     #[Route('/candidat', name: 'app_jobcandidate_index', methods: ['GET'])]
     public function indexcandidate(JobRepository $jobRepository, CandidateRepository $candidateRepository, CandidatureRepository $candidatureRepository): Response
     {

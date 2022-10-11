@@ -7,11 +7,13 @@ use App\Entity\Candidature;
 use App\Form\JobContactType;
 use App\Form\CandidatureType;
 use App\Service\MailerService;
+use App\Repository\JobRepository;
 use Symfony\Component\Mime\Email;
 use App\Form\CandidatureApplyType;
 use App\Repository\UserRepository;
-use App\Repository\CandidatureRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\CandidatureRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
@@ -32,6 +34,28 @@ class CandidatureController extends AbstractController
         ]);
     }
 
+    //This method displays the candidatures the logged candidate
+    #[Route('/candidat', name: 'app_candidature')]
+    public function indexCandidat(JobRepository $jobRepository, CandidatureRepository $repository, PaginatorInterface $paginator, Request $request): Response
+    {
+
+        /** @var User $user */
+        $user = $this->getUser();
+        $candidate=$user->getCandidate();
+        $candidatures = $paginator->paginate(
+
+            $repository->findByUser($candidate),
+            $request->query->getInt('page', 1), /*page number*/
+            170 /*limit per page*/
+        );
+
+        return $this->render('pages/candidature/candidat.html.twig', [
+            'candidatures' => $candidatures,
+            'jobs' => $jobRepository,
+        ]);
+    }
+
+    
     #[Route('/creation', name: 'app_candidature_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CandidatureRepository $candidatureRepository): Response
     {
@@ -128,9 +152,6 @@ class CandidatureController extends AbstractController
         //Pour le recruteur il faut envoyer
         //->to($candidature->getUser()->getRecruiter()->getEmail())// à mettre en place pour la production 
        // ->attach(fopen($candidature->getUser()->getCandidate()->getCvName()))
-
-
-
         ///
         //addTo('ajouterunenvelleadresse@gmail.com)
         //->cc('cc@example.com')
@@ -152,8 +173,7 @@ class CandidatureController extends AbstractController
 
 
             return $this->redirectToRoute('app_candidature_index', [], Response::HTTP_SEE_OTHER);
-        }
-    
+        }   
 
         return $this->renderForm('pages/candidature/edit.html.twig', [
             'candidature' => $candidature,

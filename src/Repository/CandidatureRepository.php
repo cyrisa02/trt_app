@@ -51,6 +51,35 @@ class CandidatureRepository extends ServiceEntityRepository
         ;
     }
 
+     /**
+    * @return Candidature[] Returns an array of Candidature objects
+    */
+   public function findByUser($user): array
+   {
+       return $this->createQueryBuilder('c')
+           ->andWhere('c.candidate = :val')
+           ->setParameter('val', $user)
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
+  /**
+    * @return Candidature[] Returns an array of Candidature objects
+    */
+    public function findAppliedByAnnonce($job): array
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.job = :val')
+            ->andWhere('c.applied = :val2')
+            ->setParameter('val', $job)
+            ->setParameter('val2', '1')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
 //    /**
 //     * @return Candidature[] Returns an array of Candidature objects
 //     */

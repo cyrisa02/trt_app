@@ -38,10 +38,9 @@
 													{# <a class="btn btn-primary btn-lg row my-2" href="{{path('app_candidatureapply_edit',{'id':candidate.id})}}" role="button">Postuler</a> #}
 													<a class="btn btn-primary btn-lg row my-2" href="{{path('app_candidatureapplied_new', {'job': job.id})}}" role="button">Postuler</a>
 													{% for candidature in job.candidatures %}
-														{{ dump(candidature.isApplied ) }}
 
 
-														{% if  candidature.isApplied is same as true %}Actif
+														{% if  candidature.job.id == job.id %}Actif
 														{% else %}
 															Inactif
 														{% endif %}

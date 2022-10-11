@@ -55,6 +55,28 @@ class CandidatureController extends AbstractController
         ]);
     }
 
+
+//This method displays the candidatures the logged recruiter
+    #[Route('/candidat_recruteur', name: 'app_candidaturerecruiter')]
+    public function indexCandidatrecruiter(JobRepository $jobRepository, CandidatureRepository $repository, PaginatorInterface $paginator, Request $request): Response
+    {
+
+        /** @var User $user */
+        $user = $this->getUser();
+        $recruiter=$user->getRecruiter();
+        $candidatures = $paginator->paginate(
+
+            $repository->findByUser($recruiter),
+            $request->query->getInt('page', 1), /*page number*/
+            170 /*limit per page*/
+        );
+
+        return $this->render('pages/candidature/candidatrecruiter.html.twig', [
+            'candidatures' => $candidatures,
+            'jobs' => $jobRepository,
+        ]);
+    }    
+
     
     #[Route('/creation', name: 'app_candidature_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CandidatureRepository $candidatureRepository): Response

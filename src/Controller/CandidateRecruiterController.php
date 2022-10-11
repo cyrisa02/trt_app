@@ -23,12 +23,17 @@ class CandidateRecruiterController extends AbstractController
     #[Route('/', name: 'app_yourcandidate_index', methods: ['GET'])]
     public function index(CandidateRepository $candidateRepository, CandidatureRepository $candidatureRepository, JobRepository $jobRepository, RecruiterRepository $recruiterRepository): Response
     {
+
+        /** @var User $user */
+        $user = $this->getUser();
+        $recruiter = $user->getRecruiter();  
+        
         return $this->render('pages/candidate/indexforrecruiter.html.twig', [
-            'candidates' => $candidateRepository->findAll(),
-            'candidatures' =>
-            $candidatureRepository->findAll(),
-            'jobs'=>
-            $jobRepository->findAll(),
+            'candidates' => $candidateRepository->findByRecruiter($recruiter),
+           // 'candidatures' =>
+           // $candidatureRepository->findAll(),
+           // 'jobs'=>
+           // $jobRepository->findByUser($recruiter),
             'recruiters'=> $recruiterRepository->findAll(),
 
         ]);

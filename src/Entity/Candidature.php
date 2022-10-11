@@ -21,8 +21,8 @@ class Candidature
 
     
 
-    #[ORM\Column(type: 'boolean')]
-    private $isValided;
+    #[ORM\Column(type: 'boolean',nullable: true)]
+    private $isValided= null;
 
     #[ORM\Column(nullable: true)]
     private ?bool $isApplied = null;

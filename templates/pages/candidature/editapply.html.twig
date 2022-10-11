@@ -14,20 +14,20 @@
 				<tr>
 					<th>
 						<h2>Nom du candidat:
-							{{ candidature.candidate.user.lastname }}</h2>
+							{{ candidature.user.candidate.lastname }}</h2>
 					</th>
 
 				</tr>
 				<tr>
 					<th>
 						<h4>Prénom:
-							{{ candidature.candidate.user.firstname }}</h4>
+							{{ candidature.user.candidate.firstname }}</h4>
 					</th>
 
 				</tr>
 			</tbody>
 		</table>
-		{# <a type="button" class="btn btn-secondary btn-lg m-4" href="{{ asset('/uploads/') }}{{ candidature.candidate.user.cvName }}">Voir le CV du candidat</a> #}
+		<a type="button" class="btn btn-secondary btn-lg m-4" href="{{ asset('/uploads/') }}{{ candidature.user.candidate.cvName }}">Voir le CV du candidat</a>
 		<hr class="my-4">
 
 		<table class="table">
@@ -94,8 +94,8 @@
 		<!-- Button trigger modal -->
 
 		{# <button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
-																					Contacter le recruteur
-																				</button> #}
+															Contacter le recruteur
+														</button> #}
 
 
 		{{ form_widget(form) }}<button class="btn btn-secondary btn-lg mt-4">{{ button_label|default('Enregistrer vos modifications') }}</button>

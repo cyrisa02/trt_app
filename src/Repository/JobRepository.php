@@ -39,6 +39,21 @@ class JobRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+    * @return Job[] Returns an array of Job objects
+    */
+   public function findByUser($user): array
+   {
+       return $this->createQueryBuilder('j')
+           ->andWhere('j.recruiter = :val')
+           ->setParameter('val', $user)
+           ->orderBy('j.id', 'ASC')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
+
 //    /**
 //     * @return Job[] Returns an array of Job objects
 //     */

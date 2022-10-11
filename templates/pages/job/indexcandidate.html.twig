@@ -7,45 +7,54 @@
 	<div class="container mt-4">
 		<h1>Liste des annonces</h1>
 		{% if is_granted('ROLE_CANDIDATE')  %}
+
+
 			{% for candidate in candidates %}
-				{% if app.user.id == candidate.id %}
+
+
+				{% if app.user.id == candidate.user.id %}
 					{% if app.user.candidate.isValided == false %}
 						<p>Merci d'attendre votre validation. Vous pouvez compléter votre profil.</p>
 					{% endif %}
 				{% endif %}
 				{% if app.user.candidate.isValided == true %}
-					{% if app.user.id == candidate.id %}
-						<div class="container mt-4">
-							<div class="row">
-								{% for job in jobs %}
-									{% if job.isVisible == 1 %}
-
+					<div class="container mt-4">
+						<div class="row">
+							{% for job in jobs %}
+								{% if job.isVisible == 1 %}
+									{% if app.user.id == candidate.user.id %}
 										<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 mb-3">
 											<article class="card border-primary mb-3 " style="max-width: 20rem; height: 30rem;">
 												<div class="card-header bg-secondary">
 													<h1>Annonce N°:
 														{{ job.id}}
 													</h1>
-													{# <iframe width="250" height="100" src="{{ formation.image }} " title="formation" frameborder="0" allowfullscreen></iframe> #}
 												</div>
 												<div class="card-body bg-light">
-
 													<h4 class="card-title">{{ job.title}}
 													</h4>
 													<p class="card-text">{{ job.workPlace }}</p>
-
-
 													<p class="card-text">{{ job.description }}</p>
+													{# <a class="btn btn-primary btn-lg row my-2" href="{{path('app_candidatureapply_edit',{'id':candidate.id})}}" role="button">Postuler</a> #}
+													<a class="btn btn-primary btn-lg row my-2" href="{{path('app_candidatureapplied_new', {'job': job.id})}}" role="button">Postuler</a>
+													{% for candidature in job.candidatures %}
 
-													<a class="btn btn-primary btn-lg row my-2" href="{{path('app_candidature_new')}}" role="button">Postuler</a>
+
+														{% if  candidature.job.id == job.id %}Actif
+														{% else %}
+															Inactif
+														{% endif %}
+													{% endfor %}
 												</div>
 											</article>
 										</div>
 									{% endif %}
-								{% endfor %}
-							</div>
+
+								{% endif %}
+							{% endfor %}
 						</div>
-					{% endif %}
+					</div>
+
 				{% endif %}
 			{% endfor %}
 		</div>

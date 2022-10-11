@@ -23,12 +23,17 @@ class CandidateRecruiterController extends AbstractController
     #[Route('/', name: 'app_yourcandidate_index', methods: ['GET'])]
     public function index(CandidateRepository $candidateRepository, CandidatureRepository $candidatureRepository, JobRepository $jobRepository, RecruiterRepository $recruiterRepository): Response
     {
+
+        /** @var User $user */
+        $user = $this->getUser();
+        $recruiter = $user->getRecruiter();  
+        
         return $this->render('pages/candidate/indexforrecruiter.html.twig', [
-            'candidates' => $candidateRepository->findAll(),
-            'candidatures' =>
-            $candidatureRepository->findAll(),
-            'jobs'=>
-            $jobRepository->findAll(),
+            'candidates' => $candidateRepository->findByRecruiter($recruiter),
+           // 'candidatures' =>
+           // $candidatureRepository->findAll(),
+           // 'jobs'=>
+           // $jobRepository->findByUser($recruiter),
             'recruiters'=> $recruiterRepository->findAll(),
 
         ]);
@@ -42,48 +47,48 @@ class CandidateRecruiterController extends AbstractController
         ]);
     }
 
-    #[Route('/creation', name: 'app_candidate_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, CandidateRepository $candidateRepository): Response
-    {
-        $candidate = new Candidate();
-        $form = $this->createForm(CandidateType::class, $candidate);
-        $form->handleRequest($request);
-        $image= 'test.png';
+//     #[Route('/creation', name: 'app_candidate_new', methods: ['GET', 'POST'])]
+//     public function new(Request $request, CandidateRepository $candidateRepository): Response
+//     {
+//         $candidate = new Candidate();
+//         $form = $this->createForm(CandidateType::class, $candidate);
+//         $form->handleRequest($request);
+//         $image= 'test.png';
 
-        if ($form->isSubmitted() && $form->isValid()) {
+//         if ($form->isSubmitted() && $form->isValid()) {
             
-            $file = $request->files->get('candidate')['my_file'];
-            $uploads_directory = $this->getParameter('uploads_directory');
+//             $file = $request->files->get('candidate')['my_file'];
+//             $uploads_directory = $this->getParameter('uploads_directory');
 
-            $filename = md5(uniqid()) . '.' . $file->guessExtension();
+//             $filename = md5(uniqid()) . '.' . $file->guessExtension();
 
             
 
-            $file->move(
-                $uploads_directory,
-                $filename
-            );
-// Comment sauveagrder en BD, champ cvName?
-        $candidate->setCvName($filename);
-        $candidateRepository->add($candidate, true);
+//             $file->move(
+//                 $uploads_directory,
+//                 $filename
+//             );
+// // Comment sauveagrder en BD, champ cvName?
+//         $candidate->setCvName($filename);
+//         $candidateRepository->add($candidate, true);
 
-            return $this->redirectToRoute('home.index', [], Response::HTTP_SEE_OTHER);
-        }
+//             return $this->redirectToRoute('home.index', [], Response::HTTP_SEE_OTHER);
+//         }
 
-        return $this->renderForm('pages/candidate/new.html.twig', [
-            'candidate' => $candidate,            
-            'form' => $form,
-            'image' => $image,
-        ]);
-    }
+//         return $this->renderForm('pages/candidate/new.html.twig', [
+//             'candidate' => $candidate,            
+//             'form' => $form,
+//             'image' => $image,
+//         ]);
+//     }
 
-    #[Route('/{id}', name: 'app_candidate_show', methods: ['GET'])]
-    public function show(Candidate $candidate): Response
-    {
-        return $this->render('pages/candidate/show.html.twig', [
-            'candidate' => $candidate,
-        ]);
-    }
+//     #[Route('/{id}', name: 'app_candidate_show', methods: ['GET'])]
+//     public function show(Candidate $candidate): Response
+//     {
+//         return $this->render('pages/candidate/show.html.twig', [
+//             'candidate' => $candidate,
+//         ]);
+//     }
 
 #[Route('/add', name: 'app_candidate_add', methods: ['GET', 'POST'])]
 public function add(EntityManagerInterface $manager, Request $request, Candidate $candidate)
@@ -121,31 +126,31 @@ public function add(EntityManagerInterface $manager, Request $request, Candidate
 }
 
 
-    #[Route('/{id}/edition', name: 'app_candidate_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Candidate $candidate, CandidateRepository $candidateRepository): Response
-    {
-        $form = $this->createForm(CandidateType::class, $candidate);
-        $form->handleRequest($request);
+    // #[Route('/{id}/edition', name: 'app_candidate_edit', methods: ['GET', 'POST'])]
+    // public function edit(Request $request, Candidate $candidate, CandidateRepository $candidateRepository): Response
+    // {
+    //     $form = $this->createForm(CandidateType::class, $candidate);
+    //     $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $candidateRepository->add($candidate, true);
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $candidateRepository->add($candidate, true);
 
-            return $this->redirectToRoute('app_candidate_index', [], Response::HTTP_SEE_OTHER);
-        }
+    //         return $this->redirectToRoute('app_candidate_index', [], Response::HTTP_SEE_OTHER);
+    //     }
 
-        return $this->renderForm('pages/candidate/edit.html.twig', [
-            'candidate' => $candidate,
-            'form' => $form,
-        ]);
-    }
+    //     return $this->renderForm('pages/candidate/edit.html.twig', [
+    //         'candidate' => $candidate,
+    //         'form' => $form,
+    //     ]);
+    // }
 
-    #[Route('/{id}', name: 'app_candidate_delete', methods: ['POST'])]
-    public function delete(Request $request, Candidate $candidate, CandidateRepository $candidateRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$candidate->getId(), $request->request->get('_token'))) {
-            $candidateRepository->remove($candidate, true);
-        }
+    // #[Route('/{id}', name: 'app_candidate_delete', methods: ['POST'])]
+    // public function delete(Request $request, Candidate $candidate, CandidateRepository $candidateRepository): Response
+    // {
+    //     if ($this->isCsrfTokenValid('delete'.$candidate->getId(), $request->request->get('_token'))) {
+    //         $candidateRepository->remove($candidate, true);
+    //     }
 
-        return $this->redirectToRoute('app_candidate_index', [], Response::HTTP_SEE_OTHER);
-    }
+    //     return $this->redirectToRoute('app_candidate_index', [], Response::HTTP_SEE_OTHER);
+    // }
 }

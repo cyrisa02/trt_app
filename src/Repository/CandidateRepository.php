@@ -39,6 +39,21 @@ class CandidateRepository extends ServiceEntityRepository
         }
     }
 
+
+    /**
+    * @return Candidate [] Returns an array of Candidate objects
+    */
+   public function findByRecruiter($recruiter): array
+   {
+       return $this->createQueryBuilder('c')
+           ->join('c.user', 'u') 
+           ->where('u = :val')           
+           ->setParameter('val', $recruiter)
+           ->orderBy('c.id', 'ASC')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
 //    /**
 //     * @return Candidate[] Returns an array of Candidate objects
 //     */

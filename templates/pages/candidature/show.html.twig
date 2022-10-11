@@ -15,11 +15,11 @@
 				</tr>
 				<tr>
 					<th>Nom du candidat</th>
-					<td>{{ candidature.user.candidate.lastname }}</td>
+					<td>{{ candidature.candidate.user.lastname }}</td>
 				</tr>
 				<tr>
 					<th>Prénom du candidat</th>
-					<td>{{ candidature.user.candidate.firstname }}</td>
+					<td>{{ candidature.candidate.user.firstname }}</td>
 				</tr>
 
 
@@ -29,7 +29,7 @@
 		<a class="btn btn-secondary btn-lg mt-4" href="{{ path('app_candidature_index') }}">Retour à la liste</a>
 
 
-		<a class="btn btn-secondary btn-lg mt-4" href="{{ path('app_candidature_edit', {'id': candidature.id}) }}">Valider</a>
+		{# <a class="btn btn-secondary btn-lg mt-4" href="{{ path('app_candidature_edit', {'id': candidature.id}) }}">Valider</a> #}
 
 
 		{{ include('pages/candidature/_delete_form.html.twig') }}</div>

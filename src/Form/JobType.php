@@ -54,7 +54,13 @@ class JobType extends AbstractType
             ->add('isVisible',CheckboxType::class, [
                 //'mapped' => true,
                 'required' => false,
-                'label' => 'Validation de l\'annonce.'
+                'label' => 'Validation de l\'annonce.',
+                'label_attr' => [
+                    'class' => 'form-label  mt-4'
+                ],
+                'attr' => [
+                    'class' => 'd-flex justify-content-between',
+                ],
             ])
             // ->add('recruiter', EntityType::class, [
             //     'class'=>Recruiter::class,

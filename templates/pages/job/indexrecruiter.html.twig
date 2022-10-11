@@ -24,30 +24,30 @@
 						<div class="row">
 							<h1>Voici la liste des annonces déjà publiques</h1>
 							{% for recruiter in recruiters %}
-								{# {% if recruiter.id == app.user.id %} #}
-								{% for job in jobs %}
-									<tr>
-										{% if job.isVisible == 1 %}
-											<td>{{ job.id }}</td>
-											<td>{{ job.title }}</td>
-											<td>{{ job.workPlace }}</td>
-											<td>{{ job.description }}</td>
-											<td>
-												{{ job.recruiter.lastname }}
-											</td>
-											<td>
-												<a href="{{ path('app_job_edit', {'id': job.id}) }}">Valider</a>
-												{# <a href="{{ path('app_job_edit', {'id': job.id}) }}">edit</a> #}
-											</td>
-										{% endif %}
-									</tr>
-								{% else %}
-									<tr>
-										<td colspan="6">no records found</td>
-									</tr>
-								{% endfor %}
+								{% if recruiter.user.id == app.user.id %}
+									{% for job in jobs %}
+										<tr>
+											{% if job.isVisible == 1 %}
+												<td>{{ job.id }}</td>
+												<td>{{ job.title }}</td>
+												<td>{{ job.workPlace }}</td>
+												<td>{{ job.description }}</td>
+												<td>
+													{{ job.recruiter.user.lastname }}
+												</td>
+												<td>
+													<a href="{{ path('app_job_edit', {'id': job.id}) }}">Valider</a>
+													{# <a href="{{ path('app_job_edit', {'id': job.id}) }}">edit</a> #}
+												</td>
+											{% endif %}
+										</tr>
+									{% else %}
+										<tr>
+											<td colspan="6">no records found</td>
+										</tr>
+									{% endfor %}
 
-								{# {% endif %} #}
+								{% endif %}
 
 							{% endfor %}
 						</tbody>

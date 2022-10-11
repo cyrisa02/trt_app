@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Job;
 use App\Form\JobType;
 use App\Repository\CandidateRepository;
+use App\Repository\CandidatureRepository;
 use App\Repository\JobRepository;
 use App\Repository\RecruiterRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,29 +25,44 @@ class JobController extends AbstractController
         ]);
     }
 
+    /**
+     *This method displays the list of the jobs for a logged recruiter
+     */
     #[Route('/recruteur', name: 'app_jobrecruiter_index', methods: ['GET'])]
     public function indexrecruiter(JobRepository $jobRepository, CandidateRepository $candidateRepository, RecruiterRepository $recruiterRepository): Response
     {
+        /** @var User $user */
+        $user = $this->getUser();
+        $recruiter = $user->getRecruiter();         
+
         return $this->render('pages/job/indexrecruiter.html.twig', [
-            'jobs' => $jobRepository->findAll(),
+            'jobs' => $jobRepository->findByUser($recruiter),
             'candidates' => $candidateRepository->findAll(),
-            'recruiters' => $recruiterRepository->findAll(),
+             'recruiters' => $recruiterRepository->findAll(),
         ]);
     }
-
+    /**
+     * This method displays the jobs to apply
+     */
     #[Route('/candidat', name: 'app_jobcandidate_index', methods: ['GET'])]
-    public function indexcandidate(JobRepository $jobRepository, CandidateRepository $candidateRepository): Response
+    public function indexcandidate(JobRepository $jobRepository, CandidateRepository $candidateRepository, CandidatureRepository $candidatureRepository): Response
     {
         return $this->render('pages/job/indexcandidate.html.twig', [
             'jobs' => $jobRepository->findAll(),
             'candidates' => $candidateRepository->findAll(),
+            'candidatures' => $candidatureRepository->findAll(),
         ]);
     }
 
     #[Route('/creation', name: 'app_job_new', methods: ['GET', 'POST'])]
     public function new(Request $request, JobRepository $jobRepository): Response
     {
+        /** @var User $user */
+        $user = $this->getUser();
+        $recruiter = $user->getRecruiter();
+        
         $job = new Job();
+        $job->setRecruiter($recruiter);
         $form = $this->createForm(JobType::class, $job);
         $form->handleRequest($request);
 

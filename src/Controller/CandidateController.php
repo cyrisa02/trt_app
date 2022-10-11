@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Candidate;
 use App\Form\CandidateType;
 use App\Form\CandidateSelfType;
+use App\Form\CandidateValidType;
 use App\Repository\JobRepository;
 use App\Repository\UserRepository;
 use App\Repository\CandidateRepository;
@@ -62,7 +63,7 @@ class CandidateController extends AbstractController
                 $uploads_directory,
                 $filename
             );
-// Comment sauveagrder en BD, champ cvName?
+        // Comment sauvegarder en BD, champ cvName?
         $candidate->setCvName($filename);
         $candidateRepository->add($candidate, true);
 
@@ -81,6 +82,24 @@ class CandidateController extends AbstractController
     {
         return $this->render('pages/candidate/show.html.twig', [
             'candidate' => $candidate,
+        ]);
+    }
+ #[Route('/{id}/edition', name: 'app_candidate_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Candidate $candidate, CandidateRepository $candidateRepository): Response
+    {
+        $form = $this->createForm(CandidateValidType::class, $candidate);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $candidateRepository->add($candidate, true);
+
+            return $this->redirectToRoute('app_candidate_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+
+        return $this->renderForm('pages/candidate/edit.html.twig', [
+            'candidate' => $candidate,
+            'form' => $form,
         ]);
     }
 
@@ -120,25 +139,7 @@ public function add(EntityManagerInterface $manager, Request $request, Candidate
 }
 
 
-    #[Route('/{id}/edition', name: 'app_candidate_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Candidate $candidate, CandidateRepository $candidateRepository): Response
-    {
-        $form = $this->createForm(CandidateType::class, $candidate);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $candidateRepository->add($candidate, true);
-
-            return $this->redirectToRoute('app_candidate_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-
-        return $this->renderForm('pages/candidate/edit.html.twig', [
-            'candidate' => $candidate,
-            'form' => $form,
-        ]);
-    }
-
+   
 
     #[Route('/{id}/edition_candidat', name: 'app_candidateself_edit', methods: ['GET', 'POST'])]
     public function editself(Request $request, Candidate $candidate, CandidateRepository $candidateRepository): Response

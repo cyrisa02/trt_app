@@ -6,22 +6,23 @@
 
 {% block body %}
 	<div class="container mt-4">
-		<h1>Validation du profil-Candidat</h1>
+		<h1>Validation du profil-Candidat
+			{{ candidate.user.firstname }}
+			{{ candidate.user.lastname }}</h1>
+
 
 		{# {{ include('pages/candidate/_form.html.twig', {'button_label': 'Update'}) }} #}
+		<a type="button" class="btn btn-secondary btn-lg m-4" href="{{ asset('/uploads/') }}{{ candidate.cvName }}">Voir le CV du candidat</a>
 
 		{{ form_start(form) }}
 
 		{# <div class="form-group d-none">
-									{{ form_label(form.cvName) }}
-									{{ form_widget(form.cvName) }}
-									<div class="form-error">
-										{{ form_errors(form.cvName) }}
-									</div>
-								</div> #}
-
-
-		<a type="button" class="btn btn-secondary btn-lg m-4" href="{{ asset('/uploads/') }}{{ candidate.cvName }}">Voir le CV du candidat</a>
+																									{{ form_label(form.cvName) }}
+																									{{ form_widget(form.cvName) }}
+																									<div class="form-error">
+																										{{ form_errors(form.cvName) }}
+																									</div>
+																								</div> #}
 
 
 		{{ form_widget(form) }}

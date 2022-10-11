@@ -267,4 +267,29 @@ class CandidatureController extends AbstractController
 
         return $this->redirectToRoute('app_candidature_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/candidature/makeItValide/{page}/{id}', name: 'app_candidature_valide', methods: ['GET', 'POST'])]
+    public function makeItValide($page, $id, CandidatureRepository $candidatureRepository): Response
+    {
+        $candidature = $candidatureRepository->find($id);
+        if ($candidature->isIsValided()) {
+            $candidature->setIsValided(false);
+        } else {
+            $candidature->setIsValided(true);
+        }
+
+        $candidatureRepository->add($candidature, true);
+
+        $this->addFlash(
+            'success',
+            'La candidature est validée'
+        );
+
+
+        return $this->redirectToRoute('app_candidature_index', [
+            'page' => $page,
+        ], Response::HTTP_SEE_OTHER);
+    }
+
+
 }

@@ -269,7 +269,7 @@ class CandidatureController extends AbstractController
     }
 
     #[Route('/candidature/makeItValide/{page}/{id}', name: 'app_candidature_valide', methods: ['GET', 'POST'])]
-    public function makeItValide($page, $id, CandidatureRepository $candidatureRepository): Response
+    public function makeItValide($page, $id, CandidatureRepository $candidatureRepository, MailerInterface $mailer ): Response
     {
         $candidature = $candidatureRepository->find($id);
         if ($candidature->isIsValided()) {
@@ -279,7 +279,23 @@ class CandidatureController extends AbstractController
         }
 
         $candidatureRepository->add($candidature, true);
+    $email = (new TemplatedEmail())
+         
+        ->from('cyril.gourdon.02@gmail.com')
+        ->to('cyrisa02.test@gmail.com')
+        // code pour avoir accès à l'adresse test:    1970studi!
+        // 
+        //Pour le recruteur il faut envoyer
+        //->to($candidature->getUser()->getRecruiter()->getEmail())// à mettre en place pour la production 
+       // ->attach(fopen($candidature->getUser()->getCandidate()->getCvName()))
+        ->subject('Modification du statut de candidature')
+        ->htmlTemplate('emails/candidatureanswer.html.twig')
+        ->context([
+            'candidature'=>$candidature
+        ]);
 
+
+        $mailer->send($email);
         $this->addFlash(
             'success',
             'La candidature est validée'

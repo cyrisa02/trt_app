@@ -25,13 +25,20 @@ class JobController extends AbstractController
         ]);
     }
 
+    /**
+     *This method displays the list of the jobs for a logged recruiter
+     */
     #[Route('/recruteur', name: 'app_jobrecruiter_index', methods: ['GET'])]
     public function indexrecruiter(JobRepository $jobRepository, CandidateRepository $candidateRepository, RecruiterRepository $recruiterRepository): Response
     {
+        /** @var User $user */
+        $user = $this->getUser();
+        $recruiter = $user->getRecruiter();         
+
         return $this->render('pages/job/indexrecruiter.html.twig', [
-            'jobs' => $jobRepository->findAll(),
+            'jobs' => $jobRepository->findByUser($recruiter),
             'candidates' => $candidateRepository->findAll(),
-            'recruiters' => $recruiterRepository->findAll(),
+             'recruiters' => $recruiterRepository->findAll(),
         ]);
     }
     /**
@@ -50,7 +57,12 @@ class JobController extends AbstractController
     #[Route('/creation', name: 'app_job_new', methods: ['GET', 'POST'])]
     public function new(Request $request, JobRepository $jobRepository): Response
     {
+        /** @var User $user */
+        $user = $this->getUser();
+        $recruiter = $user->getRecruiter();
+        
         $job = new Job();
+        $job->setRecruiter($recruiter);
         $form = $this->createForm(JobType::class, $job);
         $form->handleRequest($request);
 

@@ -15,9 +15,8 @@ class ConsultantFixtures extends Fixture
         
           for($usr = 1; $usr <= 5; $usr++){
              $consultant = new Consultant();
-             $consultant->setLastname($faker->lastName);
-             $consultant->setFirstname($faker->firstName);
-            // $consultant->setTel($faker->phoneNumber(8));
+             
+             $consultant->setTel('06070809');
               
         $manager->persist($consultant);
      

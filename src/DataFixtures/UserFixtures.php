@@ -23,6 +23,8 @@ public function __construct(
         $admin->setPassword(
             $this->passwordEncoder->hashPassword($admin, 'admin')
         );
+        $admin->setLastname('Doe');
+        $admin->setFirstname('John');;
 
         $admin->setRoles(['ROLE_ADMIN']);
 
@@ -36,6 +38,8 @@ public function __construct(
             $user->setPassword(
                 $this->passwordEncoder->hashPassword($user, 'azerty')
             );
+            $user->setLastname($faker->lastName);
+            $user->setFirstname($faker->firstName);
             $manager->persist($user);
         }
 

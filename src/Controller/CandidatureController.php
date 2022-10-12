@@ -26,28 +26,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 #[Route('/candidature')]
 class CandidatureController extends AbstractController
 {
-    // #[Route('/', name: 'app_candidature_index', methods: ['GET'])]
-    // public function index(CandidatureRepository $candidatureRepository, JobRepository $jobRepository): Response
-    // {
-
-    //     if (!$this->getUser()) {
-    //         return $this->redirectToRoute('app_login');
-    //     } else {
-    //         $jobs = $this->jobRepo->findBy([
-    //             'recruiter'=> $this->getUser(),
-    //             'isValided'=> true
-    //         ]);
-    //         $candidatures = $this->candidatureRepo->finBy([
-    //             'job' => $this->getUser(),
-    //             'isVisible' => true
-    //         ]);
-    //     }
-    //     return $this->render('pages/candidature/index.html.twig', [
-    //         'candidatures' => $candidatureRepository->findAll(),
-    //         'jobs' => $jobRepository->findAll(),
-            
-    //     ]);
-    // }
+    
 
     /**This method displays the list to valid the candidate, the job, the recruiter */    
     #[Route('/', name: 'app_candidature_index', methods: ['GET'])]
@@ -354,7 +333,7 @@ class CandidatureController extends AbstractController
         $mailer->send($email);
         $this->addFlash(
             'success',
-            'La candidature est validée'
+            'Le statut de la  candidature vient d\'être modifiée'
         );
 
 

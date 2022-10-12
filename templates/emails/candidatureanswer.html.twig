@@ -6,13 +6,17 @@
 	<body>
 		{# Template Email for the answer after the validation by the consultant #}
 		<h1>La canditature au poste de:
-			{{ candidature.job.title }}</h1>
+			{{ candidature.job.title }}
+			créée par
+			{{ candidature.job.recruiter.user.firstname }}
+			{{ candidature.job.recruiter.user.lastname }}</h1>
 
-		<h3>par
+
+		<h3>pour le/la candidat(e)
 			{{ candidature.candidate.user.firstname}}
 			{{ candidature.candidate.user.lastname}},</h3>
 
-		<p>a été étudié par nos soins.</p>
+		<p>a été étudiée par nos soins.</p>
 
 		<div>
 			<p>Le  statut de cette candidature a changé, il est maintenant:

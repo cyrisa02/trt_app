@@ -16,11 +16,9 @@ class CandidateFixtures extends Fixture
          $faker = Faker\Factory::create('fr_FR');
         
           for($usr = 1; $usr <= 5; $usr++){
-             $candidate = new Candidate();
-             $candidate->setLastname($faker->lastName);
-             $candidate->setFirstname($faker->firstName);
+             $candidate = new Candidate();             
              $candidate->setCvName($faker->word());
-              $candidate->setIsRGPD(mt_rand(0, 1) == 1 ? true : false);
+              $candidate->setIsValided(mt_rand(0, 1) == 1 ? true : false);
         $manager->persist($candidate);
      
           }

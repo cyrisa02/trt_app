@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des annonces
+{% endblock %}
+
+{% block body %}
+
+	{% if is_granted('ROLE_RECRUITER') %}
+
+
+		<div class="container mt-4">
+			<h1>Voir la liste des candidats à votre annonce</h1>
+			<div>
+				<h2>Voici la liste des candidats à valider</h2>
+			</div>
+
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Nom du recruteur</th>
+						<th>Nom du candidat</th>
+						<th>Nom de l'annonce</th>
+						<th>Etat de validation</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for candidature in candidatures %}
+						{% if app.user.id == candidature.job.recruiter.user.id  %}
+							<tr>
+								{% if candidature.isValided == 0 %}
+									<td>{{ candidature.id }}</td>
+									<td>{{ candidature.job.recruiter.user.lastname }}</td>
+									<td>{{ candidature.candidate.user.firstname }}</td>
+									<td>{{ candidature.job.title }}</td>
+									<td>{{ candidature.isValided ? 'Oui' : 'Non' }}</td>
+								{% endif %}
+							{% endif %}
+						{% else %}
+							<tr>
+								<td colspan="2">Pas de candidature</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</tbody>
+			</table>
+
+			<div>
+				<h2>Voici la liste des candidats validés</h2>
+			</div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Nom du recruteur</th>
+						<th>Nom du candidat</th>
+						<th>Nom de l'annonce</th>
+						<th>Etat de validation</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for candidature in candidatures %}
+						{% if app.user.id == candidature.job.recruiter.user.id  %}
+
+							<tr>
+								{% if candidature.isValided == 1 %}
+									<td>{{ candidature.id }}</td>
+									<td>{{ candidature.job.recruiter.user.lastname }}</td>
+									<td>{{ candidature.candidate.user.lastname }}</td>
+									<td>{{ candidature.job.title }}</td>
+									<td>{{ candidature.isValided ? 'Oui' : 'Non' }}</td>
+								{% endif %}
+							{% endif %}
+
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="2">Pas de candidature</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+
+		</div>
+
+	{% elseif is_granted('ROLE_CANDIDATE')  %}
+		<div class="container mt-4">
+			<p>Merci pour votre intérêt. Nous reviendrons vers vous dès l'analyse de votre candidature.</p>
+
+			<a class=" btn btn-secondary btn-lg mt-4" href="{{ path('home.index')}}">Retour à l'accueil</a>
+
+
+		</div>
+
+
+	{% endif %}
+
+
+{% endblock %}

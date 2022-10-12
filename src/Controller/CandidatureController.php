@@ -13,6 +13,7 @@ use App\Form\CandidatureApplyType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CandidatureRepository;
+use App\Repository\RecruiterRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,6 +26,30 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 #[Route('/candidature')]
 class CandidatureController extends AbstractController
 {
+    // #[Route('/', name: 'app_candidature_index', methods: ['GET'])]
+    // public function index(CandidatureRepository $candidatureRepository, JobRepository $jobRepository): Response
+    // {
+
+    //     if (!$this->getUser()) {
+    //         return $this->redirectToRoute('app_login');
+    //     } else {
+    //         $jobs = $this->jobRepo->findBy([
+    //             'recruiter'=> $this->getUser(),
+    //             'isValided'=> true
+    //         ]);
+    //         $candidatures = $this->candidatureRepo->finBy([
+    //             'job' => $this->getUser(),
+    //             'isVisible' => true
+    //         ]);
+    //     }
+    //     return $this->render('pages/candidature/index.html.twig', [
+    //         'candidatures' => $candidatureRepository->findAll(),
+    //         'jobs' => $jobRepository->findAll(),
+            
+    //     ]);
+    // }
+
+    /**This method displays the list to valid the candidate, the job, the recruiter */    
     #[Route('/', name: 'app_candidature_index', methods: ['GET'])]
     public function index(CandidatureRepository $candidatureRepository): Response
     {
@@ -33,7 +58,16 @@ class CandidatureController extends AbstractController
             
         ]);
     }
-
+     /**This method displays the list to valid the candidate, the job, for the recruiter */    
+    #[Route('/vos_annonces', name: 'app_candidaturerecruiter_index', methods: ['GET'])]
+    public function indexrecruiter(CandidatureRepository $candidatureRepository, RecruiterRepository $recruiterRepository): Response
+    {
+        return $this->render('pages/candidature/indexrecruiter.html.twig', [
+            'candidatures' => $candidatureRepository->findAll(),
+            'recruiters' => $recruiterRepository->findAll(),
+            
+        ]);
+    }
     //This method displays the candidatures the logged candidate
     #[Route('/candidat', name: 'app_candidature')]
     public function indexCandidat(JobRepository $jobRepository, CandidatureRepository $repository, PaginatorInterface $paginator, Request $request): Response

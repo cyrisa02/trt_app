@@ -4,57 +4,62 @@
 {% endblock %}
 
 {% block body %}
-<div class="container mt-4">
-	<h1>Liste des annonces</h1>
-	{% if is_granted('ROLE_RECRUITER') %}
-		<div class="container">
-			<table class="table">
-				<thead>
-					<tr>
-						<th>Réf.</th>
-						<th>Titre</th>
-						<th>Lieu</th>
-						<th>Description</th>
-						<th>Nom des recruteurs</th>
-						<th>actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					<div class="container mt-4">
-						<div class="row">
-							<h1>Voici la liste des annonces déjà publiques</h1>
-							{% for recruiter in recruiters %}
-								{% if recruiter.user.id == app.user.id %}
-									{% for job in jobs %}
-										<tr>
-											{% if job.isVisible == 1 %}
-												<td>{{ job.id }}</td>
-												<td>{{ job.title }}</td>
-												<td>{{ job.workPlace }}</td>
-												<td>{{ job.description }}</td>
-												<td>
-													{{ job.recruiter.user.lastname }}
-												</td>
-												<td>
-													<a href="{{ path('app_job_edit', {'id': job.id}) }}">Valider</a>
-													{# <a href="{{ path('app_job_edit', {'id': job.id}) }}">edit</a> #}
-												</td>
-											{% endif %}
-										</tr>
-									{% else %}
-										<tr>
-											<td colspan="6">no records found</td>
-										</tr>
-									{% endfor %}
+	<div class="container mt-4">
+		<h1>Liste des annonces</h1>
+		{% if is_granted('ROLE_RECRUITER') and app.user.recruiter.isValided == true %}
 
-								{% endif %}
+			<div class="container">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Réf.</th>
+							<th>Titre</th>
+							<th>Lieu</th>
+							<th>Description</th>
+							<th>Nom des recruteurs</th>
+							<th>actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<div class="container mt-4">
+							<div class="row">
+								<h1>Voici la liste des annonces déjà publiques</h1>
+								{% for recruiter in recruiters %}
+									{% if recruiter.user.id == app.user.id %}
+										{% for job in jobs %}
+											<tr>
+												{% if job.isVisible == 1 %}
+													<td>{{ job.id }}</td>
+													<td>{{ job.title }}</td>
+													<td>{{ job.workPlace }}</td>
+													<td>{{ job.description }}</td>
+													<td>
+														{{ job.recruiter.user.lastname }}
+													</td>
+													<td>
+														<a href="{{ path('app_job_edit', {'id': job.id}) }}">Valider</a>
+														{# <a href="{{ path('app_job_edit', {'id': job.id}) }}">edit</a> #}
+													</td>
+												{% endif %}
+											</tr>
+										{% else %}
+											<tr>
+												<td colspan="6">no records found</td>
+											</tr>
+										{% endfor %}
 
-							{% endfor %}
-						</tbody>
-					</table>
-					{# <a href="{{ path('app_job_new') }}">Create new</a> #}
-				</tbody>
+									{% endif %}
+
+								{% endfor %}
+							</tbody>
+						</table>
+						{# <a href="{{ path('app_job_new') }}">Create new</a> #}
+					</tbody>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>{% endif %}</div>{% endblock %}
+{% else %}
+	<p>Merci d'attendre votre validation.
+	</p>
+{% endif %}</div>{% endblock %}

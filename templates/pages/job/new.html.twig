@@ -6,28 +6,34 @@
 {% block body %}
 	<div class="container mt-4">
 		<h1>Création de votre annonce</h1>
+		{% if is_granted('ROLE_RECRUITER') and app.user.recruiter.isValided == true %}
 
-		{{ form_start(form) }}
+
+			{{ form_start(form) }}
 
 
-		<div class="form-group d-none">
-			{{ form_label(form.isVisible) }}
-			{{ form_widget(form.isVisible) }}
-			<div class="form-error">
-				{{ form_errors(form.isVisible) }}
+			<div class="form-group d-none">
+				{{ form_label(form.isVisible) }}
+				{{ form_widget(form.isVisible) }}
+				<div class="form-error">
+					{{ form_errors(form.isVisible) }}
+				</div>
 			</div>
+
+
+			{{ form_widget(form) }}
+			<button class="btn btn-secondary btn-lg mt-4">{{ button_label|default('Sauvegarder') }}</button>
+
+			{{ form_end(form) }}
+
+			<div class="mt-4 container">
+				<a href="{{ path('home.index') }}">Retour à l'accueil</a>
+			</div>
+
+
 		</div>
-
-
-		{{ form_widget(form) }}
-		<button class="btn btn-secondary btn-lg mt-4">{{ button_label|default('Sauvegarder') }}</button>
-
-		{{ form_end(form) }}
-
-		<div class="mt-4 container">
-			<a href="{{ path('home.index') }}">Retour à l'accueil</a>
-		</div>
-
-
-	</div>
+	{% else %}
+		<p>Merci d'attendre votre validation.
+		</p>
+	{% endif %}
 {% endblock %}

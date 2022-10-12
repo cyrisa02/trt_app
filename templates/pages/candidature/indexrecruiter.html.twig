@@ -5,7 +5,7 @@
 
 {% block body %}
 
-	{% if is_granted('ROLE_RECRUITER') %}
+	{% if is_granted('ROLE_RECRUITER') and app.user.recruiter.isValided == true %}
 
 
 		<div class="container mt-4">
@@ -83,8 +83,14 @@
 
 
 		</div>
+	{% else %}
+		<div class="mt-4 container">
+			<p>Merci d'attendre votre validation.
+			</p>
 
-	{% elseif is_granted('ROLE_CANDIDATE')  %}
+		</div>
+	{% endif %}
+	{% if is_granted('ROLE_CANDIDATE')  %}
 		<div class="container mt-4">
 			<p>Merci pour votre intérêt. Nous reviendrons vers vous dès l'analyse de votre candidature.</p>
 

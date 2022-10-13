@@ -93,7 +93,9 @@ class CandidateController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $candidateRepository->add($candidate, true);
 
-            return $this->redirectToRoute('app_candidate_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Le candidat a été validé avec succès');
+
+            return $this->redirectToRoute('app_candidatetovalid_index', [], Response::HTTP_SEE_OTHER);
         }
 
 

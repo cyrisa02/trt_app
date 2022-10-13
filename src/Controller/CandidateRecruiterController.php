@@ -90,40 +90,40 @@ class CandidateRecruiterController extends AbstractController
 //         ]);
 //     }
 
-#[Route('/add', name: 'app_candidate_add', methods: ['GET', 'POST'])]
-public function add(EntityManagerInterface $manager, Request $request, Candidate $candidate)
-{
-    $form = $this->createForm(CandidateType::class);
-     $form->handleRequest($request);
+// #[Route('/add', name: 'app_candidate_add', methods: ['GET', 'POST'])]
+// public function add(EntityManagerInterface $manager, Request $request, Candidate $candidate)
+// {
+//     $form = $this->createForm(CandidateType::class);
+//      $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $candidate = $form->getData();
+//         if ($form->isSubmitted() && $form->isValid()) {
+//             $candidate = $form->getData();
 
-            $cv = $candidate->getCv();
+//             $cv = $candidate->getCv();
 
-            $file = $cv->getFile();
+//             $file = $cv->getFile();
 
-            $name = md5(uniqid()).  '.'.$file->guessExtension();
+//             $name = md5(uniqid()).  '.'.$file->guessExtension();
 
-            $file->move('../', $name);
+//             $file->move('../', $name);
 
-            $cv->setName($name);
+//             $cv->setName($name);
 
 
-            $manager->persist($candidate);
-            $manager->flush();
+//             $manager->persist($candidate);
+//             $manager->flush();
 
-            $this->addFlash(
-                'notice',
-                'Votre profil a été mis à jour'
+//             $this->addFlash(
+//                 'notice',
+//                 'Votre profil a été mis à jour'
 
-            );
-            return $this->redirectToRoute('home.index');
-        }
-        return $this->render('pages/candidate/add.html.twig', [
-            'form' => $form->createView(),
-        ]);
-}
+//             );
+//             return $this->redirectToRoute('home.index');
+//         }
+//         return $this->render('pages/candidate/add.html.twig', [
+//             'form' => $form->createView(),
+//         ]);
+// }
 
 
     // #[Route('/{id}/edition', name: 'app_candidate_edit', methods: ['GET', 'POST'])]

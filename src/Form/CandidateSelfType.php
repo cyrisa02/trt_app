@@ -73,9 +73,7 @@ class CandidateSelfType extends AbstractType
                  'choice_label'=>function($email){
                  return $email->getEmail();
              },
-                  'attr' => [
-                      'class' => 'form-control '
-                  ],
+                  
                  'label' => 'Merci de confirmer votre adresse mail. ',
                  'attr' => [
                      'class' => 'form-control '

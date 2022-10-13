@@ -21,7 +21,7 @@ public function __construct(
         $admin = new User();
         $admin->setEmail('admin@trt.fr');
         $admin->setPassword(
-            $this->passwordEncoder->hashPassword($admin, 'admin')
+            $this->passwordEncoder->hashPassword($admin, 'azerty')
         );
         $admin->setLastname('Doe');
         $admin->setFirstname('John');;

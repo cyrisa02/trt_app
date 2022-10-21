@@ -8,6 +8,7 @@ use App\Entity\Candidate;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -84,9 +85,19 @@ class RegistrationFormTypeCandidat extends AbstractType
             ])
             ->add('cvName', FileType::class, [
                 'mapped' => false,
-                'label' => 'Merci de mettre une photo',
+                'label' => 'Merci de télécharger votre CV en format pdf.',
                 'label_attr' => [
                     'class' => 'form-label  mt-4'
+                ],
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'application/pdf',
+                            'application/x-pdf',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid PDF document',
+                    ])
                 ],
                 
             ])

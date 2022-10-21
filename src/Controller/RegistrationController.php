@@ -2,16 +2,17 @@
 
 namespace App\Controller;
 
-use App\Entity\Candidate;
-use App\Entity\Consultant;
-use App\Entity\Recruiter;
 use App\Entity\User;
+use App\Entity\Candidate;
+use App\Entity\Recruiter;
+use App\Entity\Consultant;
+use App\Service\FileUploader;
 use App\Form\RegistrationFormType;
-use App\Form\RegistrationFormTypeCandidat;
-use App\Form\RegistrationFormTypeConsultant;
 use App\Security\UserAuthenticator;
 use App\Form\RegistrationFormTypeRecrut;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Form\RegistrationFormTypeCandidat;
+use App\Form\RegistrationFormTypeConsultant;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,7 +24,7 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 class RegistrationController extends AbstractController
 {
     #[Route('/inscription_candidat', name: 'app_register_candidate')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormTypeCandidat::class, $user);
@@ -34,7 +35,7 @@ class RegistrationController extends AbstractController
             $candidate = new Candidate();
             // On récupère la saisie des champs nom, prénom et téléphone    
             $candidate
-            ->setCvName($form->get('my_file')->getData())
+            //->setCvName($form->get('my_file')->getData())
             ->setIsValided(0);
 
              //vient chercher la clé étrangère  ne pas oublier de persister   
@@ -47,6 +48,12 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+
+            $imageFile = $form->get('cvName')->getData();
+            if ($imageFile) {
+            $imageFileName = $fileUploader->upload($imageFile);
+            $candidate->setCvName($imageFileName);
+        }
             //Important pour la relation OneToOne - Héritage
             $entityManager->persist($candidate);
             $entityManager->persist($user);

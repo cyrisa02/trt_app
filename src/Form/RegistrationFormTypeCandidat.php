@@ -82,11 +82,13 @@ class RegistrationFormTypeCandidat extends AbstractType
                     'class' => 'form-label  mt-4'
                 ],
             ])
-            ->add('my_file', FileType::class, [
+            ->add('cvName', FileType::class, [
                 'mapped' => false,
-                'required' => false,
-                'label' => 'Télécharger votre CV en format pdf uniquement.'
-
+                'label' => 'Merci de mettre une photo',
+                'label_attr' => [
+                    'class' => 'form-label  mt-4'
+                ],
+                
             ])
              
             ->add('firstname',TextType::class, [
